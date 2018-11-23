@@ -7,9 +7,9 @@ PROC = data/process
 FINAL = submission/
 MOTHUR = code/mothur/mothur
 
-# Obtained the Linux version of mothur (v1.41.0) from the mothur GitHub repository
+# Obtained the Linux version of mothur (v1.39.5) from the mothur GitHub repository
 $(MOTHUR) :
-	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v1.41.0/Mothur.linux_64.zip
+	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v1.39.5/Mothur.linux_64.zip
 	unzip Mothur.linux_64.zip
 	mv mothur code/
 	rm Mothur.linux_64.zip
@@ -47,23 +47,15 @@ $(MOTHUR) :
 $(REFS)/silva.full_v132.fasta\
 $(REFS)/silva.nr_v132.align\
 $(REFS)/silva.nr_v132.full : $(MOTHUR)\
-                             silva.full_v132.fasta\
-                             code/screening_references.bash
+                             ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
-	$(MOTHUR) "#screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);
-	pcr.seqs(start=1044, end=43116, keepdots=T);
-	degap.seqs();
-	unique.seqs();"
-
+	$(MOTHUR) "#screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16); pcr.seqs(start=1044, end=43116, keepdots=T); degap.seqs(); unique.seqs()"
         # Identify the unique sequences without regard to their alignment
 	grep ">" $(REFS)/silva.full_v132.good.pcr.ng.unique.fasta | cut -f 1 | cut -c 2- > $(REFS)/silva.full_v132.good.pcr.ng.unique.accnos
-
         # Get the unique sequences without regard to their alignment
 	$(MOTHUR) "#get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
-
         # Generate alignment file
 	mv $(REFS)/silva.full_v132.good.pcr.pick.fasta $(REFS)/silva.nr_v132.align
-
         # Generate taxonomy file
 	grep '>' $(REFS)/silva.nr_v132.align | cut -f 1,3 | cut -f 2 -d '>' > $(REFS)/silva.nr_v132.full
 
@@ -168,3 +160,11 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 # write.paper : results/figures/nmds_figure.png\
 #              $(FINAL)/manuscript.Rmd $(FINAL)/manuscript.md\
 #	$(FINAL)/manuscript.tex $(FINAL)/manuscript.pdf
+
+# Cleaning
+.PHONY: clean
+clean :
+	rm my_job.qsub.*
+	rm mothur*
+	rm data/references/*
+	rm -rf code/mothur/
