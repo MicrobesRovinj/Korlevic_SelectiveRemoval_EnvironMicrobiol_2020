@@ -1,0 +1,5 @@
+set.current(inputdir=data/mothur, outputdir=data/mothur, processors=16)
+
+get.groups(count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, taxonomy=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, groups=???)
+
+seq.error(fasta=current, count=current, reference=data/references/HMP_MOCK.v4.fasta, aligned=F, processors=16)
