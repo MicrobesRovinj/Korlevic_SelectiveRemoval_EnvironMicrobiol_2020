@@ -60,12 +60,17 @@ $(REFS)/silva.nr_v132.full : $(MOTHUR)\
 	grep '>' $(REFS)/silva.nr_v132.align | cut -f 1,3 | cut -f 2 -d '>' > $(REFS)/silva.nr_v132.full
 
 # Formatting the taxonomy files
-$(REFS)/silva.full_v132.tax : code/format_taxonomy.R\
+$(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
                               $(REFS)/silva.nr_v132.full
 	wget https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/taxonomy/tax_slv_ssu_132.txt
 	mv tax_slv_ssu_132.txt $(REFS)/tax_slv_ssu_132.txt
 	R -e "source('code/format_taxonomy.R')"
 	mv $(REFS)/silva.full_v132.tax $(REFS)/silva.nr_v132.tax
+
+# Trimming the database to the region of interest (V4 region)
+$(REFS)/silva.nr_v132.pcr.align\
+$(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align
+	$(MOTHUR) "#pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16); unique.seqs()"
 
 #########################################################################################
 #
@@ -85,10 +90,10 @@ $(REFS)/silva.full_v132.tax : code/format_taxonomy.R\
 $(BASIC_STEM).denovo.uchime.pick.pick.count_table\
 $(BASIC_STEM).pick.pick.fasta\
 $(BASIC_STEM).pick.pds.wang.pick.taxonomy : code/get_good_seqs.batch\
-                                            $(REFS)/silva.v4.align\
-                                            $(REFS)/trainset14_032015.pds.fasta\
-                                            $(REFS)/trainset14_032015.pds.tax\
-                                            data/raw/StabilityWMetaG.tar\
+                                            $(REFS)/silva.nr_v132.pcr.align\
+                                            $(REFS)/silva.nr_v132.pcr.unique.align\
+                                            $(REFS)/silva.nr_v132.tax\
+                                            data/raw/*\
                                             $(MOTHUR)
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
@@ -167,4 +172,6 @@ clean :
 	rm my_job.qsub.*
 	rm mothur*
 	rm data/references/*
+	rm data/mothur/*
+	rm data/raw/*.files
 	rm -rf code/mothur/
