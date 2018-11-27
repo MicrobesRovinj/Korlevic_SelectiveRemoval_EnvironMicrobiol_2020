@@ -91,14 +91,14 @@ $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
 # The raw data (.fastq files) should be locateted in data/raw/
 
 # Edit code/get_good_seqs.batch to include the proper name of your *files file
-$(BASIC_STEM).denovo.uchime.pick.pick.count_table\
+$(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
 $(BASIC_STEM).pick.pick.fasta\
-$(BASIC_STEM).pick.pds.wang.pick.taxonomy : code/get_good_seqs.batch\
-                                            $(REFS)/silva.nr_v132.pcr.align\
-                                            $(REFS)/silva.nr_v132.pcr.unique.align\
-                                            $(REFS)/silva.nr_v132.tax\
-                                            data/raw/*\
-                                            $(MOTHUR)
+$(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy : code/get_good_seqs.batch\
+                                                $(REFS)/silva.nr_v132.pcr.align\
+                                                $(REFS)/silva.nr_v132.pcr.unique.align\
+                                                $(REFS)/silva.nr_v132.tax\
+                                                data/raw/*\
+                                                $(MOTHUR)
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
 
