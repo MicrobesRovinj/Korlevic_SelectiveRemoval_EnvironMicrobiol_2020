@@ -49,7 +49,10 @@ $(REFS)/silva.nr_v132.align\
 $(REFS)/silva.nr_v132.full : $(MOTHUR)\
                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
-	$(MOTHUR) "#screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16); pcr.seqs(start=1044, end=43116, keepdots=T); degap.seqs(); unique.seqs()"
+	$(MOTHUR) "#screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
+	pcr.seqs(start=1044, end=43116, keepdots=T);\
+	degap.seqs();\
+	unique.seqs()"
         # Identify the unique sequences without regard to their alignment
 	grep ">" $(REFS)/silva.full_v132.good.pcr.ng.unique.fasta | cut -f 1 | cut -c 2- > $(REFS)/silva.full_v132.good.pcr.ng.unique.accnos
         # Get the unique sequences without regard to their alignment
@@ -61,7 +64,7 @@ $(REFS)/silva.nr_v132.full : $(MOTHUR)\
 
 # Formatting the taxonomy files
 $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
-                              $(REFS)/silva.nr_v132.full
+                            $(REFS)/silva.nr_v132.full
 	wget https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/taxonomy/tax_slv_ssu_132.txt
 	mv tax_slv_ssu_132.txt $(REFS)/tax_slv_ssu_132.txt
 	R -e "source('code/format_taxonomy.R')"
@@ -69,7 +72,8 @@ $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
 
 # Trimming the database to the region of interest (V4 region)
 $(REFS)/silva.nr_v132.pcr.align\
-$(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align
+$(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
+                                         $(REFS)/silva.nr_v132.tax
 	$(MOTHUR) "#pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16); unique.seqs()"
 
 #########################################################################################
@@ -174,4 +178,4 @@ clean :
 	rm data/references/*
 	rm data/mothur/*
 	rm data/raw/*.files
-	rm -rf code/mothur/
+	rm -rf code/mothur
