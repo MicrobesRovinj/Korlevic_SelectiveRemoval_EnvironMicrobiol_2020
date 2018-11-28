@@ -24,4 +24,4 @@ remove.seqs(fasta=current, accnos=current)
 
 classify.seqs(fasta=current, count=current, reference=data/references/silva.nr_v132.pcr.align, taxonomy=data/references/silva.nr_v132.tax, cutoff=80, processors=16)
 
-remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-Eukaryota)
+remove.lineage(fasta=current, count=current, taxonomy=current, taxon=unknown-Chloroplast-Mitochondria-Eukaryota)

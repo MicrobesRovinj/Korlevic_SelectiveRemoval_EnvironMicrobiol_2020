@@ -73,7 +73,8 @@ $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
 # Trimming the database to the region of interest (V4 region)
 $(REFS)/silva.nr_v132.pcr.align\
 $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
-                                         $(REFS)/silva.nr_v132.tax
+                                         $(REFS)/silva.nr_v132.tax\
+                                         $(MOTHUR)
 	$(MOTHUR) "#pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16); unique.seqs()"
 
 #########################################################################################
@@ -91,16 +92,35 @@ $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
 # The raw data (.fastq files) should be locateted in data/raw/
 
 # Edit code/get_good_seqs.batch to include the proper name of your *files file
+# Add a primer.oligos file containing the sequences of the gene speciic primers
 $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
 $(BASIC_STEM).pick.pick.fasta\
 $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy : code/get_good_seqs.batch\
+                                                data/raw/*.fastq\
+                                                data/raw/primer.oligos\
                                                 $(REFS)/silva.nr_v132.pcr.align\
                                                 $(REFS)/silva.nr_v132.pcr.unique.align\
                                                 $(REFS)/silva.nr_v132.tax\
-                                                data/raw/*\
                                                 $(MOTHUR)
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
+
+# Create a summary.txt file to check that all went alright throughout the code/get_good_seqs.batch
+data/summary.txt : data/references/silva.nr_v132.pcr.align\
+                   data/references/silva.nr_v132.pcr.unique.align\
+                   $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
+                   data/mothur/epiphytes.trim.contigs.fasta\
+                   data/mothur/epiphytes.trim.contigs.good.unique.fasta\
+                   data/mothur/epiphytes.trim.contigs.good.count_table\
+                   data/mothur/epiphytes.trim.contigs.good.unique.align\
+                   data/mothur/epiphytes.trim.contigs.good.count_table\
+                   data/mothur/epiphytes.trim.contigs.good.unique.good.align\
+                   data/mothur/epiphytes.trim.contigs.good.good.count_table\
+                   $(BASIC_STEM).pick.fasta\
+                   $(BASIC_STEM).denovo.vsearch.pick.count_table\
+                   $(BASIC_STEM).pick.pick.fasta\
+                   $(MOTHUR)
+	$(MOTHUR) code/get_summary.batch
 
 # Here we go from the good sequences and generate a shared file and a
 # cons.taxonomy file based on OTU data.
@@ -177,5 +197,6 @@ clean :
 	rm mothur*
 	rm data/references/*
 	rm data/mothur/*
+	rm data/summary.txt
 	rm data/raw/*.files
 	rm -rf code/mothur
