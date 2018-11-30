@@ -49,7 +49,8 @@ $(REFS)/silva.nr_v132.align\
 $(REFS)/silva.nr_v132.full : $(MOTHUR)\
                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
-	$(MOTHUR) "#screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
+	$(MOTHUR) "#set.current(inputdir=data/references, outputdir=data/references, processors=16)\
+	screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5);\
 	pcr.seqs(start=1044, end=43116, keepdots=T);\
 	degap.seqs();\
 	unique.seqs()"
@@ -73,8 +74,8 @@ $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
 # Trimming the database to the region of interest (V4 region)
 $(REFS)/silva.nr_v132.pcr.align\
 $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
-                                         $(REFS)/silva.nr_v132.tax\
-                                         $(MOTHUR)
+                                         $(MOTHUR)\
+                                         $(BASIC_STEM).pick.pick.pick.error.summary
 	$(MOTHUR) "#pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16); unique.seqs()"
 
 #########################################################################################
@@ -130,14 +131,15 @@ data/summary.txt : data/references/silva.nr_v132.pcr.align\
 
 $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.shared\
 $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_shared_otus.batch\
-                                                                       $(BASIC_STEM).denovo.uchime.pick.pick.count_table\
+                                                                       $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                                                        $(BASIC_STEM).pick.pick.fasta\
-                                                                       $(BASIC_STEM).pick.pds.wang.pick.taxonomy\
-                                                                       $(MOTHUR)
+                                                                       $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
+                                                                       $(MOTHUR)\
+                                                                       data/summary.txt
 	$(MOTHUR) code/get_shared_otus.batch
-	rm $(BASIC_STEM).denovo.uchime.pick.pick.pick.count_table
+	rm $(BASIC_STEM).denovo.vsearch.pick.pick.pick.count_table
 	rm $(BASIC_STEM).pick.pick.pick.fasta
-	rm $(BASIC_STEM).pick.pds.wang.pick.pick.taxonomy
+	rm $(BASIC_STEM).pick.nr_v132.wang.pick.pick.taxonomy
 
 # Now we want to get the sequencing error as seen in the mock community samples.
 
@@ -145,10 +147,13 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_
 # Edit code/get_error.batch to include the proper group names for your mocks.
 
 $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
-                                             $(BASIC_STEM).denovo.uchime.pick.pick.count_table\
+                                             $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                              $(BASIC_STEM).pick.pick.fasta\
-                                             $(REFS)/HMP_MOCK.v4.fasta\
-                                             $(MOTHUR)
+                                             $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
+                                             ~/zymo/zymo.fasta\
+                                             $(MOTHUR)\
+                                             $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy
+	cp ~/zymo/zymo.fasta $(REFS)/zymo.fasta
 	$(MOTHUR) code/get_error.batch
 
 #########################################################################################
