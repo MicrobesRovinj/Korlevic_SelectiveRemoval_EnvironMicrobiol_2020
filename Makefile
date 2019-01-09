@@ -49,8 +49,7 @@ $(REFS)/silva.nr_v132.align\
 $(REFS)/silva.nr_v132.full : $(MOTHUR)\
                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
-	$(MOTHUR) "#set.current(inputdir=data/references, outputdir=data/references, processors=16)\
-	screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5);\
+	$(MOTHUR) "#screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
 	pcr.seqs(start=1044, end=43116, keepdots=T);\
 	degap.seqs();\
 	unique.seqs()"
@@ -164,6 +163,11 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 #
 #########################################################################################
 
+# Generate a community composition barplot
+results/figures/community_barplot.jpg : code/plot_community_barplot.R\
+                                        $(BASIC_STEM).pick.nr_v132.wang.tax.summary
+	R -e "source('code/plot_community_barplot.R')"
+
 # Generate data to plot NMDS ordination
 # $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.thetayc.0.03.lt.av.lt.ave.nmds.axes : $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.shared\
 #                                                                                        $(MOTHUR)
@@ -199,7 +203,6 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 .PHONY: clean
 clean :
 	rm my_job.qsub.*
-	rm mothur*
 	rm data/references/*
 	rm data/mothur/*
 	rm data/summary.txt
