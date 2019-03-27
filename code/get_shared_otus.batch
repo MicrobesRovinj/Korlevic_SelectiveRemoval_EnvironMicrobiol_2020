@@ -2,7 +2,7 @@ set.dir(input=data/mothur, output=data/mothur, seed=19760620)
 
 set.current(processors=16)
 
-remove.groups(count=data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, fasta=data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, taxonomy=data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.pick.taxonomy, groups=Zymo)
+remove.groups(count=data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.count_table, fasta=data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, taxonomy=data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.pick.taxonomy, groups=ZYMO)
 
 cluster.split(fasta=current, count=current, taxonomy=current, cutoff=0.03, taxlevel=4)
 

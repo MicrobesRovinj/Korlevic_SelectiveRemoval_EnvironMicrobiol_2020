@@ -1,6 +1,4 @@
-make.file(inputdir=data/raw, type=fastq, prefix=epiphytes)
-
-make.contigs(file=current, oligos=primer.oligos, inputdir=data/raw/, outputdir=data/mothur/, processors=16)
+make.contigs(file=data/raw/epiphytes.files, oligos=data/raw/primer.oligos, inputdir=data/raw/, outputdir=data/mothur/, processors=16)
 
 screen.seqs(fasta=current, group=current, maxambig=0, minlength=225 , maxlength=275, maxhomop=15)
 

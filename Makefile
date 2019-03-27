@@ -85,6 +85,10 @@ $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
 # overall analysis.
 #
 #########################################################################################
+data/raw/file_names.txt\
+data/raw/*.fastq.gz : data/raw/epiphytes.files
+	(cut -f 2 data/raw/epiphytes.files; cut -f 3 data/raw/epiphytes.files) | cat > data/raw/names_file.txt
+	xargs -I % --arg-file=data/raw/names_file.txt cp ~/raw/together/% -t data/raw/	
 
 # Here we go from the raw fastq files and the files file to generate a fasta,
 # taxonomy, and count_table file that has had the chimeras removed as well as
@@ -95,13 +99,15 @@ $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
 # Add a primer.oligos file containing the sequences of the gene speciic primers
 $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
 $(BASIC_STEM).pick.pick.fasta\
-$(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy : code/get_good_seqs.batch\
-                                                data/raw/*.fastq\
-                                                data/raw/primer.oligos\
-                                                $(REFS)/silva.nr_v132.pcr.align\
-                                                $(REFS)/silva.nr_v132.pcr.unique.align\
-                                                $(REFS)/silva.nr_v132.tax\
-                                                $(MOTHUR)
+$(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
+$(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
+                                              data/raw/epiphytes.files\
+                                              data/raw/primer.oligos\
+                                              data/raw/*.fastq.gz\
+                                              $(REFS)/silva.nr_v132.pcr.align\
+                                              $(REFS)/silva.nr_v132.pcr.unique.align\
+                                              $(REFS)/silva.nr_v132.tax\
+                                              $(MOTHUR)
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
 
@@ -202,9 +208,11 @@ results/figures/community_barplot.jpg : code/plot_community_barplot.R\
 # Cleaning
 .PHONY: clean
 clean :
-	rm my_job.qsub.*
-	rm data/references/*
-	rm data/mothur/*
-	rm data/summary.txt
-	rm data/raw/*.files
-	rm -rf code/mothur
+	rm -f my_job.qsub.* || true
+	rm -f data/references/* || true
+	rm -f data/mothur/* || true
+	rm -f data/summary.txt || true
+	rm -f data/raw/*.fastq.gz || true
+	rm -f data/raw/file_names.txt || true
+	rm -rf code/mothur || true
+	rm -f results/figures/* || true
