@@ -20,7 +20,7 @@ $(MOTHUR) :
 # Part 1: Create the reference files
 #
 # 	We will need several reference files to complete the analyses including the
-# SILVA reference alignment and taxonomy. Aa we are analyzing both Bacteria and
+# SILVA reference alignment and taxonomy. As we are analyzing both Bacteria and
 # Archaea we need to optimize the procedure described on the mothur blog
 # (http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/).
 #
@@ -49,14 +49,16 @@ $(REFS)/silva.nr_v132.align\
 $(REFS)/silva.nr_v132.full : $(MOTHUR)\
                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
-	$(MOTHUR) "#screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
+	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS);\
+	screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
 	pcr.seqs(start=1044, end=43116, keepdots=T);\
 	degap.seqs();\
 	unique.seqs()"
         # Identify the unique sequences without regard to their alignment
 	grep ">" $(REFS)/silva.full_v132.good.pcr.ng.unique.fasta | cut -f 1 | cut -c 2- > $(REFS)/silva.full_v132.good.pcr.ng.unique.accnos
         # Get the unique sequences without regard to their alignment
-	$(MOTHUR) "#get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
+	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS);\
+	get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
         # Generate alignment file
 	mv $(REFS)/silva.full_v132.good.pcr.pick.fasta $(REFS)/silva.nr_v132.align
         # Generate taxonomy file
@@ -73,9 +75,9 @@ $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
 # Trimming the database to the region of interest (V4 region)
 $(REFS)/silva.nr_v132.pcr.align\
 $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
-                                         $(MOTHUR)\
-                                         $(BASIC_STEM).pick.pick.pick.error.summary
-	$(MOTHUR) "#pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16); unique.seqs()"
+                                         $(MOTHUR)
+	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS);\
+	pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16); unique.seqs()"
 
 #########################################################################################
 #
@@ -86,8 +88,8 @@ $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
 #
 #########################################################################################
 data/raw/file_names.txt\
-data/raw/*.fastq.gz : data/raw/epiphytes.files
-	(cut -f 2 data/raw/epiphytes.files; cut -f 3 data/raw/epiphytes.files) | cat > data/raw/names_file.txt
+data/raw/*.fastq.gz : data/raw/raw.files
+	(cut -f 2 data/raw/raw.files; cut -f 3 data/raw/raw.files) | cat > data/raw/raw.files
 	xargs -I % --arg-file=data/raw/names_file.txt cp ~/raw/together/% -t data/raw/	
 
 # Here we go from the raw fastq files and the files file to generate a fasta,
@@ -101,7 +103,7 @@ $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
 $(BASIC_STEM).pick.pick.fasta\
 $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
 $(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
-                                              data/raw/epiphytes.files\
+                                              data/raw/raw.files\
                                               data/raw/primer.oligos\
                                               data/raw/*.fastq.gz\
                                               $(REFS)/silva.nr_v132.pcr.align\
@@ -212,7 +214,7 @@ clean :
 	rm -f data/references/* || true
 	rm -f data/mothur/* || true
 	rm -f data/summary.txt || true
-	rm -f data/raw/*.fastq.gz || true
-	rm -f data/raw/file_names.txt || true
+	rm -f data/raw/*.fastq || true
+	rm -f data/raw/names_file.txt || true
 	rm -rf code/mothur || true
 	rm -f results/figures/* || true
