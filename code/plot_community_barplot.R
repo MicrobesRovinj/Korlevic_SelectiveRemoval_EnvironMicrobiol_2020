@@ -2,13 +2,13 @@
 # plot_community_barplot.R
 # 
 # A script to plot the community structure of each sample.
-# Dependencies: data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
+# Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
 # Produces: results/figures/community_barplot.jpg
 #
 #################################################################################################################
 
 library(tidyverse)
-community <- read_tsv("data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary") %>%
+community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary") %>%
   filter(!str_detect(taxon, "^Eukaryota")) %>%
   filter(taxon!="Root") %>%
   filter(!str_detect(taxon, "^Mitochondria")) %>%
@@ -72,4 +72,4 @@ gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
         legend.key.size=unit(0.75, "cm"), legend.justification=c("bottom"),
         legend.text.align=0)
 
-ggsave("results/figures/community_barplot.jpg", width=297, height=210, units="mm")
+ggsave("results/figures/community_barplot.jpg")

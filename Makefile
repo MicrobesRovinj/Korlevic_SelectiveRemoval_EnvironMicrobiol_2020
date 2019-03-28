@@ -1,11 +1,12 @@
 MOTHUR = code/mothur/mothur
+RAW = data/raw
+MOTH = data/mothur
 REFS = data/references
-BASIC_STEM = data/mothur/epiphytes.trim.contigs.good.unique.good.filter.unique.precluster
+BASIC_STEM = data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster
 FIGS = results/figures
 TABLES = results/tables
 PROC = data/process
-FINAL = submission/
-MOTHUR = code/mothur/mothur
+FINAL = submission
 
 # Obtained the Linux version of mothur (v1.39.5) from the mothur GitHub repository
 $(MOTHUR) :
@@ -49,16 +50,17 @@ $(REFS)/silva.nr_v132.align\
 $(REFS)/silva.nr_v132.full : $(MOTHUR)\
                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
-	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS);\
-	screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
-	pcr.seqs(start=1044, end=43116, keepdots=T);\
-	degap.seqs();\
-	unique.seqs()"
+	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
+	            screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
+	            pcr.seqs(start=1044, end=43116, keepdots=T);\
+	            degap.seqs();\
+	            unique.seqs()"
+	mv mothur.*.logfile $(REFS)/
         # Identify the unique sequences without regard to their alignment
 	grep ">" $(REFS)/silva.full_v132.good.pcr.ng.unique.fasta | cut -f 1 | cut -c 2- > $(REFS)/silva.full_v132.good.pcr.ng.unique.accnos
         # Get the unique sequences without regard to their alignment
-	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS);\
-	get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
+	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
+	            get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
         # Generate alignment file
 	mv $(REFS)/silva.full_v132.good.pcr.pick.fasta $(REFS)/silva.nr_v132.align
         # Generate taxonomy file
@@ -76,8 +78,9 @@ $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
 $(REFS)/silva.nr_v132.pcr.align\
 $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
                                          $(MOTHUR)
-	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS);\
-	pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16); unique.seqs()"
+	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
+                    pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16);\
+	            unique.seqs()"
 
 #########################################################################################
 #
@@ -87,10 +90,10 @@ $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
 # overall analysis.
 #
 #########################################################################################
-data/raw/file_names.txt\
-data/raw/*.fastq.gz : data/raw/raw.files
-	(cut -f 2 data/raw/raw.files; cut -f 3 data/raw/raw.files) | cat > data/raw/raw.files
-	xargs -I % --arg-file=data/raw/names_file.txt cp ~/raw/together/% -t data/raw/	
+$(RAW)/file_names.txt\
+$(RAW)w/*.fastq : $(RAW)/raw.files
+	(cut -f 2 $(RAW)/raw.files; cut -f 3 $(RAW)/raw.files) | cat > $(RAW)/names_file.txt
+	xargs -I % --arg-file=$(RAW)/names_file.txt cp ~/raw/together/% -t $(RAW)/	
 
 # Here we go from the raw fastq files and the files file to generate a fasta,
 # taxonomy, and count_table file that has had the chimeras removed as well as
@@ -103,9 +106,9 @@ $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
 $(BASIC_STEM).pick.pick.fasta\
 $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
 $(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
-                                              data/raw/raw.files\
-                                              data/raw/primer.oligos\
-                                              data/raw/*.fastq.gz\
+                                              $(RAW)/raw.files\
+                                              $(RAW)/primer.oligos\
+                                              $(RAW)/*.fastq\
                                               $(REFS)/silva.nr_v132.pcr.align\
                                               $(REFS)/silva.nr_v132.pcr.unique.align\
                                               $(REFS)/silva.nr_v132.tax\
@@ -114,16 +117,16 @@ $(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
 	rm data/mothur/*.map
 
 # Create a summary.txt file to check that all went alright throughout the code/get_good_seqs.batch
-data/summary.txt : data/references/silva.nr_v132.pcr.align\
-                   data/references/silva.nr_v132.pcr.unique.align\
+data/summary.txt : $(REFS)/silva.nr_v132.pcr.align\
+                   $(REFS)/silva.nr_v132.pcr.unique.align\
                    $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-                   data/mothur/epiphytes.trim.contigs.fasta\
-                   data/mothur/epiphytes.trim.contigs.good.unique.fasta\
-                   data/mothur/epiphytes.trim.contigs.good.count_table\
-                   data/mothur/epiphytes.trim.contigs.good.unique.align\
-                   data/mothur/epiphytes.trim.contigs.good.count_table\
-                   data/mothur/epiphytes.trim.contigs.good.unique.good.align\
-                   data/mothur/epiphytes.trim.contigs.good.good.count_table\
+                   $(MOTH)/raw.trim.contigs.fasta\
+                   $(MOTH)/raw.trim.contigs.good.unique.fasta\
+                   $(MOTH)/raw.trim.contigs.good.count_table\
+                   $(MOTH)/raw.trim.contigs.good.unique.align\
+                   $(MOTH)/raw.trim.contigs.good.count_table\
+                   $(MOTH)/raw.trim.contigs.good.unique.good.align\
+                   $(MOTH)/raw.trim.contigs.good.good.count_table\
                    $(BASIC_STEM).pick.fasta\
                    $(BASIC_STEM).denovo.vsearch.pick.count_table\
                    $(BASIC_STEM).pick.pick.fasta\
@@ -211,10 +214,10 @@ results/figures/community_barplot.jpg : code/plot_community_barplot.R\
 .PHONY: clean
 clean :
 	rm -f my_job.qsub.* || true
-	rm -f data/references/* || true
-	rm -f data/mothur/* || true
+	rm -f $(REFS)/* || true
+	rm -f $(MOTH)/* || true
 	rm -f data/summary.txt || true
-	rm -f data/raw/*.fastq || true
-	rm -f data/raw/names_file.txt || true
+	rm -f $(RAW)/*.fastq || true
+	rm -f $(RAW)/names_file.txt || true
 	rm -rf code/mothur || true
-	rm -f results/figures/* || true
+	rm -f $(FIGS)/* || true
