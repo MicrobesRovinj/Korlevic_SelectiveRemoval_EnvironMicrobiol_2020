@@ -14,10 +14,10 @@ all : $(MOTHUR)\
       $(REFS)/silva.nr_v132.tax\
       $(REFS)/silva.nr_v132.pcr.align\
       $(RAW)/*.fastq\
-      $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
+      $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
       data/summary.txt\
       $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy\
-      $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
+      $(BASIC_STEM).pick.pick.pick.error.summary\
       $(FIGS)/community_barplot.jpg 
 	
 
@@ -112,17 +112,16 @@ $(RAW)/*.fastq : $(RAW)/raw.files
 
 # Edit code/get_good_seqs.batch to include the proper name of your *files file
 # Add a primer.oligos file containing the sequences of the gene speciic primers
-$(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
 $(MOTH)/raw.trim.contigs.fasta\
 $(MOTH)/raw.trim.contigs.good.unique.fasta\
 $(MOTH)/raw.trim.contigs.good.count_table\
 $(MOTH)/raw.trim.contigs.good.unique.align\
-$(MOTH)/raw.trim.contigs.good.count_table\
 $(MOTH)/raw.trim.contigs.good.unique.good.align\
 $(MOTH)/raw.trim.contigs.good.good.count_table\
 $(BASIC_STEM).pick.fasta\
 $(BASIC_STEM).denovo.vsearch.pick.count_table\
 $(BASIC_STEM).pick.pick.fasta\
+$(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
 $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
 $(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
                                               $(RAW)/raw.files\
@@ -138,17 +137,16 @@ $(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
 # Create a summary.txt file to check that all went alright throughout the code/get_good_seqs.batch
 data/summary.txt : $(REFS)/silva.nr_v132.pcr.align\
                    $(REFS)/silva.nr_v132.pcr.unique.align\
-                   $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                    $(MOTH)/raw.trim.contigs.fasta\
                    $(MOTH)/raw.trim.contigs.good.unique.fasta\
                    $(MOTH)/raw.trim.contigs.good.count_table\
                    $(MOTH)/raw.trim.contigs.good.unique.align\
-                   $(MOTH)/raw.trim.contigs.good.count_table\
                    $(MOTH)/raw.trim.contigs.good.unique.good.align\
                    $(MOTH)/raw.trim.contigs.good.good.count_table\
                    $(BASIC_STEM).pick.fasta\
                    $(BASIC_STEM).denovo.vsearch.pick.count_table\
                    $(BASIC_STEM).pick.pick.fasta\
+                   $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                    $(MOTHUR)
 	$(MOTHUR) code/get_summary.batch
 
@@ -159,8 +157,8 @@ data/summary.txt : $(REFS)/silva.nr_v132.pcr.align\
 # Edit code/get_shared_otus.batch to include the proper group names to remove.
 
 $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_shared_otus.batch\
-                                                                       $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                                                        $(BASIC_STEM).pick.pick.fasta\
+                                                                       $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                                                        $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
                                                                        $(MOTHUR)\
                                                                        data/summary.txt
@@ -175,8 +173,8 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_
 # Edit code/get_error.batch to include the proper group names for your mocks.
 
 $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
-                                             $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                              $(BASIC_STEM).pick.pick.fasta\
+                                             $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                              $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
                                              ~/zymo/zymo.fasta\
                                              $(MOTHUR)\
