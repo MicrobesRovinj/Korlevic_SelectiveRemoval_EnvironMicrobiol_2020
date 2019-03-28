@@ -8,12 +8,6 @@ TABLES = results/tables
 PROC = data/process
 FINAL = submission
 
-.PHONY: all
-all : $(FIGS)/community_barplot.jpg\
-      data/summary.txt\
-      $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy\
-      $(BASIC_STEM).pick.pick.pick.error.summary
-
 # Obtained the Linux version of mothur (v1.39.5) from the mothur GitHub repository
 $(MOTHUR) :
 	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v1.39.5/Mothur.linux_64.zip
