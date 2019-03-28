@@ -9,17 +9,10 @@ PROC = data/process
 FINAL = submission
 
 .PHONY: all
-all : $(MOTHUR)\
-      $(REFS)/silva.nr_v132.full\
-      $(REFS)/silva.nr_v132.tax\
-      $(REFS)/silva.nr_v132.pcr.align\
-      $(RAW)/*.fastq\
-      $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
+all : $(FIGS)/community_barplot.jpg\
       data/summary.txt\
       $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy\
-      $(BASIC_STEM).pick.pick.pick.error.summary\
-      $(FIGS)/community_barplot.jpg 
-	
+      $(BASIC_STEM).pick.pick.pick.error.summary
 
 # Obtained the Linux version of mothur (v1.39.5) from the mothur GitHub repository
 $(MOTHUR) :
@@ -159,8 +152,7 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_
                                                                        $(BASIC_STEM).pick.pick.fasta\
                                                                        $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                                                        $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
-                                                                       $(MOTHUR)\
-                                                                       data/summary.txt
+                                                                       $(MOTHUR)
 	$(MOTHUR) code/get_shared_otus.batch
 	rm $(BASIC_STEM).denovo.vsearch.pick.pick.pick.count_table
 	rm $(BASIC_STEM).pick.pick.pick.fasta
@@ -168,16 +160,13 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_
 
 # Now we want to get the sequencing error as seen in the mock community samples.
 
-# Edit code/get_error.batch to include the proper root name of your files file.
 # Edit code/get_error.batch to include the proper group names for your mocks.
 
 $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
                                              $(BASIC_STEM).pick.pick.fasta\
                                              $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-                                             $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
                                              ~/zymo/zymo.fasta\
-                                             $(MOTHUR)\
-                                             $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy
+                                             $(MOTHUR)
 	cp ~/zymo/zymo.fasta $(REFS)/zymo.fasta
 	$(MOTHUR) code/get_error.batch
 
