@@ -12,12 +12,12 @@ FINAL = submission
 all : $(MOTHUR)\
       $(REFS)/silva.nr_v132.full\
       $(REFS)/silva.nr_v132.tax\
-      $(REFS)/silva.nr_v132.pcr.unique.align\
+      $(REFS)/silva.nr_v132.pcr.align\
       $(RAW)/*.fastq\
-      $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
+      $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
       data/summary.txt\
       $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy\
-      $(BASIC_STEM).pick.pick.pick.error.summary\
+      $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
       $(FIGS)/community_barplot.jpg 
 	
 
@@ -58,7 +58,8 @@ $(MOTHUR) :
 # sequences were exported.
 
 # Screening the sequences
-$(REFS)/silva.nr_v132.full : $(MOTHUR)\
+$(REFS)/silva.nr_v132.full\
+$(REFS)/silva.nr_v132.align : $(MOTHUR)\
                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
@@ -66,7 +67,6 @@ $(REFS)/silva.nr_v132.full : $(MOTHUR)\
 	            pcr.seqs(start=1044, end=43116, keepdots=T);\
 	            degap.seqs();\
 	            unique.seqs()"
-	mv mothur.*.logfile $(REFS)/
         # Identify the unique sequences without regard to their alignment
 	grep ">" $(REFS)/silva.full_v132.good.pcr.ng.unique.fasta | cut -f 1 | cut -c 2- > $(REFS)/silva.full_v132.good.pcr.ng.unique.accnos
         # Get the unique sequences without regard to their alignment
@@ -86,6 +86,7 @@ $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
 	mv $(REFS)/silva.full_v132.tax $(REFS)/silva.nr_v132.tax
 
 # Trimming the database to the region of interest (V4 region)
+$(REFS)/silva.nr_v132.pcr.align\
 $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
                                          $(MOTHUR)
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
@@ -111,6 +112,18 @@ $(RAW)/*.fastq : $(RAW)/raw.files
 
 # Edit code/get_good_seqs.batch to include the proper name of your *files file
 # Add a primer.oligos file containing the sequences of the gene speciic primers
+$(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
+$(MOTH)/raw.trim.contigs.fasta\
+$(MOTH)/raw.trim.contigs.good.unique.fasta\
+$(MOTH)/raw.trim.contigs.good.count_table\
+$(MOTH)/raw.trim.contigs.good.unique.align\
+$(MOTH)/raw.trim.contigs.good.count_table\
+$(MOTH)/raw.trim.contigs.good.unique.good.align\
+$(MOTH)/raw.trim.contigs.good.good.count_table\
+$(BASIC_STEM).pick.fasta\
+$(BASIC_STEM).denovo.vsearch.pick.count_table\
+$(BASIC_STEM).pick.pick.fasta\
+$(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
 $(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
                                               $(RAW)/raw.files\
                                               $(RAW)/primer.oligos\
@@ -181,7 +194,7 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 
 # Generate a community composition barplot
 $(FIGS)/community_barplot.jpg : code/plot_community_barplot.R\
-                                        $(BASIC_STEM).pick.nr_v132.wang.tax.summary
+                                $(BASIC_STEM).pick.nr_v132.wang.tax.summary
 	R -e "source('code/plot_community_barplot.R')"
 
 # Generate data to plot NMDS ordination
@@ -224,5 +237,5 @@ clean :
 	rm -f data/summary.txt || true
 	rm -f $(RAW)/*.fastq || true
 	rm -f $(RAW)/names_file.txt || true
-	rm -rf code/mothur || true
+	rm -rf code/mothur/ || true
 	rm -f $(FIGS)/* || true
