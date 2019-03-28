@@ -107,10 +107,9 @@ $(RAW)/*.fastq : $(RAW)/raw.files
 
 # Here we go from the raw fastq files and the files file to generate a fasta,
 # taxonomy, and count_table file that has had the chimeras removed as well as
-# any non bacterial sequences.
+# any non bacterial or archeal sequences.
 # The raw data (.fastq files) should be locateted in data/raw/
 
-# Edit code/get_good_seqs.batch to include the proper name of your *files file
 # Add a primer.oligos file containing the sequences of the gene speciic primers
 $(MOTH)/raw.trim.contigs.fasta\
 $(MOTH)/raw.trim.contigs.good.unique.fasta\
