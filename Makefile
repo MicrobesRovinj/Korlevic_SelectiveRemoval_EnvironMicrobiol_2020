@@ -8,6 +8,19 @@ TABLES = results/tables
 PROC = data/process
 FINAL = submission
 
+.PHONY: all
+all : $(MOTHUR)\
+      $(REFS)/silva.nr_v132.full\
+      $(REFS)/silva.nr_v132.tax\
+      $(REFS)/silva.nr_v132.pcr.unique.align\
+      $(RAW)/*.fastq\
+      $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
+      data/summary.txt\
+      $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy\
+      $(BASIC_STEM).pick.pick.pick.error.summary\
+      $(FIGS)/community_barplot.jpg 
+	
+
 # Obtained the Linux version of mothur (v1.39.5) from the mothur GitHub repository
 $(MOTHUR) :
 	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v1.39.5/Mothur.linux_64.zip
@@ -45,8 +58,6 @@ $(MOTHUR) :
 # sequences were exported.
 
 # Screening the sequences
-$(REFS)/silva.full_v132.fasta\
-$(REFS)/silva.nr_v132.align\
 $(REFS)/silva.nr_v132.full : $(MOTHUR)\
                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
@@ -75,7 +86,6 @@ $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
 	mv $(REFS)/silva.full_v132.tax $(REFS)/silva.nr_v132.tax
 
 # Trimming the database to the region of interest (V4 region)
-$(REFS)/silva.nr_v132.pcr.align\
 $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
                                          $(MOTHUR)
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
@@ -90,8 +100,7 @@ $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
 # overall analysis.
 #
 #########################################################################################
-$(RAW)/file_names.txt\
-$(RAW)w/*.fastq : $(RAW)/raw.files
+$(RAW)/*.fastq : $(RAW)/raw.files
 	(cut -f 2 $(RAW)/raw.files; cut -f 3 $(RAW)/raw.files) | cat > $(RAW)/names_file.txt
 	xargs -I % --arg-file=$(RAW)/names_file.txt cp ~/raw/together/% -t $(RAW)/	
 
@@ -102,9 +111,6 @@ $(RAW)w/*.fastq : $(RAW)/raw.files
 
 # Edit code/get_good_seqs.batch to include the proper name of your *files file
 # Add a primer.oligos file containing the sequences of the gene speciic primers
-$(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-$(BASIC_STEM).pick.pick.fasta\
-$(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
 $(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
                                               $(RAW)/raw.files\
                                               $(RAW)/primer.oligos\
@@ -139,7 +145,6 @@ data/summary.txt : $(REFS)/silva.nr_v132.pcr.align\
 # Edit code/get_shared_otus.batch to include the proper root name of your files file.
 # Edit code/get_shared_otus.batch to include the proper group names to remove.
 
-$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.shared\
 $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_shared_otus.batch\
                                                                        $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                                                        $(BASIC_STEM).pick.pick.fasta\
@@ -175,7 +180,7 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 #########################################################################################
 
 # Generate a community composition barplot
-results/figures/community_barplot.jpg : code/plot_community_barplot.R\
+$(FIGS)/community_barplot.jpg : code/plot_community_barplot.R\
                                         $(BASIC_STEM).pick.nr_v132.wang.tax.summary
 	R -e "source('code/plot_community_barplot.R')"
 
