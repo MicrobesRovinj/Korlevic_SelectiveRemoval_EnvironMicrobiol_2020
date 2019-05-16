@@ -177,15 +177,15 @@ $(FIGS)/community_barplot.jpg : code/plot_community_barplot.R\
                                 $(BASIC_STEM).pick.nr_v132.wang.tax.summary
 	R -e "source('code/plot_community_barplot.R')"
 
-# Generate data to plot NMDS ordination
-# $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.thetayc.0.03.lt.av.lt.ave.nmds.axes : $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.shared\
-#                                                                                        $(MOTHUR)
-#	$(MOTHUR) code/get_nmds_data.batch
+# Generate data to plot PCoA ordination
+$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.braycurtis.0.03.lt.ave.pcoa.axes : $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.shared\
+                                                                                     $(MOTHUR)
+	$(MOTHUR) code/get_pcoa_data.batch
 
-# Construct NMDS png file
-#results/figures/nmds_figure.png : code/plot_nmds.R\
-#                                  $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.thetayc.0.03.lt.av.lt.ave.nmds.axes
-#	R -e "source('code/plot_nmds.R'); plot_nmds('$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.thetayc.0.03.lt.ave.nmds.axes')"
+# Construct PCoA plot
+results/figures/pcoa_figure.jpg : code/plot_pcoa.R\
+                                  $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.braycurtis.0.03.lt.ave.pcoa.axes
+	R -e "source('code/plot_pcoa.R')"
 
 #########################################################################################
 #
