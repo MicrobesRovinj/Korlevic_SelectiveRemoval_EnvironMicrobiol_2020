@@ -50,15 +50,15 @@ $(REFS)/silva.nr_v132.align : $(MOTHUR)\
                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
-	            screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
-	            pcr.seqs(start=1044, end=43116, keepdots=T);\
-	            degap.seqs();\
-	            unique.seqs()"
+		    screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
+		    pcr.seqs(start=1044, end=43116, keepdots=T);\
+		    degap.seqs();\
+		    unique.seqs()"
         # Identify the unique sequences without regard to their alignment
 	grep ">" $(REFS)/silva.full_v132.good.pcr.ng.unique.fasta | cut -f 1 | cut -c 2- > $(REFS)/silva.full_v132.good.pcr.ng.unique.accnos
         # Get the unique sequences without regard to their alignment
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
-	            get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
+		    get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
         # Generate alignment file
 	mv $(REFS)/silva.full_v132.good.pcr.pick.fasta $(REFS)/silva.nr_v132.align
         # Generate taxonomy file
@@ -77,7 +77,7 @@ $(REFS)/silva.nr_v132.pcr.align\
 $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
                                          $(MOTHUR)
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
-                    pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16);\
+	            pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16);\
 	            unique.seqs()"
 
 #########################################################################################

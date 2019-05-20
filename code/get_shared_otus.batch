@@ -1,4 +1,4 @@
-set.dir(input=data/mothur, output=data/mothur, seed=19760620)
+set.dir(input=data/mothur/, output=data/mothur/, seed=19760620)
 
 set.current(processors=16)
 
