@@ -4,7 +4,7 @@ screen.seqs(fasta=current, group=current, maxambig=0, minlength=225 , maxlength=
 
 unique.seqs(fasta=current)
 
-count.seqs(name=current, group=current, processors=16)
+count.seqs(name=current, group=current)
 
 align.seqs(fasta=current, reference=data/references/silva.nr_v132.pcr.unique.align, processors=16)
 
