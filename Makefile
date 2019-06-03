@@ -8,9 +8,9 @@ TABLES = results/tables
 PROC = data/process
 FINAL = submission
 
-# Obtained the Linux version of mothur (v1.39.5) from the mothur GitHub repository
+# Obtained the Linux version of mothur (v1.42.1) from the mothur GitHub repository
 $(MOTHUR) :
-	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v1.39.5/Mothur.linux_64.zip
+	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v1.42.1/Mothur.linux_64.zip
 	unzip Mothur.linux_64.zip
 	mv mothur code/
 	rm Mothur.linux_64.zip
@@ -45,23 +45,25 @@ $(MOTHUR) :
 # sequences were exported.
 
 # Screening the sequences
-$(REFS)/silva.nr_v132.full\
 $(REFS)/silva.nr_v132.align : $(MOTHUR)\
-                             ~/silva.full_v132/silva.full_v132.fasta
+                              ~/silva.full_v132/silva.full_v132.fasta
 	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
-		    screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
-		    pcr.seqs(start=1044, end=43116, keepdots=T);\
-		    degap.seqs();\
-		    unique.seqs()"
-        # Identify the unique sequences without regard to their alignment
+	            screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=1044, end=43116, maxambig=5, processors=16);\
+	            pcr.seqs(start=1044, end=43116, keepdots=T);\
+	            degap.seqs();\
+	            unique.seqs()"
+	# Identify the unique sequences without regard to their alignment
 	grep ">" $(REFS)/silva.full_v132.good.pcr.ng.unique.fasta | cut -f 1 | cut -c 2- > $(REFS)/silva.full_v132.good.pcr.ng.unique.accnos
-        # Get the unique sequences without regard to their alignment
+	# Get the unique sequences without regard to their alignment
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
-		    get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
-        # Generate alignment file
+	           get.seqs(fasta=$(REFS)/silva.full_v132.good.pcr.fasta, accnos=$(REFS)/silva.full_v132.good.pcr.ng.unique.accnos)"
+	# Generate alignment file
 	mv $(REFS)/silva.full_v132.good.pcr.pick.fasta $(REFS)/silva.nr_v132.align
-        # Generate taxonomy file
+
+# Generate taxonomy file
+$(REFS)/silva.nr_v132.full : $(REFS)/silva.nr_v132.align\
+                             $(MOTHUR)
 	grep '>' $(REFS)/silva.nr_v132.align | cut -f 1,3 | cut -f 2 -d '>' > $(REFS)/silva.nr_v132.full
 
 # Formatting the taxonomy files
@@ -73,8 +75,8 @@ $(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
 	mv $(REFS)/silva.full_v132.tax $(REFS)/silva.nr_v132.tax
 
 # Trimming the database to the region of interest (V4 region)
-$(REFS)/silva.nr_v132.pcr.align\
-$(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
+$(REFS)/silva.nr_v132.pcr%align\
+$(REFS)/silva.nr_v132.pcr.unique%align : $(REFS)/silva.nr_v132.align\
                                          $(MOTHUR)
 	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
 	            pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16);\
@@ -88,7 +90,11 @@ $(REFS)/silva.nr_v132.pcr.unique.align : $(REFS)/silva.nr_v132.align\
 # overall analysis.
 #
 #########################################################################################
-$(RAW)/*.fastq : $(RAW)/raw.files
+$(RAW)/raw.files : $(RAW)/metadata.csv
+	cut -f 1,6,7 data/raw/metadata.csv | tail -n +2 > $(RAW)/raw.files
+
+$(RAW)/*.fastq : $(RAW)/raw.files\
+                 ~/raw/together/*.fastq
 	(cut -f 2 $(RAW)/raw.files; cut -f 3 $(RAW)/raw.files) | cat > $(RAW)/names_file.txt
 	xargs -I % --arg-file=$(RAW)/names_file.txt cp ~/raw/together/% -t $(RAW)/	
 
@@ -98,18 +104,18 @@ $(RAW)/*.fastq : $(RAW)/raw.files
 # The raw data (.fastq files) should be locateted in data/raw/
 
 # Add a primer.oligos file containing the sequences of the gene speciic primers
-$(MOTH)/raw.trim.contigs.fasta\
-$(MOTH)/raw.trim.contigs.good.unique.fasta\
-$(MOTH)/raw.trim.contigs.good.count_table\
-$(MOTH)/raw.trim.contigs.good.unique.align\
-$(MOTH)/raw.trim.contigs.good.unique.good.align\
-$(MOTH)/raw.trim.contigs.good.good.count_table\
-$(BASIC_STEM).pick.fasta\
-$(BASIC_STEM).denovo.vsearch.pick.count_table\
-$(BASIC_STEM).pick.pick.fasta\
-$(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-$(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
-$(BASIC_STEM).pick.nr_v132.wang.tax.summary : code/get_good_seqs.batch\
+$(MOTH)/raw.trim.contigs%fasta\
+$(MOTH)/raw.trim.contigs.good.unique%fasta\
+$(MOTH)/raw.trim.contigs.good%count_table\
+$(MOTH)/raw.trim.contigs.good%unique.align\
+$(MOTH)/raw.trim.contigs.good%unique.good.align\
+$(MOTH)/raw.trim.contigs.good.good%count_table\
+$(BASIC_STEM).pick%fasta\
+$(BASIC_STEM).denovo.vsearch.pick%count_table\
+$(BASIC_STEM).pick.pick%fasta\
+$(BASIC_STEM).denovo.vsearch.pick.pick%count_table\
+$(BASIC_STEM).pick.nr_v132.wang.pick%taxonomy\
+$(BASIC_STEM).pick.nr_v132.wang.tax%summary : code/get_good_seqs.batch\
                                               $(RAW)/raw.files\
                                               $(RAW)/primer.oligos\
                                               $(RAW)/*.fastq\
@@ -142,7 +148,8 @@ data/summary.txt : $(REFS)/silva.nr_v132.pcr.align\
 # Edit code/get_shared_otus.batch to include the proper root name of your files file.
 # Edit code/get_shared_otus.batch to include the proper group names to remove.
 
-$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_shared_otus.batch\
+$(BASIC_STEM).pick.pick.pick.opti_mcc%shared\
+$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons%taxonomy : code/get_shared_otus.batch\
                                                                        $(BASIC_STEM).pick.pick.fasta\
                                                                        $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
                                                                        $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
@@ -159,9 +166,9 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons.taxonomy : code/get_
 $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
                                              $(BASIC_STEM).pick.pick.fasta\
                                              $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-                                             ~/zymo/zymo.fasta\
+                                             ~/atcc/ATCC_MSA-1002_515F-806R.fasta\
                                              $(MOTHUR)
-	cp ~/zymo/zymo.fasta $(REFS)/zymo.fasta
+	cp ~/atcc/ATCC_MSA-1002_515F-806R.fasta $(REFS)/atcc_v4.fasta
 	$(MOTHUR) code/get_error.batch
 
 #########################################################################################
@@ -174,17 +181,27 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 
 # Generate a community composition barplot
 $(FIGS)/community_barplot.jpg : code/plot_community_barplot.R\
-                                $(BASIC_STEM).pick.nr_v132.wang.tax.summary
+                                $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
+                                $(RAW)/group_colors.csv
 	R -e "source('code/plot_community_barplot.R')"
 
+# Generate rarefaction curves
+rarefaction : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared
+	$(MOTHUR) "#rarefaction.single(shared=$(BASIC_STEM).pick.pick.pick.opti_mcc.shared, calc=sobs-chao-ace, freq=100)"
+
+
 # Generate data to plot PCoA ordination
-$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.braycurtis.0.03.lt.ave.pcoa.axes : $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.shared\
-                                                                                     $(MOTHUR)
+$(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%axes\
+$(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%loadings : code/get_pcoa_data.batch\
+                                                                             $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                                                                             $(MOTHUR)
 	$(MOTHUR) code/get_pcoa_data.batch
 
 # Construct PCoA plot
-results/figures/pcoa_figure.jpg : code/plot_pcoa.R\
-                                  $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.braycurtis.0.03.lt.ave.pcoa.axes
+$(FIGS)/pcoa_figure.jpg : code/plot_pcoa.R\
+                          $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes\
+                          $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.loadings\
+                          $(RAW)/metadata.csv
 	R -e "source('code/plot_pcoa.R')"
 
 #########################################################################################
@@ -194,6 +211,13 @@ results/figures/pcoa_figure.jpg : code/plot_pcoa.R\
 # 	Render the manuscript
 #
 #########################################################################################
+
+.PHONY: all
+all : data/summary.txt\
+      $(FIGS)/community_barplot.jpg\
+      $(BASIC_STEM).pick.pick.pick.error.summary\
+      $(FIGS)/pcoa_figure.jpg\
+      rarefaction	
 
 # $(FINAL)/manuscript.% : results/figures/nmds_figure.png\
 #                        $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.shared\
@@ -212,10 +236,12 @@ results/figures/pcoa_figure.jpg : code/plot_pcoa.R\
 .PHONY: clean
 clean :
 	rm -f my_job.qsub.* || true
-	rm -f $(REFS)/* || true
+#	rm -f $(REFS)/* || true
 	rm -f $(MOTH)/* || true
 	rm -f data/summary.txt || true
 	rm -f $(RAW)/*.fastq || true
 	rm -f $(RAW)/names_file.txt || true
+	rm -f $(RAW)/raw.files || true
 	rm -rf code/mothur/ || true
 	rm -f $(FIGS)/* || true
+	rm -r mothur*logfile || true
