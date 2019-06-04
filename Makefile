@@ -198,4 +198,4 @@ clean :
 	rm -f $(RAW)/raw.files || true
 	rm -rf code/mothur/ || true
 	rm -f $(FIGS)/* || true
-	rm -r mothur*logfile || true
+	rm -f mothur*logfile || true
