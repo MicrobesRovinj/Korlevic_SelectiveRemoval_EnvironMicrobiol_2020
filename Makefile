@@ -139,10 +139,16 @@ $(FIGS)/community_barplot.jpg : code/plot_community_barplot.R\
                                 $(RAW)/group_colors.csv
 	R -e "source('code/plot_community_barplot.R')"
 
-# Generate rarefaction curves
-rarefaction : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared
-	$(MOTHUR) "#rarefaction.single(shared=$(BASIC_STEM).pick.pick.pick.opti_mcc.shared, calc=sobs-chao-ace, freq=100)"
+# Generate rarefaction data
+$(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                                                           code/get_rarefaction_data.batch\
+                                                           $(MOTHUR)
+	$(MOTHUR) code/get_rarefaction_data.batch
 
+# Construct a rarefaction plot
+$(FIGS)/rarefaction.jpg : code/plot_rarefaction.R\
+                          $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction
+	R -e "source('code/plot_rarefaction.R')"
 
 # Generate data to plot PCoA ordination
 $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%axes\
@@ -151,7 +157,7 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%loadings : cod
                                                                              $(MOTHUR)
 	$(MOTHUR) code/get_pcoa_data.batch
 
-# Construct PCoA plot
+# Construct a PCoA plot
 $(FIGS)/pcoa_figure.jpg : code/plot_pcoa.R\
                           $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes\
                           $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.loadings\
@@ -171,20 +177,7 @@ all : data/summary.txt\
       $(FIGS)/community_barplot.jpg\
       $(BASIC_STEM).pick.pick.pick.error.summary\
       $(FIGS)/pcoa_figure.jpg\
-      rarefaction	
-
-# $(FINAL)/manuscript.% : results/figures/nmds_figure.png\
-#                        $(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.shared\
-#                        $(FINAL)/mbio.csl\
-#                        $(FINAL)/references.bib\
-#                        $(FINAL)/manuscript.Rmd
-#	R -e 'render("$(FINAL)/manuscript.Rmd", clean=FALSE)'
-#	mv $(FINAL)/manuscript.knit.md submission/manuscript.md
-#	rm $(FINAL)/manuscript.utf8.md
-
-# write.paper : results/figures/nmds_figure.png\
-#              $(FINAL)/manuscript.Rmd $(FINAL)/manuscript.md\
-#	$(FINAL)/manuscript.tex $(FINAL)/manuscript.pdf
+      $(FIGS)/rarefaction.jpg
 
 # Cleaning
 .PHONY: clean
