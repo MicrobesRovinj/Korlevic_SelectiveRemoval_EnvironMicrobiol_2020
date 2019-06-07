@@ -44,6 +44,7 @@ $(REFS)/silva.nr_v132%tax : ~/references/data/references/silva.nr_v132.pcr.align
 # overall analysis.
 #
 #########################################################################################
+
 $(RAW)/raw.files : $(RAW)/metadata.csv
 	cut -f 1,6,7 data/raw/metadata.csv | tail -n +2 > $(RAW)/raw.files
 
@@ -155,7 +156,7 @@ $(FIGS)/rarefaction.jpg : code/plot_rarefaction.R\
                           $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction
 	R -e "source('code/plot_rarefaction.R')"
 
-# 
+# Determine community richness and diversity calculators   
 $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
                                                                code/get_summary_data.batch\
                                                                $(MOTHUR)
