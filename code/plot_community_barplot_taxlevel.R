@@ -1,14 +1,18 @@
 #################################################################################################################
-# plot_community_barplot_domain.R
+# plot_community_barplot_taxlevel.R
 # 
-# A script to plot the community structure of each sample.
+# A script to plot the community structure of each sample at every taxonomic level (Domain-Genus).
 # Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
-#               data/raw/metadata.csv
 # Produces: results/figures/community_barplot_domain.jpg
-#
+#           results/figures/community_barplot_phylum.jpg
+#           results/figures/community_barplot_class.jpg
+#           results/figures/community_barplot_order.jpg
+#           results/figures/community_barplot_family.jpg
+#           results/figures/community_barplot_genus.jpg
 #################################################################################################################
 
 library(tidyverse)
+
 community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary") %>%
   filter(!str_detect(taxon, "^Eukaryota")) %>%
   filter(taxon!="Root") %>%
@@ -22,34 +26,26 @@ metadata <- read_tsv("data/raw/metadata.csv") %>%
   select(ID, label) %>%
   deframe()
 
-plot <- filter(community, taxlevel==2 | str_detect(taxon, "Chloroplast$")) %>%
-  filter_at(6:ncol(.), any_vars(. >= 1)) %>%
-  mutate_at(5:ncol(.), funs(case_when(taxon=="Cyanobacteria" ~ . - .[taxon=="Chloroplast"],
-                                      TRUE ~ .))) %>%
-  mutate(taxon=str_replace(taxon, "unknown_unclassified", "No Relative")) %>%
-  filter_at(6:ncol(.), any_vars(. >= 1)) %>%
+taxlevel <- c("domain", "phylum", "class", "order", "family", "genus")
+
+for (i in seq(1:6)) {
+plot <- filter(community, taxlevel==i) %>%
+  filter_at(6:ncol(.), any_vars(. >= 2)) %>%
+  mutate(taxon=str_replace_all(taxon, c("unknown_unclassified"="No Relative", "unknown"="No Relative"))) %>%
+  filter_at(6:ncol(.), any_vars(. >= 2)) %>%
   bind_rows(summarise_all(., funs(ifelse(is.numeric(.), 100-sum(.), paste("Other"))))) %>%
   rename_at(names(metadata), ~unname(metadata)) %>%
   arrange(-row_number())
 
-plot <- plot[c(2, 1, 3:nrow(plot)), ]
-
 color <- read_tsv("data/raw/group_colors.csv") %>%
   deframe()
-
-names <- parse(text=case_when(plot$taxon=="Chloroplast" ~ plot$taxon,
-                              plot$taxon=="Other" ~ plot$taxon,
-                              plot$taxon=="No Relative" ~ "No~Relative",
-                              plot$taxon=="Other Proteobacteria" ~ "Other~italic(Proteobacteria)",
-                              plot$taxon=="Bacteria_unclassified" ~ "unclassified~italic(Bacteria)",
-                              TRUE ~ paste0("italic(", plot$taxon, ")")))
 
 gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
   mutate(taxon=factor(taxon, levels=unique(plot$taxon))) %>%
   mutate(sample=factor(sample, levels=unname(rev(metadata)))) %>%
   ggplot() +
   geom_bar(aes(x=sample, y=abundance, fill=taxon), stat="identity", colour="black", size=0.2) +
-  scale_fill_manual(values=color, labels=names, guide=guide_legend(reverse=T)) + 
+  scale_fill_manual(values=color, labels=unique(plot$taxon), guide=guide_legend(reverse=T, ncol=1)) + 
   labs(x=NULL, y="%") +
   scale_y_continuous(expand=c(0, 0), breaks=seq(0, 100, by=10)) +
   coord_flip() +
@@ -62,4 +58,5 @@ gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
         legend.key.size=unit(0.75, "cm"), legend.justification=c("bottom"),
         legend.text.align=0)
 
-ggsave("results/figures/community_barplot.jpg", width=210, height=297, units="mm")
+ggsave(paste0("results/figures/community_barplot_", taxlevel[i], ".jpg"), width=210, height=297, units="mm")
+}
