@@ -1,0 +1,1 @@
+summary.single(shared=data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared, calc=nseqs-sobs-coverage-chao-ace-shannon-npshannon-simpson-invsimpson, subsample=T)

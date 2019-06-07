@@ -134,10 +134,15 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 #########################################################################################
 
 # Generate a community composition barplot
-$(FIGS)/community_barplot.jpg : code/plot_community_barplot.R\
+$(FIGS)/community_barplot_domain.jpg\
+$(FIGS)/community_barplot_phylum.jpg\
+$(FIGS)/community_barplot_class.jpg\
+$(FIGS)/community_barplot_order.jpg\
+$(FIGS)/community_barplot_family.jpg\
+$(FIGS)/community_barplot_genus.jpg : code/plot_community_barplot_taxlevel.R\
                                 $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
                                 $(RAW)/group_colors.csv
-	R -e "source('code/plot_community_barplot.R')"
+	R -e "source('code/plot_community_barplot_taxlevel.R')"
 
 # Generate rarefaction data
 $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
@@ -149,6 +154,12 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction : $(BASIC_STEM).pick.pi
 $(FIGS)/rarefaction.jpg : code/plot_rarefaction.R\
                           $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction
 	R -e "source('code/plot_rarefaction.R')"
+
+# 
+$(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                                                               code/get_summary_data.batch\
+                                                               $(MOTHUR)
+	$(MOTHUR) code/get_summary_data.batch
 
 # Generate data to plot PCoA ordination
 $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%axes\
@@ -174,10 +185,11 @@ $(FIGS)/pcoa_figure.jpg : code/plot_pcoa.R\
 
 .PHONY: all
 all : data/summary.txt\
-      $(FIGS)/community_barplot.jpg\
+      $(FIGS)/community_barplot_domain.jpg\
       $(BASIC_STEM).pick.pick.pick.error.summary\
       $(FIGS)/pcoa_figure.jpg\
-      $(FIGS)/rarefaction.jpg
+      $(FIGS)/rarefaction.jpg\
+      $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary
 
 # Cleaning
 .PHONY: clean
