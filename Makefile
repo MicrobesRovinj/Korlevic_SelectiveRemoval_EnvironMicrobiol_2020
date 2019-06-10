@@ -153,6 +153,7 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction : $(BASIC_STEM).pick.pi
 
 # Construct a rarefaction plot
 $(FIGS)/rarefaction.jpg : code/plot_rarefaction.R\
+                          $(RAW)/metadata.csv\
                           $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction
 	R -e "source('code/plot_rarefaction.R')"
 
@@ -161,6 +162,12 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary : $(BASIC_STEM).pic
                                                                code/get_summary_data.batch\
                                                                $(MOTHUR)
 	$(MOTHUR) code/get_summary_data.batch
+
+# Plot richness and diversity calculators
+$(FIGS)/calculators.jpg : code/plot_calculators.R\
+                          $(RAW)/metadata.csv\
+                          $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary
+	R -e "source('code/plot_calculators.R')"
 
 # Generate data to plot PCoA ordination
 $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%axes\
@@ -190,7 +197,7 @@ all : data/summary.txt\
       $(BASIC_STEM).pick.pick.pick.error.summary\
       $(FIGS)/pcoa_figure.jpg\
       $(FIGS)/rarefaction.jpg\
-      $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary
+      $(FIGS)/calculators.jpg
 
 # Cleaning
 .PHONY: clean
