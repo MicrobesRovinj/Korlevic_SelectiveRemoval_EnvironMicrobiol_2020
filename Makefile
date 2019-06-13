@@ -191,6 +191,25 @@ $(FIGS)/pcoa_figure.jpg : code/plot_pcoa.R\
 #
 #########################################################################################
 
+$(FINAL)/manuscript.% : data/summary.txt\
+                        $(BASIC_STEM).pick.pick.pick.error.summary\
+                        $(FIGS)/community_barplot_domain.jpg\
+                        $(FIGS)/rarefaction.jpg\
+                        $(FIGS)/calculators.jpg\
+                        $(FIGS)/pcoa_figure.jpg\
+                        $(FINAL)/manuscript.Rmd\
+                        $(FINAL)/mbio.csl\
+                        $(FINAL)/references.bib
+	R -e 'render("$(FINAL)/manuscript.Rmd", clean=FALSE)'
+	mv $(FINAL)/manuscript.knit.md submission/manuscript.md
+	rm $(FINAL)/manuscript.utf8.md
+
+# write.paper : results/figures/nmds_figure.png\
+#               $(FINAL)/manuscript.Rmd\
+#               $(FINAL)/manuscript.md\
+#               $(FINAL)/manuscript.tex\
+#               $(FINAL)/manuscript.pdf
+
 .PHONY: all
 all : data/summary.txt\
       $(FIGS)/community_barplot_domain.jpg\
