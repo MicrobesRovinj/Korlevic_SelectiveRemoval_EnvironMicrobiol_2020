@@ -46,7 +46,7 @@ $(REFS)/silva.nr_v132%tax : ~/references/data/references/silva.nr_v132.pcr.align
 #########################################################################################
 
 $(RAW)/raw.files : $(RAW)/metadata.csv
-	cut -f 1,6,7 data/raw/metadata.csv | tail -n +2 > $(RAW)/raw.files
+	cut -f 1,5,6 data/raw/metadata.csv | tail -n +2 > $(RAW)/raw.files
 
 $(RAW)/*.fastq : $(RAW)/raw.files\
                  ~/raw/together/*.fastq
@@ -98,26 +98,32 @@ data/summary.txt : $(REFS)/silva.nr_v132.pcr.align\
 	$(MOTHUR) code/get_summary.batch
 
 # Here we go from the good sequences and generate a shared file and a
-# cons.taxonomy file based on OTU data.
+# cons.taxonomy file based on OTU data. In addition, we are binning
+# the sequences in to phylotypes according to their taxonomic classification.
 
 # Edit code/get_shared_otus.batch to include the proper root name of your files file.
 # Edit code/get_shared_otus.batch to include the proper group names to remove.
-
 $(BASIC_STEM).pick.pick.pick.opti_mcc%shared\
-$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons%taxonomy : code/get_shared_otus.batch\
-                                                                       $(BASIC_STEM).pick.pick.fasta\
-                                                                       $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
-                                                                       $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
-                                                                       $(MOTHUR)
+$(BASIC_STEM).pick.pick.pick.opti_mcc.unique_list.0.03.cons%taxonomy\
+$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx%shared\
+$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.1.cons%taxonomy\
+$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.2.cons%taxonomy\
+$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.3.cons%taxonomy\
+$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.4.cons%taxonomy\
+$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.5.cons%taxonomy\
+$(BASIC_STEM).precluster.pick.nr_v132.wang.pick.pick.tx.6.cons%taxonomy : code/get_shared_otus.batch\
+                                                                          $(BASIC_STEM).pick.pick.fasta\
+                                                                          $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
+                                                                          $(BASIC_STEM).pick.nr_v132.wang.pick.taxonomy\
+                                                                          $(MOTHUR)
 	$(MOTHUR) code/get_shared_otus.batch
+	$(MOTHUR) code/get_shared_phylotypes.batch
 	rm $(BASIC_STEM).denovo.vsearch.pick.pick.pick.count_table
 	rm $(BASIC_STEM).pick.pick.pick.fasta
 	rm $(BASIC_STEM).pick.nr_v132.wang.pick.pick.taxonomy
 
 # Now we want to get the sequencing error as seen in the mock community samples.
-
 # Edit code/get_error.batch to include the proper group names for your mocks.
-
 $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
                                              $(BASIC_STEM).pick.pick.fasta\
                                              $(BASIC_STEM).denovo.vsearch.pick.pick.count_table\
@@ -167,7 +173,7 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary : $(BASIC_STEM).pic
 $(FIGS)/calculators.jpg : code/plot_calculators.R\
                           $(RAW)/metadata.csv\
                           $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary
-	R -e "source('code/plot_calculators.R')"
+#	R -e "source('code/plot_calculators.R')"
 
 # Generate data to plot PCoA ordination
 $(BASIC_STEM).pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa%axes\
@@ -191,15 +197,15 @@ $(FIGS)/pcoa_figure.jpg : code/plot_pcoa.R\
 #
 #########################################################################################
 
-$(FINAL)/manuscript.% : data/summary.txt\
-                        $(BASIC_STEM).pick.pick.pick.error.summary\
-                        $(FIGS)/community_barplot_domain.jpg\
-                        $(FIGS)/rarefaction.jpg\
-                        $(FIGS)/calculators.jpg\
-                        $(FIGS)/pcoa_figure.jpg\
-                        $(FINAL)/manuscript.Rmd\
-                        $(FINAL)/mbio.csl\
-                        $(FINAL)/references.bib
+$(FINAL)/manuscript.pdf : data/summary.txt\
+                          $(BASIC_STEM).pick.pick.pick.error.summary\
+                          $(FIGS)/community_barplot_domain.jpg\
+                          $(FIGS)/rarefaction.jpg\
+                          $(FIGS)/calculators.jpg\
+                          $(FIGS)/pcoa_figure.jpg\
+                          $(FINAL)/manuscript.Rmd\
+                          $(FINAL)/mbio.csl\
+                          $(FINAL)/references.bib
 	R -e 'render("$(FINAL)/manuscript.Rmd", clean=FALSE)'
 	mv $(FINAL)/manuscript.knit.md submission/manuscript.md
 	rm $(FINAL)/manuscript.utf8.md

@@ -1,6 +1,6 @@
 make.contigs(file=data/raw/raw.files, oligos=data/raw/primer.oligos, inputdir=data/raw/, outputdir=data/mothur/, processors=16)
 
-screen.seqs(fasta=current, group=current, maxambig=0, minlength=225 , maxlength=275, maxhomop=15)
+screen.seqs(fasta=current, group=current, maxambig=0, minlength=225 , maxlength=275, maxhomop=16)
 
 unique.seqs(fasta=current)
 
