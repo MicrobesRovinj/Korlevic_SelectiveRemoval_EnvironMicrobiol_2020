@@ -5,13 +5,13 @@ Rplots.pdf
 
 .DS_Store
 
+!data/raw/metadata.csv
 code/mothur/*
 data/*
 data/*/*
 !data/process/*
 !README.md
 !data/raw/primer.oligos
-!data/raw/metadata.csv
 
 *.qsub*
 mothur*logfile
