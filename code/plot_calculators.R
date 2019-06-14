@@ -20,7 +20,7 @@ meta_alpha <- inner_join(metadata, alpha, by=c("ID"="group"))
 
 plot <- meta_alpha %>%
     filter(!is.na(depth)) %>%
-    group_by(depth) %>%
+    group_by(label) %>%
     summarize(mean_sobs=mean(sobs),
               mean_chao=mean(chao),
               mean_ace=mean(ace),
