@@ -42,19 +42,21 @@ map.in$taxout <- gsub(" ", "_", map.in$taxout)
 tax.in <- read.table("data/references/silva.nr_v132.full", header=F, stringsAsFactors=F, sep="\t")
 colnames(tax.in) <- c("taxid", "taxlabel")
 
+# Problem corrections observed in the SILVA ARB file (silva.nr_v132.full)
 # Following line corrects the Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Flavobacteriaceae;Polaribacter;Polaribacter; problem
-tax.in$taxlabel <- gsub("Polaribacter;Polaribacter;", "Polaribacter;", tax.in$taxlabel)
-# In the SILVA ARB files the phylum RsaHF231 is labeled as RsaHf231. The same phylum in the SILVA taxa mapping file
-# is labeled as RsaHF231. To avoid confusion we are replacing the RsaHf231 name with RsaHF231 in the data derived
-# from the SILVA ARB file (silva.nr_v132.full)
+tax.in$taxlabel <- gsub("Polaribacter;Polaribacter", "Polaribacter", tax.in$taxlabel)
+# Following line corrects the Bacteria;RsaHf231; problem
 tax.in$taxlabel <- gsub("RsaHf231;", "RsaHF231;", tax.in$taxlabel)
+# Following line corrects the Bacteria;GBS-1;; problem
+tax.in$taxlabel <- gsub("Bacteria;GBS-1;;", "Bacteria;GBS-1;", tax.in$taxlabel)
+# Following line corrects the Eukaryota;Opisthokonta;Nucletmycea;Fungi;Dikarya;Basidiomycota;Agaricomycotina;Tremellomycetes;Tremellales;Incertae sedis;Sterigmatosporidium; problem
+tax.in$taxlabel <- gsub(";Incertae sedis;", ";Incertae Sedis;", tax.in$taxlabel)
 tax.in$taxlabel <- gsub(";[[:space:]]+$", ";", tax.in$taxlabel)
 
 tax.in$id <- 1:nrow(tax.in)
 
 tax.write <- merge(tax.in, map.in, all.x=T, sort=F)
 tax.write <- tax.write[order(tax.write$id), ]
-
 
 # We want to see whether everything has 6 taxonomic level (kingdom to genus)
 getDepth <- function(taxonString) {

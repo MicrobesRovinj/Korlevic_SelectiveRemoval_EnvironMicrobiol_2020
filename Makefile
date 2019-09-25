@@ -8,9 +8,9 @@ TABLES = results/tables
 PROC = data/process
 FINAL = submission
 
-# Obtained the Linux version of mothur (v1.42.1) from the mothur GitHub repository
+# Obtained the Linux version of mothur (v.1.42.3) from the mothur GitHub repository
 $(MOTHUR) :
-	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v1.42.1/Mothur.linux_64.zip
+	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v.1.42.3/Mothur.linux_64.zip
 	unzip Mothur.linux_64.zip
 	mv mothur code/
 	rm Mothur.linux_64.zip
@@ -27,14 +27,77 @@ $(MOTHUR) :
 #
 #########################################################################################
 
+# We want the latest greatest reference alignment and the SILVA reference
+# alignment is the best reference alignment on the market. We will use the 
+# version 132. The curation of the reference files to make them compatible with 
+# mothur is described at http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/
+# As we are using the primers from the Earth Microbiome Project that are targeting
+# both Bacteria and Archaea (http://www.earthmicrobiome.org/protocols-and-standards/16s/)
+# we need to modify the procedure described at
+# http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/
+# as this approach is removing shorter archeal sequences.
+# 
+# The SILVA Release 132 was downloaded from 
+# https://www.arb-silva.de/fileadmin/arb_web_db/release_132/ARB_files/SILVA_132_SSURef_NR99_13_12_17_opt.arb.gz
+# opened with ARB and exported to silva.full_v132.fasta file as described at
+# http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/ uder the 
+# section Getting the data in and out of the ARB database. A total of 629,211
+# sequences were exported.
+
+# Screening the sequences
+$(REFS)/silva.nr_v132.align : $(MOTHUR)\
+                              ~/silva.full_v132/silva.full_v132.fasta
+	cp ~/silva.full_v132/silva.full_v132.fasta $(REFS)/silva.full_v132.fasta
+	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
+	            screen.seqs(fasta=$(REFS)/silva.full_v132.fasta, start=11894, end=25319, maxambig=5, processors=16)"
+	# Generate alignment file
+	mv $(REFS)/silva.full_v132.good.fasta $(REFS)/silva.nr_v132.align
+	# Replacing double tab with one tab (https://github.com/mothur/mothur/issues/627)
+	sed -i 's/\t\t/\t/' $(REFS)/silva.nr_v132.align
+
+# Generate taxonomy file
+$(REFS)/silva.nr_v132.full : $(REFS)/silva.nr_v132.align\
+                             $(MOTHUR)
+	grep '>' $(REFS)/silva.nr_v132.align | cut -f 1,3 | cut -f 2 -d '>' > $(REFS)/silva.nr_v132.full
+
+# Formatting the taxonomy files
+$(REFS)/silva.nr_v132.tax : code/format_taxonomy.R\
+                            $(REFS)/silva.nr_v132.full
+	wget https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/taxonomy/tax_slv_ssu_132.txt
+	mv tax_slv_ssu_132.txt $(REFS)/tax_slv_ssu_132.txt
+	R -e "source('code/format_taxonomy.R')"
+	mv $(REFS)/silva.full_v132.tax $(REFS)/silva.nr_v132.tax
+
+# Trimming the database to the region of interest (V4 region)
 $(REFS)/silva.nr_v132.pcr%align\
-$(REFS)/silva.nr_v132.pcr.unique%align\
-$(REFS)/silva.nr_v132%tax : ~/references/data/references/silva.nr_v132.pcr.align\
-                            ~/references/data/references/silva.nr_v132.pcr.unique.align\
-                            ~/references/data/references/silva.nr_v132.tax
-	cp ~/references/data/references/silva.nr_v132.pcr.align $(REFS)/
-	cp ~/references/data/references/silva.nr_v132.pcr.unique.align $(REFS)/
-	cp ~/references/data/references/silva.nr_v132.tax $(REFS)/
+$(REFS)/silva.nr_v132.pcr.unique%align : $(REFS)/silva.nr_v132.align\
+                                         $(MOTHUR)
+	$(MOTHUR) "#set.dir(input=$(REFS)/, output=$(REFS)/);\
+	            pcr.seqs(fasta=$(REFS)/silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16);\
+	            unique.seqs()"
+	# Replacing double tab with one tab (https://github.com/mothur/mothur/issues/627)
+	sed -i 's/\t\t/\t/' $(REFS)/silva.nr_v132.pcr.align
+	sed -i 's/\t\t/\t/' $(REFS)/silva.nr_v132.pcr.unique.align
+
+#########################################################################################
+#
+# Part 1: Create the reference files
+#
+# 	We will need several reference files to complete the analyses including the
+# SILVA reference alignment and taxonomy. As we are analyzing both Bacteria and
+# Archaea we need to optimize the procedure described on the mothur blog
+# (http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/).
+#
+#########################################################################################
+
+#$(REFS)/silva.nr_v132.pcr%align\
+#$(REFS)/silva.nr_v132.pcr.unique%align\
+#$(REFS)/silva.nr_v132%tax : ~/references/data/references/silva.nr_v132.pcr.align\
+#                            ~/references/data/references/silva.nr_v132.pcr.unique.align\
+#                            ~/references/data/references/silva.nr_v132.tax
+#	cp ~/references/data/references/silva.nr_v132.pcr.align $(REFS)/
+#	cp ~/references/data/references/silva.nr_v132.pcr.unique.align $(REFS)/
+#	cp ~/references/data/references/silva.nr_v132.tax $(REFS)/
 
 #########################################################################################
 #
