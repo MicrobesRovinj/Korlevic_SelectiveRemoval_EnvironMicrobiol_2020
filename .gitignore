@@ -13,6 +13,9 @@ data/*/*
 !data/raw/primer.oligos
 !data/raw/metadata.csv
 
+# Dependencies for plot_community_barplot_taxlevel.R
+!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
+
 *.qsub*
 mothur*logfile
 *temp*
