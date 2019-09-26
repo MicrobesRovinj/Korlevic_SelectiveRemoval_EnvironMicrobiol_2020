@@ -1,4 +1,4 @@
-MOTHUR = code/mothur/mothur
+"MOTHUR = code/mothur/mothur
 RAW = data/raw
 MOTH = data/mothur
 REFS = data/references
