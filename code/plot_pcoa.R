@@ -10,7 +10,7 @@
 #################################################################################################################
 
 library(tidyverse)
-pcoa <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes")
+pcoa <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes", col_types=cols(group = col_character()))
 metadata <- read_tsv("data/raw/metadata.csv")
 metadata_pcoa <- inner_join(metadata, pcoa, by=c('ID'='group'))
 
