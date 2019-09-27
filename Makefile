@@ -81,15 +81,9 @@ $(REFS)/silva.nr_v132.pcr.unique%align : $(REFS)/silva.nr_v132.align\
 
 #########################################################################################
 #
-# Part 1: Create the reference files
+# Code to copy already created reference files from ~/references/ to shorten the
+# analysis
 #
-# 	We will need several reference files to complete the analyses including the
-# SILVA reference alignment and taxonomy. As we are analyzing both Bacteria and
-# Archaea we need to optimize the procedure described on the mothur blog
-# (http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/).
-#
-#########################################################################################
-
 #$(REFS)/silva.nr_v132.pcr%align\
 #$(REFS)/silva.nr_v132.pcr.unique%align\
 #$(REFS)/silva.nr_v132%tax : ~/references/data/references/silva.nr_v132.pcr.align\
@@ -98,6 +92,8 @@ $(REFS)/silva.nr_v132.pcr.unique%align : $(REFS)/silva.nr_v132.align\
 #	cp ~/references/data/references/silva.nr_v132.pcr.align $(REFS)/
 #	cp ~/references/data/references/silva.nr_v132.pcr.unique.align $(REFS)/
 #	cp ~/references/data/references/silva.nr_v132.tax $(REFS)/
+#
+########################################################################################
 
 #########################################################################################
 #
