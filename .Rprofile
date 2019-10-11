@@ -2,8 +2,11 @@
 ## Options for knitr and Rmarkdown rendering
 ############################################################
 
+library("stats")
 library("knitr")
 library("rmarkdown")
+library("tinytex")
+library("tidyverse")
 
 ## output directory for figures
 if (require("knitr")) {
