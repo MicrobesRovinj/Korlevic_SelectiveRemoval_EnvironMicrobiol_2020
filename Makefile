@@ -262,8 +262,9 @@ $(FINAL)manuscript.pdf : data/summary.txt\
                          $(FIGS)calculators.jpg\
                          $(FIGS)pcoa_figure.jpg\
                          $(FINAL)manuscript.Rmd\
-                         $(FINAL)mbio.csl\
-                         $(FINAL)references.bib
+                         $(FINAL)header.tex\
+                         $(FINAL)references.bib\
+                         $(FINAL)citation_style.csl
 	R -e 'render("$(FINAL)manuscript.Rmd", clean=FALSE)'
 	mv $(FINAL)manuscript.knit.md submission/manuscript.md
 	rm $(FINAL)manuscript.utf8.md
