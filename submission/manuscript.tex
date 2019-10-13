@@ -94,6 +94,16 @@
 
 \usepackage{pdfpages}
 
+\usepackage{indentfirst}
+
+\usepackage[labelsep=period, labelfont=bf]{caption}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\captionsetup{justification=raggedright,singlelinecheck=false}
+
+\usepackage{pdflscape}
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+
 \begin{document}
 \maketitle
 
