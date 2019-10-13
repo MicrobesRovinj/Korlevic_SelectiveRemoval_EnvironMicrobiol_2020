@@ -13,8 +13,6 @@ geometry: margin=1.0in
 
 
 
-
-
 \vspace{35mm}
 
 Running title: Selective extraction of DNA and proteins from epiphytic macrophyte mircobial communities
