@@ -266,7 +266,7 @@ $(FINAL)manuscript.pdf : data/summary.txt\
                          $(FINAL)references.bib\
                          $(FINAL)citation_style.csl
 	R -e 'render("$(FINAL)manuscript.Rmd", clean=FALSE)'
-	mv $(FINAL)manuscript.knit.md submission/manuscript.md
+	mv $(FINAL)manuscript.knit.md $(FINAL)manuscript.md
 	rm $(FINAL)manuscript.utf8.md
 
 # write.paper : results/figures/nmds_figure.png\
