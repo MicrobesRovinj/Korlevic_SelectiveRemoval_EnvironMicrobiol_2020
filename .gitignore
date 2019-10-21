@@ -23,6 +23,8 @@ data/summary.txt
 # Dependencies for plot_pcoa.R
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.loadings
+# Dependencies for chloroplast sequences selection
+!data/mothur/chloroplast.count_table
 
 *.qsub*
 mothur*logfile
