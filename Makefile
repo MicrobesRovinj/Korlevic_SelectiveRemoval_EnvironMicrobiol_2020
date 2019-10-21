@@ -129,16 +129,28 @@ $(BASIC_STEM).denovo.vsearch.pick%count_table\
 $(BASIC_STEM).pick.pick%fasta\
 $(BASIC_STEM).denovo.vsearch.pick.pick%count_table\
 $(BASIC_STEM).pick.nr_v132.wang.pick%taxonomy\
-$(BASIC_STEM).pick.nr_v132.wang.tax%summary : code/get_good_seqs.batch\
-                                              $(RAW)raw.files\
-                                              $(RAW)primer.oligos\
-                                              $(RAW)*.fastq\
-                                              $(REFS)silva.nr_v132.pcr.align\
-                                              $(REFS)silva.nr_v132.pcr.unique.align\
-                                              $(REFS)silva.nr_v132.tax\
-                                              $(MOTHUR)
+$(BASIC_STEM).pick.nr_v132.wang.tax%summary\
+$(MOTH)chloroplast%fasta\
+$(MOTH)chloroplast%count_table\
+$(MOTH)chloroplast%taxonomy : code/get_good_seqs.batch\
+                              $(RAW)raw.files\
+                              $(RAW)primer.oligos\
+                              $(RAW)*.fastq\
+                              $(REFS)silva.nr_v132.pcr.align\
+                              $(REFS)silva.nr_v132.pcr.unique.align\
+                              $(REFS)silva.nr_v132.tax\
+                              $(MOTHUR)
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
+
+# Generate a fasta file for every sample that contains sequences classified as Chloroplast for
+# import into ARB.
+$(MOTH)chloroplast.merged.*%fasta\
+$(MOTH)chloroplast.*%count_table : $(MOTH)chloroplast.count_table\
+                                   $(MOTH)chloroplast.taxonomy\
+                                   code/get_chloroplast.batch\
+                                   $(MOTHUR)
+	$(MOTHUR) code/get_chloroplast.batch
 
 # Create a summary.txt file to check that all went alright throughout the code/get_good_seqs.batch
 data/summary.txt : $(REFS)silva.nr_v132.pcr.align\
@@ -223,9 +235,9 @@ $(FIGS)rarefaction.jpg : code/plot_rarefaction.R\
 
 # Determine community richness and diversity calculators   
 $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
-                                                               code/get_summary_data.batch\
+                                                               code/get_calculators.batch\
                                                                $(MOTHUR)
-	$(MOTHUR) code/get_summary_data.batch
+	$(MOTHUR) code/get_calculators.batch
 
 # Plot richness and diversity calculators
 $(FIGS)calculators.jpg : code/plot_calculators.R\
@@ -256,6 +268,7 @@ $(FIGS)pcoa_figure.jpg : code/plot_pcoa.R\
 #########################################################################################
 
 $(FINAL)manuscript.pdf : data/summary.txt\
+                         $(MOTH)chloroplast.merged.*%fasta\
                          $(BASIC_STEM).pick.pick.pick.error.summary\
                          $(FIGS)community_barplot_domain.jpg\
                          $(FIGS)rarefaction.jpg\

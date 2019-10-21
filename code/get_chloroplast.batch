@@ -1,0 +1,4 @@
+merge.files(fasta=data/mothur/chloroplast.fasta, count=data/mothur/chloroplast.count_table, taxonomy=data/mothur/chloroplast.taxonomy)
+
+split.groups(fasta=data/mothur/chloroplast.merged.fasta, count=data/mothur/chloroplast.count_table)
+
