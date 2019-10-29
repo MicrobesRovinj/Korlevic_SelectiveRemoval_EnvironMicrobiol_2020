@@ -1,4 +1,5 @@
 MOTHUR = code/mothur/mothur
+SINA = code/sina/sina
 RAW = data/raw/
 MOTH = data/mothur/
 REFS = data/references/
@@ -8,13 +9,27 @@ TABLES = results/tables/
 PROC = data/process/
 FINAL = submission/
 
-# Obtained the Linux version of mothur (v.1.42.3) from the mothur GitHub repository
+# Obtain the Linux version of mothur (v.1.42.3) from the mothur GitHub repository
 $(MOTHUR) :
 	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v.1.42.3/Mothur.linux_64.zip
 	unzip Mothur.linux_64.zip
 	mv mothur code/
 	rm Mothur.linux_64.zip
 	rm -rf __MACOSX
+
+# Obtain the Linux version of SINA (v1.6.0) from the SINA GitHub repository
+$(SINA) :
+	wget --no-check-certificate https://github.com/epruesse/SINA/releases/download/v1.6.0/sina-1.6.0-linux.tar.gz
+	tar xvf sina-1.6.0-linux.tar.gz
+	mv sina-1.6.0-linux sina
+	mv sina code/
+	rm sina-1.6.0-linux.tar.gz
+
+# Obtain the SILVA_132_SSURef_NR99_13_12_17_opt.arb file from https://www.arb-silva.de/download/arb-files/
+$(REFS)SILVA_132_SSURef_NR99_13_12_17_opt.arb :
+	wget --no-check-certificate https://www.arb-silva.de/fileadmin/arb_web_db/release_132/ARB_files/SILVA_132_SSURef_NR99_13_12_17_opt.arb.gz
+	gunzip SILVA_132_SSURef_NR99_13_12_17_opt.arb.gz
+	mv SILVA_132_SSURef_NR99_13_12_17_opt.arb $(REFS)
 
 #########################################################################################
 #
@@ -145,10 +160,12 @@ $(MOTH)chloroplast%taxonomy : code/get_good_seqs.batch\
 
 # Generate a fasta file for every sample that contains sequences classified as Chloroplast for
 # import into ARB.
-$(MOTH)chloroplast.merged.*%fasta\
+$(MOTH)chloroplast.ng.sina.merged.*%fasta\
 $(MOTH)chloroplast.*%count_table : $(MOTH)chloroplast.count_table\
                                    $(MOTH)chloroplast.taxonomy\
                                    code/get_chloroplast.batch\
+                                   $(SINA)\
+                                   $(REFS)SILVA_132_SSURef_NR99_13_12_17_opt.arb\
                                    $(MOTHUR)
 	$(MOTHUR) code/get_chloroplast.batch
 
@@ -268,7 +285,7 @@ $(FIGS)pcoa_figure.jpg : code/plot_pcoa.R\
 #########################################################################################
 
 $(FINAL)manuscript.pdf : data/summary.txt\
-                         $(MOTH)chloroplast.merged.*%fasta\
+                         $(MOTH)chloroplast.ng.sina.merged.*%fasta\
                          $(BASIC_STEM).pick.pick.pick.error.summary\
                          $(FIGS)community_barplot_domain.jpg\
                          $(FIGS)rarefaction.jpg\
@@ -300,8 +317,9 @@ all : data/summary.txt\
 .PHONY: clean
 clean :
 	rm -f my_job.qsub.* || true
-	rm -f $(REFS)tax* || true
-	rm -f $(REFS)silva* || true
+#	rm -f $(REFS)tax* || true
+#	rm -f $(REFS)silva* || true
+#	rm -f $(REFS)SILVA_132_SSURef_NR99_13_12_17_opt.* || true
 	rm -f $(MOTH)* || true
 	rm -f data/summary.txt || true
 	rm -f $(RAW)*.fastq || true

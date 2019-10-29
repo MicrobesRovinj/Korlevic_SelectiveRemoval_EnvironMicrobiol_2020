@@ -6,6 +6,7 @@ Rplots.pdf
 .DS_Store
 
 code/mothur/*
+code/sina/*
 data/*/*
 data/summary.txt
 !data/process/*
