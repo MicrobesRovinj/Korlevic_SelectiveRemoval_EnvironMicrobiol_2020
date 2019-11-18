@@ -9,12 +9,12 @@ TABLES = results/tables/
 PROC = data/process/
 FINAL = submission/
 
-# Obtain the Linux version of mothur (v.1.42.3) from the mothur GitHub repository
+# Obtain the Linux version of mothur (v.1.43.0) from the mothur GitHub repository
 $(MOTHUR) :
-	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v.1.42.3/Mothur.linux_64.zip
-	unzip Mothur.linux_64.zip
+	wget --no-check-certificate https://github.com/mothur/mothur/releases/download/v.1.43.0/Mothur.linux.zip
+	unzip Mothur.linux.zip
 	mv mothur code/
-	rm Mothur.linux_64.zip
+	rm Mothur.linux.zip
 	rm -rf __MACOSX
 
 # Obtain the Linux version of SINA (v1.6.0) from the SINA GitHub repository
@@ -67,8 +67,6 @@ $(REFS)silva.nr_v132.align : $(MOTHUR)\
 	            screen.seqs(fasta=$(REFS)silva.full_v132.fasta, start=11894, end=25319, maxambig=5, processors=16)"
 	# Generate alignment file
 	mv $(REFS)silva.full_v132.good.fasta $(REFS)silva.nr_v132.align
-	# Replacing double tab with one tab (https://github.com/mothur/mothur/issues/627)
-	sed -i 's/\t\t/\t/' $(REFS)silva.nr_v132.align
 
 # Generate taxonomy file
 $(REFS)silva.nr_v132.full : $(REFS)silva.nr_v132.align\
@@ -90,25 +88,6 @@ $(REFS)silva.nr_v132.pcr.unique%align : $(REFS)silva.nr_v132.align\
 	$(MOTHUR) "#set.dir(input=$(REFS), output=$(REFS));\
 	            pcr.seqs(fasta=$(REFS)silva.nr_v132.align, start=11894, end=25319, keepdots=F, processors=16);\
 	            unique.seqs()"
-	# Replacing double tab with one tab (https://github.com/mothur/mothur/issues/627)
-	sed -i 's/\t\t/\t/' $(REFS)silva.nr_v132.pcr.align
-	sed -i 's/\t\t/\t/' $(REFS)silva.nr_v132.pcr.unique.align
-
-#########################################################################################
-#
-# Code to copy already created reference files from ~/references/ to shorten the
-# analysis
-#
-#$(REFS)silva.nr_v132.pcr%align\
-#$(REFS)silva.nr_v132.pcr.unique%align\
-#$(REFS)silva.nr_v132%tax : ~/references/data/references/silva.nr_v132.pcr.align\
-#                           ~/references/data/references/silva.nr_v132.pcr.unique.align\
-#                           ~/references/data/references/silva.nr_v132.tax
-#	cp ~/references/data/references/silva.nr_v132.pcr.align $(REFS)
-#	cp ~/references/data/references/silva.nr_v132.pcr.unique.align $(REFS)
-#	cp ~/references/data/references/silva.nr_v132.tax $(REFS)
-#
-########################################################################################
 
 #########################################################################################
 #
@@ -160,14 +139,15 @@ $(MOTH)chloroplast%taxonomy : code/get_good_seqs.batch\
 
 # Generate a fasta file for every sample that contains sequences classified as Chloroplast for
 # import into ARB.
-$(MOTH)chloroplast.ng.sina.merged.*%fasta\
-$(MOTH)chloroplast.*%count_table : $(MOTH)chloroplast.count_table\
-                                   $(MOTH)chloroplast.taxonomy\
-                                   code/get_chloroplast.batch\
-                                   $(SINA)\
-                                   $(REFS)SILVA_132_SSURef_NR99_13_12_17_opt.arb\
-                                   $(MOTHUR)
+$(MOTH)chloroplast.pick.ng.sina.merged.fasta : $(MOTH)chloroplast.count_table\
+                                               $(MOTH)chloroplast.taxonomy\
+                                               code/get_chloroplast.batch\
+                                               code/get_chloroplast.bash\
+                                               $(SINA)\
+                                               $(REFS)SILVA_132_SSURef_NR99_13_12_17_opt.arb\
+                                               $(MOTHUR)
 	$(MOTHUR) code/get_chloroplast.batch
+	bash code/get_chloroplast.bash
 
 # Create a summary.txt file to check that all went alright throughout the code/get_good_seqs.batch
 data/summary.txt : $(REFS)silva.nr_v132.pcr.align\
@@ -285,7 +265,7 @@ $(FIGS)pcoa_figure.jpg : code/plot_pcoa.R\
 #########################################################################################
 
 $(FINAL)manuscript.pdf : data/summary.txt\
-                         $(MOTH)chloroplast.ng.sina.merged.*%fasta\
+                         $(MOTH)chloroplast.pick.ng.sina.merged.fasta\
                          $(BASIC_STEM).pick.pick.pick.error.summary\
                          $(FIGS)community_barplot_domain.jpg\
                          $(FIGS)rarefaction.jpg\
@@ -317,9 +297,9 @@ all : data/summary.txt\
 .PHONY: clean
 clean :
 	rm -f my_job.qsub.* || true
-#	rm -f $(REFS)tax* || true
-#	rm -f $(REFS)silva* || true
-#	rm -f $(REFS)SILVA_132_SSURef_NR99_13_12_17_opt.* || true
+	rm -f $(REFS)tax* || true
+	rm -f $(REFS)silva* || true
+	rm -f $(REFS)SILVA_132_SSURef_NR99_13_12_17_opt.* || true
 	rm -f $(MOTH)* || true
 	rm -f data/summary.txt || true
 	rm -f $(RAW)*.fastq || true

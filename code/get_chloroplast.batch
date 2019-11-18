@@ -1,8 +1,3 @@
-degap.seqs(fasta=data/mothur/chloroplast.fasta)
+remove.groups(fasta=data/mothur/chloroplast.fasta, count=data/mothur/chloroplast.count_table, taxonomy=data/mothur/chloroplast.taxonomy, groups=ATCC_1)
 
-system(code/sina/sina --fasta-write-dots -i data/mothur/chloroplast.ng.fasta -r data/references/SILVA_132_SSURef_NR99_13_12_17_opt.arb -o data/mothur/chloroplast.ng.sina.fasta)
-
-merge.files(fasta=data/mothur/chloroplast.ng.sina.fasta, count=data/mothur/chloroplast.count_table, taxonomy=data/mothur/chloroplast.taxonomy)
-
-split.groups(fasta=data/mothur/chloroplast.ng.sina.merged.fasta, count=data/mothur/chloroplast.count_table)
-
+degap.seqs(fasta=data/mothur/chloroplast.pick.fasta)
