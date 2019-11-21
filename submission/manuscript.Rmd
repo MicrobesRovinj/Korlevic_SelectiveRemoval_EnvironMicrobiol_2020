@@ -1,5 +1,5 @@
 ---
-title: "**Selective DNA and Protein Extraction from Marine Macrophyte Surfaces**"
+title: "**Selective DNA and Protein Isolation from Marine Macrophyte Surfaces**"
 output:
   pdf_document:
     keep_tex: true
@@ -55,16 +55,27 @@ $\dagger$ To whom correspondence should be addressed: marino.korlevic@irb.hr
 \setlength\parindent{24pt}
 
 ## Abstract
-jhfajklsgčklajsdbvlafgčladfhg
 
-lčkhfglashgčlashgčlak
 
 \newpage
-
 ## Introduction
+Surfaces of marine macrophytes are inhabited by a diverse microbial community whose structure and function are poorly understood [@Egan2013]. As less than 1 % of all prokaryotic species are culturable, to study these organisms, molecular methods such as 16S rRNA sequencing, metagenomics and metaproteomics are indispensable [@Amann1995; @Su2012]. Applying these techniques requires an inital isolation step, with the purpose of obataining high quality DNA and proteins.
 
+Biological material (i.e. proteins and DNA) from pelagic microbial communities is usually isolated by collecting cells onto filters and subsequently isolating the aimed compound [@Gilbert2009]. If a microbial size fraction is aimed sequential filtration is applied [@Massana1997; @Andersson2010]. In contrast, obtaining biological materials from microorganism inhabiting surfaces requires either a cell detachment procedure prior to isolation or the host material is coextracted together with the targeted material. Methods for separating microbial cells form the host include shaking of host tissue [@Gross2003; @Noges2010], scraping of macrophyte surfaces [@Uku2007] or the application of ultrasonication [@Weidner1996; @Cai2014]. It was shown that shaking alone is not sufficient to remove microbial cells, at least from plant root surfaces [@Richter-Heitmann2016]. Manual separation methods, such as scraping and brushing, are time consuming and subjective, as the detachment efficency depends on host tissue and the person performing the procedure [@Cai2014]. Ultrasonication was proposed as an alternative method as it is providing better results in terms of detachemnt efficency [@Cai2014; @Richter-Heitmann2016]. The downside of this procedure is that complete cell removal was still not obtained and tissue disruption was observed especially after the application of probe ultrasonication [@Richter-Heitmann2016]. An alterantive to these cell detachment procedures is the isolation of targeted epiphytic compounds togehter with host materials [@Staufenberger2008; @Jiang2015]. This procedure can lead to problems in the following processing steps such as mitochondrial and chloroplast 16S rRNA sequence contaminations from the host [@Longford2007; @Staufenberger2008]. In additon, when performing metagenomics and metaproteomics host material can cause biased results towards more abundand host DNA and proteins.
 
-##Materials and Methods
+An alterantive to these procedures is a direct isolation of the targeted material by incubating macrophyte tissues in an extraction buffer. After the incubation is done the undistrupted host tissue is removed and the isolation procedure continues ommiting host material contaminations. To our knowledge the only procedure describing a direct and selective epiphytic DNA isolation from the surfaces of marine macrophytes was provided by @Burke2009. In contrast to previously described methods this protocol enables an almost complete removal of the surface community and was used for 16S rRNA gene clone libraries construction [@Burke2011b] and metagenomes sequencing [@Burke2011a]. This method, thought providing a selctive isolation procedure, is using in the extraction buffer a rapid multienzyme cleaner (3M) that is not worldwide availabe and whose composition is not know [@Burke2009]. Also to our knowledge, no selective isolation protocol for proteins from epihytic communities inhabiting marine macrophytes was established.
+
+In the present study, we adapted a protocol widely used for DNA isolation from filters [@Massana1997] and a protocol used for protein isolation from sediments [@Chourey2010] for selective extractions of DNA and proteins from epiphytic communities inhabiting the surfaces of two marine macrophytes: the seagrass *Cymodocea nodosa* and the alga *Caulerpa cylindracea*. In addition, we tested the removal efficiency of the protocol and the suitability of obtained DNA and proteins for 16S rRNA sequencing and metaproteomics.
+
+\newpage
+## Materials and Methods
+### Sampling
+Leaves of *Cymodocea nodosa* were sampled in a *Cymodocea nodosa* meadow in the Bay of Saline (45°7´5˝N; 13°37´20˝E) and in a *Cymodocea nodosa* meadow invaded by *Caulerpa cylindracea* in the proximity of the village of Funtana (45°10´39˝N 13°35´42˝E). Thalli of *Caulerpa cylindracea* were sampled in the same *Cymodocea nodosa* invaded meadow in Funtana and on a locality of only *Caulerpa cylindracea* located close to the invaded meadow. Seagrasses and algae were collected the same day in two contrasting seasons, on 4 December 2017 and 18 June 2018. During spring 2018 the *Cymodocea nodosa* meadow in the Bay of Saline decayed to the extent that no leves could be retrieved (Najdek *et al.*, unpublished data). Leaves and thalli were collected by diving and transported to the laboratory in containers placed on ice and filled with site seawater. Upon arrival to the laboratory, *Cymodocea nodosa* leaves were cut into sections of 1 – 2 cm, while *Caulerpa cylindracea* thalli were cut into 5 – 8 cm long sections. Leaves and thalli were washed three times with sterile artificial seawater (ASW) to remove loosely attached microbial cells.
+
+### DNA isolation
+The DNA was isolated according to the protocol for isolation from filters described in @Massana1997. This protocol was modified and adapted for DNA isolation from microbial communites from macrophytes surfaces as described below. 1 g wet weight of leaves and 2 g wet-weight of thalli were placed into 5 ml of lysis buffer (40 mM EDTA, 50 mM Tris-HCl, 0.75 M sucrose; pH 8.3). Lysozyme was added (final concentration 1 mg ml^-1^) and the mixture was incubated at 37 °C for 30 minutes. Subsequently, proteinase K (final concentration 0.5 mg ml^-1^) and SDS (finl concentration 1 %) were added and the samples were incubated at 55 °C for 2 hours. Following the incubation, tubes were vortexed for 10 minutes and the mixture containign lyzed cells was separated from host leaves or thalli by transferrring the solution into a clean tube. The lysate was extracted twice with a mixture of phenol:chloroform:isoamyl alcohol (25:24:1; pH 8) and once with chloroform-isoamyl alcohol (24:1). After each organic solvent mixture addition tubes were slightly vortexed and centrifugated at 4,500 x g for 10 minutes. Following each centrifugation aqueous phases were retrieved. After the final extraction 1/10 of 3 M sodium acetate (ph 5.2) was added. DNA was precipitated by adding 1 volumne of isopropanol and by incubating the mixtures at -20 °C overnight.
+
+### Protein isolation
 
 ## Results and Discussion
 
