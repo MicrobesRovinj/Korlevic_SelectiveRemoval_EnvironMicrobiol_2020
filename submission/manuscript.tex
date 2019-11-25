@@ -300,7 +300,39 @@ four parallel PCR reactions without DNA template, while for a postive
 control a mock community composed of evenly mixed DNA material
 originating from 20 bacterial strains (ATCC MSA-1002, ATCC, USA) was
 used. The sequences obtained in this study have been submitted to the
-European Nucleotide Archive (ENA) under accession numbers ??????????.
+European Nucleotide Archive (ENA) under accession numbers ?????.
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   query = col_character(),
+##   reference = col_character()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   taxlevel = col_double(),
+##   rankID = col_character(),
+##   taxon = col_character(),
+##   daughterlevels = col_double(),
+##   total = col_double(),
+##   `40` = col_double(),
+##   `41` = col_double(),
+##   `42` = col_double(),
+##   `43` = col_double(),
+##   `61` = col_double(),
+##   `62` = col_double(),
+##   `63` = col_double(),
+##   ATCC_1 = col_double()
+## )
+\end{verbatim}
 
 Obtained sequences were analyzed on the computer cluster Isabella
 (University Computing Center, University of Zagreb) using mothur
@@ -326,7 +358,13 @@ topology. Pipeline data processing and visualizaion was done using R
 (Wickham \emph{et al.}, 2019) and multiple other packages (Xie, 2014,
 2015, 2019a, 2019b; Xie \emph{et al.}, 2018; Zhu, 2019; Allaire \emph{et
 al.}, 2019). The detailed analysis procedure including the R Markdown
-file for this paper are available as a GitHub repository (??????).
+file for this paper are available as a GitHub repository (?????). Based
+on the ATCC MSA-1002 mock community included in the analysis a
+sequencing error of 0.009 \si{\percent} was detemined that is in line
+with previously reported values for next-generation sequencing data
+(Kozich \emph{et al.}, 2013; Schloss \emph{et al.}, 2016). In addition,
+the negative control processed together with the samples yielded only
+44,056 sequences.
 
 \subsubsection{Protein Isolation and
 Metaproteomics}\label{protein-isolation-and-metaproteomics}
@@ -509,6 +547,11 @@ Richter-Heitmann, T., Eickhorst, T., Knauth, S., Friedrich, M.W., and
 Schmidt, H. (2016) Evaluation of Strategies to Separate Root-Associated
 Microbial Communities: A Crucial Choice in Rhizobiome Research.
 \emph{Frontiers in Microbiology} \textbf{7}: 773.
+
+\hypertarget{ref-Schloss2016}{}
+Schloss, P.D., Girard, R.A., Martin, T., Edwards, J., and Thrash, J.C.
+(2016) Status of the Archaeal and Bacterial Census: an Update.
+\emph{mBio} \textbf{7}: e00201--16.
 
 \hypertarget{ref-Schloss2009}{}
 Schloss, P.D., Westcott, S.L., Ryabin, T., Hall, J.R., Hartmann, M.,
