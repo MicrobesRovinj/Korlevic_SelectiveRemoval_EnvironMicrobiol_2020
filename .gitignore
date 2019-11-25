@@ -25,7 +25,7 @@ data/summary.txt
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.loadings
 #Dependencies for submission/manuscript.Rmd
-data/mothur/data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.error.summary
+!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.error.summary
 
 *.qsub*
 mothur*logfile
