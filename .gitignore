@@ -15,15 +15,17 @@ data/summary.txt
 !data/raw/metadata.csv
 !data/raw/group_colors.csv
 
-# Dependencies for plot_community_barplot_taxlevel.R
+# Dependencies for code/plot_community_barplot_taxlevel.R
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
-# Dependencies for plot_rarefaction.R
+# Dependencies for code/plot_rarefaction.R
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.groups.rarefaction
-# Dependencies for plot_calculators.R
+# Dependencies for code/plot_calculators.R
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.groups.ave-std.summary
-# Dependencies for plot_pcoa.R
+# Dependencies for code/plot_pcoa.R
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.loadings
+#Dependencies for submission/manuscript.Rmd
+data/mothur/data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.error.summary
 
 *.qsub*
 mothur*logfile
