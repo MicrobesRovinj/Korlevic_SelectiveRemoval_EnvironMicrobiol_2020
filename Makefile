@@ -208,15 +208,10 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 #########################################################################################
 
 # Generate a community composition barplot
-$(FIGS)community_barplot_domain.jpg\
-$(FIGS)community_barplot_phylum.jpg\
-$(FIGS)community_barplot_class.jpg\
-$(FIGS)community_barplot_order.jpg\
-$(FIGS)community_barplot_family.jpg\
-$(FIGS)community_barplot_genus.jpg : code/plot_community_barplot_taxlevel.R\
-                                     $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
-                                     $(RAW)group_colors.csv
-	R -e "source('code/plot_community_barplot_taxlevel.R')"
+$(FIGS)community_barplot.jpg : code/plot_community_barplot_taxlevel.R\
+                               $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
+                               $(RAW)group_colors.csv
+	R -e "source('code/plot_community_barplot.R')"
 
 # Generate rarefaction data
 $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
