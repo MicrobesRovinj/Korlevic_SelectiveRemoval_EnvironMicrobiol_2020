@@ -119,6 +119,6 @@ Host leaves and thalli from DNA and protein isolation steps were washed seven ti
 
 ## Figures
 
-```{r out.width="100%", fig.align="center", fig.cap="Bacteril Community\\label{community}", fig.pos="h"}
+```{r out.width="100%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant bacterial sequences on the surfaces of two marine macrophytes (\\textit{Cymodocea nodosa} and \\textit{Caulerpa cylindracea}) from two locations (Saline and Funtana) and in two contrasting seasons (4 December 2017 and 19 June 2018).\\label{community}", fig.pos="h"}
 include_graphics("../results/figures/community_barplot.jpg")
 ```

@@ -24,18 +24,21 @@ metadata <- read_tsv("data/raw/metadata.csv") %>%
   deframe()
 
 # Selection of groups for plotting
-plot <- filter(community, taxlevel==2 | str_detect(taxon, "Chloroplast$") | str_detect(taxon, "proteobacteria$")) %>%
+plot <- filter(community, taxlevel==2 |
+                 (taxlevel==4 & str_detect(taxon, "^Chloroplast$")) |
+                 (taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))[[2]]))) %>%
   filter_at(6:ncol(.), any_vars(. >= 1)) %>%
   mutate_at(5:ncol(.), funs(case_when(taxon=="Cyanobacteria" ~ . - .[taxon=="Chloroplast"], TRUE ~ .))) %>%
-  filter(!str_detect(taxon, "^Proteobacteria$")) %>%
+  mutate_at(5:ncol(.), funs(case_when(taxon=="Proteobacteria" ~ . - sum(.[taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))[[2]])]), TRUE ~ .))) %>%
+  mutate(taxon=str_replace(taxon, "Proteobacteria", "Other Proteobacteria")) %>%
   mutate(taxon=str_replace_all(taxon, c("unknown_unclassified"="No Relative", "unknown"="No Relative"))) %>%
   filter_at(6:ncol(.), any_vars(. >= 1)) %>%
   bind_rows(summarise_all(., funs(ifelse(is.numeric(.), 100-sum(.), paste("Other"))))) %>%
   rename_at(names(metadata), ~unname(metadata)) %>%
-  arrange(-row_number())
+  arrange(taxon %in% "No Relative")
 
 # Loading colors for each group on the plot
-color <- read_tsv("data/raw/group_colors.csv") %>%
+color <- read_tsv("data/raw/group_colors.csv", col_types=list(Taxlevel=col_skip())) %>%
   deframe()
 
 # Generation of italic names for groups
@@ -49,8 +52,8 @@ gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
   mutate(taxon=factor(taxon, levels=unique(plot$taxon))) %>%
   mutate(sample=factor(sample, levels=metadata)) %>%
   ggplot() +
-  geom_bar(aes(x=sample, y=abundance, fill=fct_rev(taxon)), stat="identity", colour="black", size=0.2) +
-  scale_fill_manual(values=color, labels=rev(names), guide=guide_legend(reverse=F, ncol=1)) + 
+  geom_bar(aes(x=sample, y=abundance, fill=taxon), stat="identity", colour="black", size=0.3) +
+  scale_fill_manual(values=color, labels=names) + 
   labs(x=NULL, y="%") +
   scale_y_continuous(expand=c(0, 0), breaks=seq(0, 100, by=10)) +
   theme(text=element_text(family="Times"), line=element_line(color="black"),
@@ -58,27 +61,33 @@ gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
         axis.ticks.x=element_blank(), axis.ticks.y.left=element_line(),
         axis.text.y=element_text(size=14, color="black"), axis.text.x=element_text(size=14, color="black", face="italic"),
         axis.title.y=element_text(size=18, color="black"), panel.background=element_blank(),
-        legend.title=element_blank(), legend.text=element_text(size=12),
-        legend.spacing.x=unit(0.2, "cm"), legend.key.size=unit(0.75, "cm"),
-        legend.justification=c("bottom"), legend.text.align=0,
-        legend.position=c(1.1, -0.011), plot.margin = unit(c(5.5, 154, 60.5, 5.5), "pt")) +
+        legend.title=element_blank(), legend.text=element_text(size=14),
+        legend.spacing.x=unit(0.2, "cm"), legend.justification=c("bottom"),
+        legend.box.margin=margin(0,0, 0,-20), legend.text.align=0,
+        legend.key.size=unit(0.9, "cm"), plot.margin = unit(c(5.5, 5.5, 82.5, 5.5), "pt")) +
   scale_x_discrete(labels=str_wrap(c("Cymodocea nodosa",
                                      "Cymodocea nodosa",
                                      "Caulerpa cylindracea",
                                      "Caulerpa cylindracea",
                                      "Cymodocea nodosa",
                                      "Caulerpa cylindracea",
-                                     "Caulerpa cylindracea"), width = 10)) +
-  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=0.55, xmax=1.45, ymin=-8, ymax=-8) +
-  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=1.55, xmax=7.45, ymin=-8, ymax=-8) +
-  annotation_custom(textGrob("Saline", gp=gpar(fontsize=14, fontface="bold")), xmin=0.55, xmax=1.45, ymin=-10, ymax=-10) +
-  annotation_custom(textGrob("Funtana", gp=gpar(fontsize=14, fontface="bold")), xmin=1.55, xmax=7.45, ymin=-10, ymax=-10) +
-  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=0.55, xmax=4.45, ymin=-14, ymax=-14) +
-  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=4.55, xmax=7.45, ymin=-14, ymax=-14) +
-  annotation_custom(textGrob("4 December 2017", gp=gpar(fontsize=14, fontface="bold")), xmin=0.55, xmax=4.45, ymin=-16, ymax=-16) +
-  annotation_custom(textGrob("19 June 2018", gp=gpar(fontsize=14, fontface="bold")), xmin=4.55, xmax=7.45, ymin=-16, ymax=-16) +
+                                     "Caulerpa cylindracea"), width=10)) +
+  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=0.55, xmax=1.45, ymin=-9, ymax=-9) +
+  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=1.55, xmax=3.45, ymin=-9, ymax=-9) +
+  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=3.55, xmax=4.45, ymin=-9, ymax=-9) +
+  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=4.55, xmax=6.45, ymin=-9, ymax=-9) +
+  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=6.55, xmax=7.45, ymin=-9, ymax=-9) +
+  annotation_custom(textGrob(str_wrap("Saline", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=0.55, xmax=1.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Funtana-Invaded", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=1.55, xmax=3.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Funtana-Noninvaded", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=3.55, xmax=4.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Funtana-Invaded", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=4.55, xmax=6.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Funtana-Noninvaded", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=6.55, xmax=7.45, ymin=-13, ymax=-13) +
+  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=0.55, xmax=4.45, ymin=-19, ymax=-19) +
+  annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=4.55, xmax=7.45, ymin=-19, ymax=-19) +
+  annotation_custom(textGrob("4 December 2017", gp=gpar(fontsize=14, fontface="bold")), xmin=0.55, xmax=4.45, ymin=-21, ymax=-21) +
+  annotation_custom(textGrob("19 June 2018", gp=gpar(fontsize=14, fontface="bold")), xmin=4.55, xmax=7.45, ymin=-21, ymax=-21) +
   coord_cartesian(clip="off")
+ 
 
 # Plot saving
 ggsave("results/figures/community_barplot.jpg", width=297, height=210, units="mm")
-
