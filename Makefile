@@ -233,9 +233,9 @@ $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary : $(BASIC_STEM).pic
 	$(MOTHUR) code/get_calculators.batch
 
 # Plot richness and diversity calculators
-$(FIGS)calculators.jpg : code/plot_calculators.R\
-                          $(RAW)metadata.csv\
-                          $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary
+#$(FIGS)calculators.jpg : code/plot_calculators.R\
+#                          $(RAW)metadata.csv\
+#                          $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.ave-std.summary
 #	R -e "source('code/plot_calculators.R')"
 
 # Generate data to plot PCoA ordination
@@ -265,7 +265,7 @@ $(FINAL)manuscript.pdf : data/summary.txt\
                          $(BASIC_STEM).pick.pick.pick.error.summary\
                          $(FIGS)community_bar_plot.jpg\
                          $(FIGS)rarefaction.jpg\
-                         $(FIGS)calculators.jpg\
+#                         $(FIGS)calculators.jpg\
                          $(FIGS)pcoa_figure.jpg\
                          $(FINAL)manuscript.Rmd\
                          $(FINAL)header.tex\
