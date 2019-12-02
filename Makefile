@@ -209,9 +209,9 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 
 # Generate a community composition bar plot
 $(FIGS)community_bar_plot.jpg : code/plot_community_bar_plot.R\
-                               $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
-                               $(RAW)metadata.csv\
-                               $(RAW)group_colors.csv
+                                $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
+                                $(RAW)metadata.csv\
+                                $(RAW)group_colors.csv
 	R -e "source('code/plot_community_bar_plot.R')"
 
 # Generate rarefaction data
