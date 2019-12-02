@@ -262,7 +262,7 @@ $(FIGS)pcoa_figure.jpg : code/plot_pcoa.R\
 $(FINAL)manuscript.pdf : data/summary.txt\
                          $(MOTH)chloroplast.pick.ng.sina.merged.fasta\
                          $(BASIC_STEM).pick.pick.pick.error.summary\
-                         $(FIGS)community_barplot_domain.jpg\
+                         $(FIGS)community_barplot.jpg\
                          $(FIGS)rarefaction.jpg\
                          $(FIGS)calculators.jpg\
                          $(FIGS)pcoa_figure.jpg\

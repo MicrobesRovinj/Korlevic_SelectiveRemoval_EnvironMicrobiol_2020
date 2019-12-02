@@ -1,5 +1,5 @@
 ############################################################
-## Options for knitr and Rmarkdown rendering
+# Options for knitr and Rmarkdown rendering
 ############################################################
 
 library("stats")
@@ -17,25 +17,20 @@ if (require("knitr")) {
 }
 
 ############################################################
-## the following is credit to Jenny Bryan, for details see here:
-## https://gist.github.com/jennybc/362f52446fe1ebc4c49f
-RPROJ <- list(PROJHOME = normalizePath(getwd()))
-attach(RPROJ)
-
-cat('Project home directory is available as PROJHOME or via get("PROJHOME","RPROJ")\n')
-
-rm(RPROJ)
+# Permanently setting the CRAN repository
+# Credit: https://www.r-bloggers.com/permanently-setting-the-cran-repository/
 ############################################################
 
 local({
   r <- getOption("repos")
-  r["CRAN"] <- "http://cran.cnr.berkeley.edu/"
+  r["CRAN"] <- "https://cran.wu.ac.at/"
   options(repos = r)
 })
 
 ############################################################
 # New key drawing function for legend (ggplot2 issue; https://github.com/tidyverse/ggplot2/issues/2844)
 ############################################################
+
 # Function that draws key without gap
 draw_key_polygon2 <- function(data, params, size) {
   lwd <- min(data$size, min(size) / 4)
