@@ -207,11 +207,12 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 #
 #########################################################################################
 
-# Generate a community composition barplot
-$(FIGS)community_barplot.jpg : code/plot_community_barplot_taxlevel.R\
+# Generate a community composition bar plot
+$(FIGS)community_bar_plot.jpg : code/plot_community_bar_plot.R\
                                $(BASIC_STEM).pick.nr_v132.wang.tax.summary\
+                               $(RAW)metadata.csv\
                                $(RAW)group_colors.csv
-	R -e "source('code/plot_community_barplot.R')"
+	R -e "source('code/plot_community_bar_plot.R')"
 
 # Generate rarefaction data
 $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
@@ -262,7 +263,7 @@ $(FIGS)pcoa_figure.jpg : code/plot_pcoa.R\
 $(FINAL)manuscript.pdf : data/summary.txt\
                          $(MOTH)chloroplast.pick.ng.sina.merged.fasta\
                          $(BASIC_STEM).pick.pick.pick.error.summary\
-                         $(FIGS)community_barplot.jpg\
+                         $(FIGS)community_bar_plot.jpg\
                          $(FIGS)rarefaction.jpg\
                          $(FIGS)calculators.jpg\
                          $(FIGS)pcoa_figure.jpg\
@@ -273,20 +274,6 @@ $(FINAL)manuscript.pdf : data/summary.txt\
 	R -e 'render("$(FINAL)manuscript.Rmd", clean=FALSE)'
 	mv $(FINAL)manuscript.knit.md $(FINAL)manuscript.md
 	rm $(FINAL)manuscript.utf8.md
-
-# write.paper : results/figures/nmds_figure.png\
-#               $(FINAL)manuscript.Rmd\
-#               $(FINAL)manuscript.md\
-#               $(FINAL)manuscript.tex\
-#               $(FINAL)manuscript.pdf
-
-.PHONY: all
-all : data/summary.txt\
-      $(FIGS)community_barplot_domain.jpg\
-      $(BASIC_STEM).pick.pick.pick.error.summary\
-      $(FIGS)pcoa_figure.jpg\
-      $(FIGS)rarefaction.jpg\
-      $(FIGS)calculators.jpg
 
 # Cleaning
 .PHONY: clean

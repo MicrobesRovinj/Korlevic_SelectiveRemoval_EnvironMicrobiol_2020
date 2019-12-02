@@ -1,5 +1,5 @@
 ############################################################
-# Options for knitr and Rmarkdown rendering
+# Libraries used
 ############################################################
 
 library("stats")
@@ -9,7 +9,11 @@ library("tinytex")
 library("tidyverse")
 library("grid")
 
-## output directory for figures
+############################################################
+# Options for knitr and Rmarkdown rendering
+############################################################
+
+## Output directory for figures
 if (require("knitr")) {
     opts_chunk$set(fig.path="results/figures/")
     opts_knit$set(base.dir=normalizePath(getwd()))

@@ -1,9 +1,9 @@
 #################################################################################################################
-# plot_community_barplot.R
+# plot_community_bar_plot.R
 # 
 # A script to plot the community structure of each sample.
 # Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
-# Produces: results/figures/community_barplot.jpg
+# Produces: results/figures/community_bar_plot.jpg
 #
 #################################################################################################################
 
@@ -90,4 +90,4 @@ gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
  
 
 # Plot saving
-ggsave("results/figures/community_barplot.jpg", width=297, height=210, units="mm")
+ggsave("results/figures/community_bar_plot.jpg", width=297, height=210, units="mm")
