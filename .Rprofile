@@ -7,7 +7,6 @@ library("knitr")
 library("rmarkdown")
 library("tinytex")
 library("tidyverse")
-library("grid")
 
 ############################################################
 # Options for knitr and Rmarkdown rendering
