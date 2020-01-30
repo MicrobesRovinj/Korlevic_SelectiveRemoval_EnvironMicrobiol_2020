@@ -3,6 +3,8 @@
 # 
 # A script to plot the community structure of each sample.
 # Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
+#               data/raw/metadata.csv
+#               data/raw/group_colors.csv
 # Produces: results/figures/community_bar_plot.jpg
 #
 #################################################################################################################
@@ -10,7 +12,16 @@
 # Loading input data containing sequence abundances and subsequent input data customization
 community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary") %>%
   filter(!str_detect(taxon, "^Eukaryota")) %>%
-  filter(taxon!="Root") %>%
+  filter(taxon!="Root")
+
+# Remove Mitochondria sequences and subtract their number from higher taxonomic levels to which they belong
+mitochondria <- filter(community, str_detect(taxon, "^Mitochondria$"))$rankID
+community <- mutate_at(community, 5:ncol(community), funs(case_when(
+    rankID==str_extract(mitochondria, "(\\d+\\.){4}\\d+") ~ . - .[taxon=="Mitochondria"],
+    rankID==str_extract(mitochondria, "(\\d+\\.){3}\\d+") ~ . - .[taxon=="Mitochondria"],
+    rankID==str_extract(mitochondria, "(\\d+\\.){2}\\d+") ~ . - .[taxon=="Mitochondria"],
+    rankID==str_extract(mitochondria, "(\\d+\\.){1}\\d+") ~ . - .[taxon=="Mitochondria"],
+    TRUE ~ .))) %>%
   filter(!str_detect(taxon, "^Mitochondria")) %>%
   select(-ATCC_1, -NC_1) %>%
   group_by(taxlevel) %>%
@@ -63,8 +74,8 @@ gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
         axis.title.y=element_text(size=18, color="black"), panel.background=element_blank(),
         legend.title=element_blank(), legend.text=element_text(size=14),
         legend.spacing.x=unit(0.2, "cm"), legend.justification=c("bottom"),
-        legend.box.margin=margin(0,0, 0,-20), legend.text.align=0,
-        legend.key.size=unit(0.9, "cm"), plot.margin = unit(c(5.5, 5.5, 82.5, 5.5), "pt")) +
+        legend.box.margin=margin(0, 0, 0,-20), legend.text.align=0,
+        legend.key.size=unit(0.9, "cm"), plot.margin=unit(c(5.5, 5.5, 82.5, 5.5), "pt")) +
   scale_x_discrete(labels=str_wrap(c("Cymodocea nodosa",
                                      "Cymodocea nodosa",
                                      "Caulerpa cylindracea",
@@ -87,7 +98,6 @@ gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
   annotation_custom(textGrob("4 December 2017", gp=gpar(fontsize=14, fontface="bold")), xmin=0.55, xmax=4.45, ymin=-21, ymax=-21) +
   annotation_custom(textGrob("19 June 2018", gp=gpar(fontsize=14, fontface="bold")), xmin=4.55, xmax=7.45, ymin=-21, ymax=-21) +
   coord_cartesian(clip="off")
- 
 
 # Plot saving
 ggsave("results/figures/community_bar_plot.jpg", width=297, height=210, units="mm")
