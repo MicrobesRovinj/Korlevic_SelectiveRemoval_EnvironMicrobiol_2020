@@ -76,7 +76,7 @@ $(REFS)silva.nr_v132.full : $(REFS)silva.nr_v132.align\
 # Formatting the taxonomy files
 $(REFS)silva.nr_v132.tax : code/format_taxonomy.R\
                            $(REFS)silva.nr_v132.full
-	wget https://www.arb-silva.de/fileadmin/silva_databases/current/Exports/taxonomy/tax_slv_ssu_132.txt
+	wget https://www.arb-silva.de/fileadmin/silva_databases/release_132/Exports/taxonomy/tax_slv_ssu_132.txt
 	mv tax_slv_ssu_132.txt $(REFS)tax_slv_ssu_132.txt
 	R -e "source('code/format_taxonomy.R')"
 	mv $(REFS)silva.full_v132.tax $(REFS)silva.nr_v132.tax
