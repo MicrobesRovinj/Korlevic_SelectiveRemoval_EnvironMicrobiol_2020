@@ -1,6 +1,6 @@
 #!/bin/bash
 
-code/sina/sina --fasta-write-dots -i data/mothur/chloroplast.pick.ng.fasta -r data/references/SILVA_132_SSURef_NR99_13_12_17_opt.arb -o data/mothur/chloroplast.pick.ng.sina.fasta
+code/sina/sina --fasta-write-dots -i data/mothur/chloroplast.pick.ng.fasta -r data/references/SILVA_138_SSURef_NR99_05_01_20_opt.arb -o data/mothur/chloroplast.pick.ng.sina.fasta
 
 tail -n +2 data/mothur/chloroplast.pick.count_table > data/mothur/chloroplast.pick.no_header.count_table
 

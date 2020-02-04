@@ -2,7 +2,7 @@
 # plot_community_bar_plot.R
 # 
 # A script to plot the community structure of each sample.
-# Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
+# Dependencies: data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary
 #               data/raw/metadata.csv
 #               data/raw/group_colors.csv
 # Produces: results/figures/community_bar_plot.jpg
@@ -10,13 +10,13 @@
 #################################################################################################################
 
 # Loading input data containing sequence abundances and subsequent input data customization
-community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary") %>%
+community <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary") %>%
   filter(!str_detect(taxon, "^Eukaryota")) %>%
   filter(taxon!="Root")
 
 # Remove Mitochondria sequences and subtract their number from higher taxonomic levels to which they belong
 mitochondria <- filter(community, str_detect(taxon, "^Mitochondria$"))$rankID
-community <- mutate_at(community, 5:ncol(community), funs(case_when(
+community <- mutate_at(community, 5:ncol(community), list(~case_when(
     rankID==str_extract(mitochondria, "(\\d+\\.){4}\\d+") ~ . - .[taxon=="Mitochondria"],
     rankID==str_extract(mitochondria, "(\\d+\\.){3}\\d+") ~ . - .[taxon=="Mitochondria"],
     rankID==str_extract(mitochondria, "(\\d+\\.){2}\\d+") ~ . - .[taxon=="Mitochondria"],
@@ -25,7 +25,7 @@ community <- mutate_at(community, 5:ncol(community), funs(case_when(
   filter(!str_detect(taxon, "^Mitochondria")) %>%
   select(-ATCC_1, -NC_1) %>%
   group_by(taxlevel) %>%
-  mutate_at(5:ncol(.), funs(. / sum(.) * 100)) %>%
+  mutate_at(5:ncol(.), list(~. / sum(.) * 100)) %>%
   ungroup()
 
 # Loading metadata of each sample and selection of desired information of each sample
@@ -39,12 +39,12 @@ plot <- filter(community, taxlevel==2 |
                  (taxlevel==4 & str_detect(taxon, "^Chloroplast$")) |
                  (taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))[[2]]))) %>%
   filter_at(6:ncol(.), any_vars(. >= 1)) %>%
-  mutate_at(5:ncol(.), funs(case_when(taxon=="Cyanobacteria" ~ . - .[taxon=="Chloroplast"], TRUE ~ .))) %>%
-  mutate_at(5:ncol(.), funs(case_when(taxon=="Proteobacteria" ~ . - sum(.[taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))[[2]])]), TRUE ~ .))) %>%
+  mutate_at(5:ncol(.), list(~case_when(taxon=="Cyanobacteria" ~ . - .[taxon=="Chloroplast"], TRUE ~ .))) %>%
+  mutate_at(5:ncol(.), list(~case_when(taxon=="Proteobacteria" ~ . - sum(.[taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))[[2]])]), TRUE ~ .))) %>%
   mutate(taxon=str_replace(taxon, "Proteobacteria", "Other Proteobacteria")) %>%
   mutate(taxon=str_replace_all(taxon, c("unknown_unclassified"="No Relative", "unknown"="No Relative"))) %>%
   filter_at(6:ncol(.), any_vars(. >= 1)) %>%
-  bind_rows(summarise_all(., funs(ifelse(is.numeric(.), 100-sum(.), paste("Other"))))) %>%
+  bind_rows(summarise_all(., list(~ifelse(is.numeric(.), 100-sum(.), paste("Other"))))) %>%
   rename_at(names(metadata), ~unname(metadata)) %>%
   arrange(taxon %in% "No Relative")
 

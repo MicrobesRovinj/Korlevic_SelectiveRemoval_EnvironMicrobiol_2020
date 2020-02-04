@@ -1,4 +1,4 @@
-map.in <- read.table("data/references/tax_slv_ssu_132.txt", header=F,sep="\t", stringsAsFactors=F)
+map.in <- read.table("data/references/tax_slv_ssu_138.txt", header=F,sep="\t", stringsAsFactors=F)
 map.in <- map.in[, c(1,3)]
 colnames(map.in) <- c("taxlabel", "taxlevel")
 taxlevels <- c("root", "domain", "major_clade", "superkingdom", "kingdom", "subkingdom", "infrakingdom", "superphylum", "phylum", "subphylum", "infraphylum", "superclass", "class", "subclass", "infraclass", "superorder", "order", "suborder", "superfamily", "family", "subfamily", "genus")
@@ -39,19 +39,12 @@ for(i in 1:nrow(tax.mat)) {
 map.in$taxout <- gsub(" ", "_", map.in$taxout)
 
 # Bring in the old taxonomic levels from SILVA and remap them using the new levels
-tax.in <- read.table("data/references/silva.nr_v132.full", header=F, stringsAsFactors=F, sep="\t")
+tax.in <- read.table("data/references/silva.nr_v138.full", header=F, stringsAsFactors=F, sep="\t")
 colnames(tax.in) <- c("taxid", "taxlabel")
 
-# Problem corrections observed in the SILVA ARB file (silva.nr_v132.full)
-# Following line corrects the Bacteria;Bacteroidetes;Bacteroidia;Flavobacteriales;Flavobacteriaceae;Polaribacter;Polaribacter; problem
-tax.in$taxlabel <- gsub("Polaribacter;Polaribacter", "Polaribacter", tax.in$taxlabel)
-# Following line corrects the Bacteria;RsaHf231; problem
-tax.in$taxlabel <- gsub("RsaHf231;", "RsaHF231;", tax.in$taxlabel)
-# Following line corrects the Bacteria;GBS-1;; problem
-tax.in$taxlabel <- gsub("Bacteria;GBS-1;;", "Bacteria;GBS-1;", tax.in$taxlabel)
-# Following line corrects the Eukaryota;Opisthokonta;Nucletmycea;Fungi;Dikarya;Basidiomycota;Agaricomycotina;Tremellomycetes;Tremellales;Incertae sedis;Sterigmatosporidium; problem
-tax.in$taxlabel <- gsub(";Incertae sedis;", ";Incertae Sedis;", tax.in$taxlabel)
-tax.in$taxlabel <- gsub(";[[:space:]]+$", ";", tax.in$taxlabel)
+# Problem corrections observed in the SILVA ARB file (silva.nr_v138.full)
+# Following line corrects the Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Mesorhizobium;Mesorhizobium; problem
+tax.in$taxlabel <- gsub("Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Mesorhizobium;Mesorhizobium;", "Bacteria;Proteobacteria;Alphaproteobacteria;Rhizobiales;Rhizobiaceae;Mesorhizobium;", tax.in$taxlabel)
 
 tax.in$id <- 1:nrow(tax.in)
 
@@ -75,4 +68,4 @@ tax.write[depth > 6 & bacteria, ] # Good to go
 tax.write[depth > 6 & archaea, ]  # Good to go
 tax.write[depth > 6 & eukarya, ]  # Good to go
 
-write.table(tax.write[, c("taxid", "taxout")], file="data/references/silva.full_v132.tax", sep="\t", row.names=F, quote=F, col.names=F)
+write.table(tax.write[, c("taxid", "taxout")], file="data/references/silva.full_v138.tax", sep="\t", row.names=F, quote=F, col.names=F)

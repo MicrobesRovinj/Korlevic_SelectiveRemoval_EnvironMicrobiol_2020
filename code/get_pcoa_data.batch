@@ -1,4 +1,0 @@
-set.current(inputdir=data/mothur/, outputdir=data/mothur/, seed=19760620)
-
-dist.shared(shared=data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared, calc=braycurtis, subsample=T, iters=1000, processors=16)
-pcoa(phylip=current)

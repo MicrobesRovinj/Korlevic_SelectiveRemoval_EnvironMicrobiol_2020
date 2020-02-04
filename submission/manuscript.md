@@ -56,13 +56,13 @@ An aliquot of isolated DNA was treated with RNase A (final concentration 200 \si
 
 ### Sequence Analysis
 
-Obtained sequences were analyzed on the computer cluster Isabella (University Computing Center, University of Zagreb) using mothur (version 1.43.0) [@Schloss2009] according to the MiSeq Standard Operating Procedure (MiSeq SOP; https://mothur.org/wiki/MiSeq_SOP) [@Kozich2013] and recommendations given from the Riffomonas project to enhance data reproducibility (http://www.riffomonas.org/). For alignment and classification of sequences the SILVA SSU Ref NR 99 database (release 132; http://www.arb-silva.de) was used [@Quast2013; @Yilmaz2014]. Sequences classified as chloroplasts by mothur were exported, aligned using SILVA incremental aligner (SINA, version 1.6.0) [@Pruesse2012] against the same SILVA SSU Ref NR 99 database (release 132) and imported into ARB (version 6.0.6) [@Ludwig2004] for further phylogenetic analysis using the same database. Reference sequences close to imported ones were selected and used to calculate a phylogenetic tree using the Maximum Likelihood algorithm RAxML (version 7.0.3) with 1000 tree replicates [@Stamatakis2006]. Imported partial chloroplast sequences were added to the tree using the maximum parsimony criteria and not allowing changes to tree topology. Pipeline data processing and visualization was done using R (version 3.6.0) [@RCoreTeam2019], package tidyverse (version 1.2.1) [@Wickham2019] and multiple other packages [@Xie2014; @Xie2015; @Xie2019a; @Xie2019; @Zhu2019; @Allaire2019; @Xie2018]. The detailed analysis procedure including the R Markdown file for this paper are available as a GitHub repository (**TO BE ADDED LATER!**). Based on the ATCC MSA-1002 mock community included in the analysis a sequencing error rate of 0.009 \si{\percent} was determined, which is in line with previously reported values for next-generation sequencing data [@Kozich2013; @Schloss2016]. In addition, the negative control processed together with the samples yielded only 2 sequences after sequence quality curation.
+Obtained sequences were analyzed on the computer cluster Isabella (University Computing Center, University of Zagreb) using mothur (version 1.43.0) [@Schloss2009] according to the MiSeq Standard Operating Procedure (MiSeq SOP; https://mothur.org/wiki/MiSeq_SOP) [@Kozich2013] and recommendations given from the Riffomonas project to enhance data reproducibility (http://www.riffomonas.org/). For alignment and classification of sequences the SILVA SSU Ref NR 99 database (release 138; http://www.arb-silva.de) was used [@Quast2013; @Yilmaz2014]. Sequences classified as chloroplasts by mothur were exported, aligned using SILVA incremental aligner (SINA, version 1.6.0) [@Pruesse2012] against the same SILVA SSU Ref NR 99 database (release 138) and imported into ARB (version 6.0.6) [@Ludwig2004] for further phylogenetic analysis using the same database. Reference sequences close to imported ones were selected and used to calculate a phylogenetic tree using the Maximum Likelihood algorithm RAxML (version 7.0.3) with 1000 tree replicates [@Stamatakis2006]. Imported partial chloroplast sequences were added to the tree using the maximum parsimony criteria and not allowing changes to tree topology. Pipeline data processing and visualization was done using R (version 3.6.0) [@RCoreTeam2019], package tidyverse (version 1.2.1) [@Wickham2019] and multiple other packages [@Xie2014; @Xie2015; @Xie2019a; @Xie2019; @Zhu2019; @Allaire2019; @Xie2018]. The detailed analysis procedure including the R Markdown file for this paper are available as a GitHub repository (**TO BE ADDED LATER!**). Based on the ATCC MSA-1002 mock community included in the analysis a sequencing error rate of 0.009 \si{\percent} was determined, which is in line with previously reported values for next-generation sequencing data [@Kozich2013; @Schloss2016]. In addition, the negative control processed together with the samples yielded only 2 sequences after sequence quality curation.
 
 ### Protein Isolation
 Proteins were isolated according to the protocol for isolation from soil described in @Chourey2010 and modified by @Hultman2015. These protocols were further modified and adapted for protein isolation from microbial communities form macrophyte surfaces as described below. 20 \si{\ml} of protein extraction buffer (4 \si{\percent} SDS, 100 \si{\milli\Molar} Tris-HCl [pH 8.0]) was added to 5 \si{\g} wet weight of leaves or 10 \si{\g} wet weight of thalli. The mixture was incubated in boiling water for 5 \si{\minute}, vortexed for 10 \si{\minute} and incubated again in boiling water for 5 \si{\minute}. After a brief vortex the lysate was transferred to a clean tube separating the host leaves or thalli from the mixture containing lyzed epiphytic cells. Dithiothreitol (DTT; final concentration 24 \si{\milli\Molar}) was added and proteins were precipitated with chilled 100 \si{\percent} trichloroacetic acid (TCA; final concentration 20 \si{\percent}) overnight at \num{-20} °C. Precipitated proteins were centrifuged at 10,000 × g and 4 \si{\degreeCelsius} for 40 \si{\minute}. The obtained protein pellet was washed three times with chilled acetone. During the first washing step the pellet was transferred to a clean 1.5 \si{\ml} tube. After each washing step samples were centrifuged at 20,000 × g and 4 \si{\degreeCelsius} for 5 \si{\minute}. Dried pellets were stored at \num{-80} °C until further analysis.
 
 ### Metaproteomics
-Isolated proteins were whole trypsin digested using the FASP (filter-aided sample preparation) Protein Digestion Kit (Expedeon, UK) according to the manufacturer's instructions [@Wisniewski2009] with small modifications. Before loading the solution to the column, protein pellets were solubilized in a urea sample buffer included in the kit amended with DTT (final concentration 100 \si{\milli\Molar}) for 45 \si{\minute} at room temperature and centrifuged at 20,000 × g for 2 -- 5 \si{\minute} at room temperature to remove larger particles. The first washing step after protein solution loading was repeated twice. In addition, centrifugation steps were prolonged if the column was clogged. Trypsin digestion was performed on column filters at 37 \si{\degreeCelsius} overnight for 18 \si{\hour}. The final filtrate containing digested proteins was acidified with 1 \si{\percent} (final concentration) trifluoroacetic acid, freezed at \num{-80} \si{\degreeCelsius} for 15 \si{\minute}, lyophilized and sent to the Vienna Metabolomics Center (University of Vienna) for metaproteomic analysis. **TO BE ADDED-VIENNA PART**.
+Isolated proteins were whole trypsin digested using the FASP (filter-aided sample preparation) Protein Digestion Kit (Expedeon, UK) according to the manufacturer's instructions [@Wisniewski2009] with small modifications. Before loading the solution to the column, protein pellets were solubilized in a urea sample buffer included in the kit amended with DTT (final concentration 100 \si{\milli\Molar}) for 45 \si{\minute} at room temperature and centrifuged at 20,000 × g for 2 -- 5 \si{\minute} at room temperature to remove larger particles. The first washing step after protein solution loading was repeated twice. In addition, centrifugation steps were prolonged if the column was clogged. Trypsin digestion was performed on column filters at 37 \si{\degreeCelsius} overnight for 18 \si{\hour}. The final filtrate containing digested proteins was acidified with 1 \si{\percent} (final concentration) trifluoroacetic acid, freezed at \num{-80} \si{\degreeCelsius} for 15 \si{\minute}, lyophilized and sent to the Vienna Metabolomics Center (University of Vienna) for metaproteomic analysis. Peptides were resuspended in 1 \si{\percent} (final concentration) trifluoroacetic acid, desalted using the Pierce C18 Tips (Thermo Fisher Scientific, USA) according to the manufacturer's instructions and sequenced on a Q Exactive Hybrid Quadrupole-Orbitrap Mass Spectrometer (Thermo Fisher Scientific, USA). Obtained MS/MS spectra were searched against a protein database from metagenomic assembly published in @Burke2011a using SEQUEST-HIT engines and validated with Percolator in Proteome Discoverer 2.1 (Thermo Fisher Scientific, USA). The target-decoy approach was used to reduce the probability of false peptide identification. Results whose false discovery rate at the peptide level was \SI{< 1}{\percent} were kept. For protein identification a minimum of of two peptides and one unique peptide were required. For protein quantification, a chromatographic peak area-based free quantitative method was applied.
 
 ### Confocal Microscopy
 Host leaves and thalli from DNA and protein isolation steps were washed seven times in deionized water and fixed with formaldehyde (final concentration ~ 3 \si{\percent}). In addition, nontreated leaves and thalli, washed three times in ASW to remove loosely attached microbial cells, were fixed in the same concentration of formaldehyde and used as a positive control. For long therm storage, fixed leaves and thalli were immersed in a mixture of phosphate-buffered saline (PBS) and ethanol (1:1) and stored at \num{-20} \si{\degreeCelsius}. Treated and untreated leaves and thalli segments were stained in a 2 × solution of SYBR Green I and examined under a Leica TCS SP8 X FLIM confocal microscope (Leica Microsystems, Germany).
@@ -78,14 +78,40 @@ Host leaves and thalli from DNA and protein isolation steps were washed seven ti
 <div id="refs"></div>
 
 \newpage 
-## Figure Captions
+\setlength\parindent{0pt}
 
+## Figure Captions
+**\autoref{micro_dec}.** \nameref{micro_dec}
+
+**\autoref{micro_jun}.** \nameref{micro_jun}
+
+**\autoref{community}.** \nameref{community}
+
+\newpage
 ## Figures
-\begin{figure}[h]
+\begin{figure}[ht]
+
+{\centering \includegraphics[width=0.85\linewidth]{../results/images/confocal_december} 
+
+}
+
+\caption{Confocal microscope images of \textit{Cymodocea nodosa} and \textit{Caulerpa cylindracea} surfaces from different locations (Saline, Funtana-Invaded and Funtana-Noninvaded) sampled on 4 December 2017 and stained with SYBR Green I. Scale bar in all images is 60 \si{\um}.\label{micro_dec}}\label{fig:unnamed-chunk-2}
+\end{figure}
+\newpage
+\begin{figure}[ht]
+
+{\centering \includegraphics[width=0.85\linewidth]{../results/images/confocal_june} 
+
+}
+
+\caption{Confocal microscope images of \textit{Cymodocea nodosa} and \textit{Caulerpa cylindracea} surfaces from different locations (Funtana-Invaded and Funtana-Noninvaded) sampled on 19 June 2018 and stained with SYBR Green I. Scale bar in all images is 60 \si{\um}.\label{micro_jun}}\label{fig:unnamed-chunk-3}
+\end{figure}
+\newpage
+\begin{figure}[ht]
 
 {\centering \includegraphics[width=1\linewidth]{../results/figures/community_bar_plot} 
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant bacterial sequences on the surfaces of two marine macrophytes (\textit{Cymodocea nodosa} and \textit{Caulerpa cylindracea}) from two locations (Saline and Funtana) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{community}}\label{fig:unnamed-chunk-2}
+\caption{Taxonomic classification and relative contribution of the most abundant bacterial sequences from surfaces of two marine macrophytes (\textit{Cymodocea nodosa} and \textit{Caulerpa cylindracea}) sampled in different locations (Saline, Funtana-Invaded and Funtana-Noninvaded) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{community}}\label{fig:unnamed-chunk-4}
 \end{figure}

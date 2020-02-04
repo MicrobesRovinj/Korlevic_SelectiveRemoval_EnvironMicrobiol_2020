@@ -1,8 +1,8 @@
-set.logfile(name=data/summary.txt)
+set.logfile(name=data/mothur/summary.txt)
 
-summary.seqs(fasta=data/references/silva.nr_v132.pcr.align, processors=16)
+summary.seqs(fasta=data/references/silva.nr_v138.pcr.align, processors=16)
 
-summary.seqs(fasta=data/references/silva.nr_v132.pcr.unique.align)
+summary.seqs(fasta=data/references/silva.nr_v138.pcr.unique.align)
 
 summary.seqs(fasta=data/mothur/raw.trim.contigs.fasta)
 
