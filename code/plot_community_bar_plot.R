@@ -42,20 +42,22 @@ plot <- filter(community, taxlevel==2 |
   mutate_at(5:ncol(.), list(~case_when(taxon=="Cyanobacteria" ~ . - .[taxon=="Chloroplast"], TRUE ~ .))) %>%
   mutate_at(5:ncol(.), list(~case_when(taxon=="Proteobacteria" ~ . - sum(.[taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))[[2]])]), TRUE ~ .))) %>%
   mutate(taxon=str_replace(taxon, "Proteobacteria", "Other Proteobacteria")) %>%
-  mutate(taxon=str_replace_all(taxon, c("unknown_unclassified"="No Relative", "unknown"="No Relative"))) %>%
+  mutate(taxon=str_replace_all(taxon, c("unknown_unclassified"="No_Relative", "unknown"="No_Relative"))) %>%
   filter_at(6:ncol(.), any_vars(. >= 1)) %>%
   bind_rows(summarise_all(., list(~ifelse(is.numeric(.), 100-sum(.), paste("Other"))))) %>%
   rename_at(names(metadata), ~unname(metadata)) %>%
-  arrange(taxon %in% "No Relative")
+  arrange(taxon %in% "No_Relative")
 
 # Loading colors for each group on the plot
-color <- read_tsv("data/raw/group_colors.csv", col_types=list(Taxlevel=col_skip())) %>%
+color <- read_tsv("data/raw/group_colors.csv") %>%
+  select(-Taxlevel) %>%
   deframe()
 
 # Generation of italic names for groups
 names <- parse(text=case_when(plot$taxon=="Chloroplast" ~ paste0("plain(\"", plot$taxon,  "\")"),
+                              plot$taxon=="Bacteria_unclassified" ~ "italic('Bacteria')~plain('(No Relative)')",
                               plot$taxon=="Other" ~ paste0("plain(\"", plot$taxon, "\")"),
-                              plot$taxon=="No Relative" ~ paste0("plain(\"", plot$taxon, "\")"),
+                              plot$taxon=="No_Relative" ~ "plain('No Relative')",
                               TRUE ~ paste0("italic(\"", plot$taxon, "\")")))
 
 # Plot generation
