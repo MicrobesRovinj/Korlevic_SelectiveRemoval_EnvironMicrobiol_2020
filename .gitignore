@@ -15,16 +15,13 @@ data/summary.txt
 !data/raw/metadata.csv
 !data/raw/group_colors.csv
 
-# Dependencies for code/plot_community_barplot_taxlevel.R
-!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v132.wang.tax.summary
-# Dependencies for code/plot_rarefaction.R
+# Sequences taxonomy data
+!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary
+# OTU/sample data
+!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared
+# Rarefaction data
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.groups.rarefaction
-# Dependencies for code/plot_calculators.R
-!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.groups.ave-std.summary
-# Dependencies for code/plot_pcoa.R
-!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.axes
-!data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.braycurtis.0.03.lt.ave.pcoa.loadings
-#Dependencies for submission/manuscript.Rmd
+# Sequencing error summary data
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.error.summary
 
 *.qsub*
