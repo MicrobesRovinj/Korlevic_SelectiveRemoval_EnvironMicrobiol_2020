@@ -1,7 +1,7 @@
 ## Selective DNA and Protein Isolation from Marine Macrophyte Surfaces
 This is the repository for the manuscript "Selective DNA and Protein Isolation from Marine Macrophyte Surfaces" written by Marino Korlević, Marsej Markovski, 
 Zihao Zhao, Gerhard J. Herndl and Mirjana Najdek. The raw sequencing data with the exception of negative controls have been deposited in the European Nucleotide 
-Archive (ENA) at EMBL-EBI under accession number . Negative control samples are part of this repository and located in data/raw/. To be able to reproduce the 
+Archive (ENA) at EMBL-EBI under accession number ***** . Negative control samples are part of this repository and located in data/raw/. To be able to reproduce the 
 results the mothur compatible SILVA reference file (Release 138, available under a [CC-BY license](https://www.arb-silva.de/silva-license-information/)) must be 
 created according to the instruction given on [the mothur blog](https://mothur.org/blog/2020/SILVA-v138-reference-files/) and in the Makefile. This README file 
 contains an overview of the repository structure, information on software dependencies and instructions how to reproduce and rerun the analysis.
