@@ -7,6 +7,8 @@ library("knitr")
 library("rmarkdown")
 library("tinytex")
 library("tidyverse")
+library("vegan")
+library("RColorBrewer")
 library("grid")
 
 ############################################################
@@ -54,3 +56,7 @@ draw_key_polygon2 <- function(data, params, size) {
 # throughout R session!
 GeomBar$draw_key = draw_key_polygon2
 
+############################################################
+# Option to keep the auxiliary TeX files when rendering a rmarkdown document
+############################################################
+options(tinytex.clean = FALSE)
