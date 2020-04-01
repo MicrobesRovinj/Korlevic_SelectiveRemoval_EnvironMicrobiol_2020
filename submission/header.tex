@@ -15,6 +15,7 @@
 
 \usepackage[labelsep=period, labelfont=bf]{caption}
 \renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\figurename}{Fig.}
 \captionsetup{justification=raggedright,singlelinecheck=false}
 
 \usepackage{pdflscape}
@@ -24,6 +25,16 @@
 \usepackage{siunitx}
 \DeclareSIUnit\molar{\mole\per\cubic\deci\metre}
 \DeclareSIUnit\Molar{\textsc{m}}
+\DeclareSIUnit\cells{\text{cells}}
 
 \usepackage{caption}
 \captionsetup{justification=justified}
+
+\usepackage{float}
+
+\usepackage{xr}
+\externaldocument[supp-]{supplementary}
+
+\usepackage{txfonts}
+
+\renewcommand{\figureautorefname}{Fig.}

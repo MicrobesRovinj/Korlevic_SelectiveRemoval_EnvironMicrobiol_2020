@@ -1,3 +1,0 @@
-remove.groups(fasta=data/mothur/chloroplast.fasta, count=data/mothur/chloroplast.count_table, taxonomy=data/mothur/chloroplast.taxonomy, groups=ATCC_1)
-
-degap.seqs(fasta=data/mothur/chloroplast.pick.fasta)

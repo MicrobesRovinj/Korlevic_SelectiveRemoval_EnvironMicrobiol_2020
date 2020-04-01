@@ -1,12 +1,9 @@
 MOTHUR = code/mothur/mothur
-SINA = code/sina/sina
 RAW = data/raw/
 MOTH = data/mothur/
 REFS = data/references/
 BASIC_STEM = data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster
 FIGS = results/figures/
-TABLES = results/tables/
-PROC = data/process/
 FINAL = submission/
 
 # Obtain the Linux version of mothur (v.1.43.0) from the mothur GitHub repository
@@ -17,49 +14,35 @@ $(MOTHUR) :
 	rm Mothur.linux.zip
 	rm -rf __MACOSX
 
-# Obtain the Linux version of SINA (v1.6.0) from the SINA GitHub repository
-$(SINA) :
-	wget --no-check-certificate https://github.com/epruesse/SINA/releases/download/v1.6.0/sina-1.6.0-linux.tar.gz
-	tar xvf sina-1.6.0-linux.tar.gz
-	mv sina-1.6.0-linux sina
-	mv sina code/
-	rm sina-1.6.0-linux.tar.gz
-
-# Obtain the SILVA_138_SSURef_NR99_05_01_20_opt.arb.gz
-$(REFS)SILVA_138_SSURef_NR99_05_01_20_opt.arb :
-	wget --no-check-certificate https://www.arb-silva.de/fileadmin/silva_databases/release_138/ARB_files/SILVA_138_SSURef_NR99_05_01_20_opt.arb.gz
-	gunzip SILVA_138_SSURef_NR99_05_01_20_opt.arb.gz
-	mv SILVA_138_SSURef_NR99_05_01_20_opt.arb $(REFS)
-
 #########################################################################################
 #
 # Part 1: Create the reference files
 #
 # 	We will need several reference files to complete the analyses including the
 # SILVA reference alignment and taxonomy. As we are analyzing both Bacteria and
-# Archaea we need to optimize the procedure described on the mothur blog
-# (http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/).
-#
+# Archaea we need to optimize the procedure described on the mothur blog.
+# (https://mothur.org/blog/2020/SILVA-v138-reference-files/)
 #########################################################################################
 
 # We want the latest greatest reference alignment and the SILVA reference
 # alignment is the best reference alignment on the market. We will use the
-# version 138. The curation of the reference files to make them compatible with
-# mothur is described at http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/
+# Release 138. The curation of the reference files to make them compatible with
+# mothur is described at https://mothur.org/blog/2020/SILVA-v138-reference-files/
 # As we are using primers from the Earth Microbiome Project that are targeting
 # both Bacteria and Archaea (http://www.earthmicrobiome.org/protocols-and-standards/16s/)
 # we need to modify the procedure described at
-# http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/
+# https://mothur.org/blog/2020/SILVA-v138-reference-files/
 # as this approach is removing shorter archeal sequences.
 #
 # The SILVA Release 138 was downloaded from
 # https://www.arb-silva.de/fileadmin/silva_databases/release_138/ARB_files/SILVA_138_SSURef_NR99_05_01_20_opt.arb.gz
 # opened with ARB and exported to silva.full_v138.fasta file as described at
-# http://blog.mothur.org/2018/01/10/SILVA-v132-reference-files/ uder the
+# http://blog.mothur.org/2020/03/04/SILVA-v138-reference-files/ uder the
 # section Getting the data in and out of the ARB database. A total of 447,349
 # sequences were exported.
 
 # Screening the sequences
+# Set the location from where to copy the silva.full_v138.fasta file
 $(REFS)silva.nr_v138.align : $(MOTHUR)\
                              ~/references/silva.full_v138/silva.full_v138.fasta
 	cp ~/references/silva.full_v138/silva.full_v138.fasta $(REFS)silva.full_v138.fasta
@@ -77,7 +60,7 @@ $(REFS)silva.nr_v138.full : $(REFS)silva.nr_v138.align\
 $(REFS)silva.nr_v138.tax : code/format_taxonomy.R\
                            $(REFS)silva.nr_v138.full
 	wget https://www.arb-silva.de/fileadmin/silva_databases/release_138/Exports/taxonomy/tax_slv_ssu_138.txt.gz
-	gunzip tax_slv_ssu_138.txt.gz	
+	gunzip tax_slv_ssu_138.txt.gz
 	mv tax_slv_ssu_138.txt $(REFS)tax_slv_ssu_138.txt
 	R -e "source('code/format_taxonomy.R')"
 	mv $(REFS)silva.full_v138.tax $(REFS)silva.nr_v138.tax
@@ -99,12 +82,15 @@ $(REFS)silva.nr_v138.pcr.unique%align : $(REFS)silva.nr_v138.align\
 #
 #########################################################################################
 
+# Generate raw.files for mothur make.contigs
 $(RAW)raw.files : $(RAW)metadata.csv
 	cut -f 1,2,3 data/raw/metadata.csv | tail -n +2 > $(RAW)raw.files
 
-$(RAW)*.fastq : $(RAW)raw.files\
-                ~/raw/together/*.fastq
-	(cut -f 2 $(RAW)raw.files; cut -f 3 $(RAW)raw.files) | cat > $(RAW)names_file.txt
+# Download project fastq.gz files from the European Nucleotide Archive (ENA)
+$(RAW)18118-*.fastq : ~/raw/together/*.fastq\
+                      $(RAW)NC_*.fastq\
+                      $(RAW)raw.files
+	(cut -f 2 $(RAW)raw.files; cut -f 3 $(RAW)raw.files) | sed "/^NC_/ d" > $(RAW)names_file.txt
 	xargs -I % --arg-file=$(RAW)names_file.txt cp ~/raw/together/% -t $(RAW)
 
 # Here we go from the raw fastq files and the files file to generate a fasta,
@@ -124,31 +110,17 @@ $(BASIC_STEM).denovo.vsearch.pick%count_table\
 $(BASIC_STEM).pick.pick%fasta\
 $(BASIC_STEM).denovo.vsearch.pick.pick%count_table\
 $(BASIC_STEM).pick.nr_v138.wang.pick%taxonomy\
-$(BASIC_STEM).pick.nr_v138.wang.tax%summary\
-$(MOTH)chloroplast%fasta\
-$(MOTH)chloroplast%count_table\
-$(MOTH)chloroplast%taxonomy : code/get_good_seqs.batch\
-                              $(RAW)raw.files\
-                              $(RAW)primer.oligos\
-                              $(RAW)*.fastq\
-                              $(REFS)silva.nr_v138.pcr.align\
-                              $(REFS)silva.nr_v138.pcr.unique.align\
-                              $(REFS)silva.nr_v138.tax\
-                              $(MOTHUR)
+$(BASIC_STEM).pick.nr_v138.wang.tax%summary : code/get_good_seqs.batch\
+                                              $(RAW)primer.oligos\
+                                              $(RAW)raw.files\
+                                              $(RAW)NC_*.fastq\
+                                              $(RAW)18118-*.fastq\
+                                              $(REFS)silva.nr_v138.pcr.align\
+                                              $(REFS)silva.nr_v138.pcr.unique.align\
+                                              $(REFS)silva.nr_v138.tax\
+                                              $(MOTHUR)
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
-
-# Generate a fasta file for every sample that contains sequences classified as Chloroplast for
-# import into ARB.
-$(MOTH)chloroplast.pick.ng.sina.merged.fasta : $(MOTH)chloroplast.count_table\
-                                               $(MOTH)chloroplast.taxonomy\
-                                               code/get_chloroplast.batch\
-                                               code/get_chloroplast.bash\
-                                               $(SINA)\
-                                               $(REFS)SILVA_138_SSURef_NR99_05_01_20_opt.arb\
-                                               $(MOTHUR)
-	$(MOTHUR) code/get_chloroplast.batch
-	bash code/get_chloroplast.bash
 
 # Create a summary.txt file to check that all went alright throughout the code/get_good_seqs.batch
 $(MOTH)summary.txt : $(REFS)silva.nr_v138.pcr.align\
@@ -199,23 +171,20 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 #
 #########################################################################################
 
-# Generate a community composition bar plot
+# Generate community composition bar plots
 $(FIGS)community_bar_plot.jpg : code/plot_community_bar_plot.R\
                                 $(BASIC_STEM).pick.nr_v138.wang.tax.summary\
                                 $(RAW)metadata.csv\
                                 $(RAW)group_colors.csv
 	R -e "source('code/plot_community_bar_plot.R')"
 
-# Generate rarefaction data
-$(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
-                                                           code/get_rarefaction_data.batch\
-                                                           $(MOTHUR)
-	$(MOTHUR) code/get_rarefaction_data.batch
-
 # Construct a rarefaction plot
-$(FIGS)rarefaction.jpg : code/plot_rarefaction.R\
-                         $(RAW)metadata.csv\
-                         $(BASIC_STEM).pick.pick.pick.opti_mcc.groups.rarefaction
+$(FIGS)rarefaction.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                         code/get_rarefaction_data.batch\
+                         $(MOTHUR)\
+                         code/plot_rarefaction.R\
+                         $(RAW)metadata.csv
+	$(MOTHUR) code/get_rarefaction_data.batch
 	R -e "source('code/plot_rarefaction.R')"
 
 #########################################################################################
@@ -226,18 +195,24 @@ $(FIGS)rarefaction.jpg : code/plot_rarefaction.R\
 #
 #########################################################################################
 
-$(FINAL)manuscript.pdf : $(MOTH)summary.txt\
-                         $(MOTH)chloroplast.pick.ng.sina.merged.fasta\
-                         $(BASIC_STEM).pick.pick.pick.error.summary\
-                         $(FIGS)community_bar_plot.jpg\
-                         $(FIGS)rarefaction.jpg\
-                         $(FINAL)manuscript.Rmd\
-                         $(FINAL)header.tex\
-                         $(FINAL)references.bib\
-                         $(FINAL)citation_style.csl
+$(FINAL)manuscript.pdf\
+$(FINAL)supplementary.pdf : $(MOTH)summary.txt\
+                            $(BASIC_STEM).pick.pick.pick.error.summary\
+                            $(FIGS)community_bar_plot.jpg\
+                            $(FIGS)rarefaction.jpg\
+                            $(FINAL)manuscript.Rmd\
+                            $(FINAL)header.tex\
+                            $(FINAL)supplementary.Rmd\
+                            $(FINAL)header_supplementary.tex\
+                            $(FINAL)references.bib\
+                            $(FINAL)citation_style.csl
+	R -e 'render("$(FINAL)supplementary.Rmd", clean=FALSE)'
+	mv $(FINAL)supplementary.knit.md $(FINAL)supplementary.md
+	rm $(FINAL)supplementary.utf8.md
 	R -e 'render("$(FINAL)manuscript.Rmd", clean=FALSE)'
 	mv $(FINAL)manuscript.knit.md $(FINAL)manuscript.md
 	rm $(FINAL)manuscript.utf8.md
+	rm $(FINAL)*.log $(FINAL)*.out
 
 # Cleaning
 .PHONY: clean
@@ -245,12 +220,14 @@ clean :
 	rm -f my_job.qsub.* || true
 	rm -f $(REFS)tax* || true
 	rm -f $(REFS)silva* || true
-	rm -f $(REFS)SILVA_132_SSURef_NR99_13_12_17_opt.* || true
-	rm -f $(MOTH)* || true
-	rm -f data/summary.txt || true
-	rm -f $(RAW)*.fastq || true
+	rm -f $(MOTH)raw.* || true
+	rm -f $(MOTH)current_files.summary || true
+	rm -f $(MOTH)summary.txt || true
+	rm -f $(RAW)18118-*.fastq || true
 	rm -f $(RAW)names_file.txt || true
 	rm -f $(RAW)raw.files || true
 	rm -rf code/mothur/ || true
-	rm -f $(FIGS)* || true
+	rm -f $(FIGS)*.jpg || true
 	rm -f mothur*logfile || true
+	rm -f $(FINAL)manuscript.pdf || true
+	rm -f $(FINAL)supplementary.pdf || true
