@@ -202,13 +202,8 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(FIGS)rarefaction.jpg\
                             $(FINAL)manuscript.Rmd\
                             $(FINAL)header.tex\
-                            $(FINAL)supplementary.Rmd\
-                            $(FINAL)header_supplementary.tex\
                             $(FINAL)references.bib\
                             $(FINAL)citation_style.csl
-	R -e 'render("$(FINAL)supplementary.Rmd", clean=FALSE)'
-	mv $(FINAL)supplementary.knit.md $(FINAL)supplementary.md
-	rm $(FINAL)supplementary.utf8.md
 	R -e 'render("$(FINAL)manuscript.Rmd", clean=FALSE)'
 	mv $(FINAL)manuscript.knit.md $(FINAL)manuscript.md
 	rm $(FINAL)manuscript.utf8.md
@@ -230,4 +225,3 @@ clean :
 	rm -f $(FIGS)*.jpg || true
 	rm -f mothur*logfile || true
 	rm -f $(FINAL)manuscript.pdf || true
-	rm -f $(FINAL)supplementary.pdf || true
