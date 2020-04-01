@@ -1,19 +1,15 @@
-.Rproj.user
-.Rhistory
-.RData
 Rplots.pdf
-
-.DS_Store
+*.qsub*
+mothur*logfile
 
 code/mothur/*
-code/sina/*
 data/*/*
-data/summary.txt
-!data/process/*
-!README.md
 !data/raw/primer.oligos
 !data/raw/metadata.csv
 !data/raw/group_colors.csv
+!data/references/atcc_v4.fasta
+!data/raw/NC_1_18118-0070_S59_L001_R1_001.fastq
+!data/raw/NC_1_18118-0070_S59_L001_R2_001.fastq
 
 # Sequences taxonomy data
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.tax.summary
@@ -23,8 +19,3 @@ data/summary.txt
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.groups.rarefaction
 # Sequencing error summary data
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.error.summary
-
-*.qsub*
-mothur*logfile
-*temp*
-*.docx
