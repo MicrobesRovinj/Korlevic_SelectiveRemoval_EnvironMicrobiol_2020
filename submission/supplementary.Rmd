@@ -1,0 +1,109 @@
+---
+title: "**Supplementary Information**"
+subtitle: "**Selective DNA and Protein Isolation from Marine Macrophyte Surfaces**"
+output:
+  pdf_document:
+    keep_tex: true
+    includes:
+      in_header: header_supplementary.tex
+fontsize: 12pt
+geometry: margin=1.0in
+csl: citation_style.csl #Get themes at https://github.com/citation-style-language/styles
+bibliography: references.bib
+---
+
+```{r knitr_settings, eval=TRUE, echo=FALSE, cache=FALSE, message=FALSE}
+opts_chunk$set("tidy" = TRUE)
+opts_chunk$set("echo" = FALSE)
+opts_chunk$set("eval" = TRUE)
+opts_chunk$set("warning" = FALSE)
+opts_chunk$set("cache" = FALSE)
+opts_chunk$set("message" = FALSE)
+
+inline_hook <- function(x){
+	print(x)
+
+	if(is.list(x)){
+		x <- unlist(x)
+	}
+
+	if(is.numeric(x)){
+		if(abs(x - round(x)) < .Machine$double.eps^0.5){
+			paste(format(x,big.mark=',', digits=0, scientific=FALSE))
+		} else {
+			paste(format(x,big.mark=',', digits=1, nsmall=1, scientific=FALSE))
+		}
+	} else {
+    	paste(x)      
+	}
+}
+knitr::knit_hooks$set(inline=inline_hook)
+
+library("kableExtra")
+```
+
+\vspace{60mm}
+Marino Korlević^1$*$^, Marsej Markovski^1^, Zihao Zhao^2^, Gerhard J. Herndl^2,3^, Mirjana Najdek^1^
+
+\vspace{40mm}
+
+^$*$^To whom correspondence should be addressed: marino.korlevic@irb.hr
+
+1\. Center for Marine Research, Ruđer Bošković Institute, Croatia
+
+2\. Department of Functional and Evolutionary Ecology, University of Vienna, Austria
+
+3\. Department of Marine Microbiology and Biogeochemistry, Royal Netherlands Institute for Sea Research, Utrecht University, The Netherlands
+
+\sisetup{mode=text}
+\setlength\parindent{24pt}
+
+## Supplementary Figures
+
+```{r out.width="80%", fig.align="center", fig.cap="Rarefaction curves of bacterial and archaeal communities from the surfaces of macrophytes sampled in the Bay of Saline (\\textit{C. nodosa} [Monospecific Settlement]) and the Bay of Funatana (\\textit{C. nodosa} [Mixed Settlement] and \\textit{C. cylindracea} [Mixed and Monospecific Settlement]) in two contrasting seasons.\\label{rarefaction}", fig.pos="H"}
+include_graphics("../results/figures/rarefaction.jpg")
+```
+
+\newpage
+## Supplementary Table
+
+```{r nseq_notus}
+# Loading OTU/sample data
+shared <- read_tsv("data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.shared")
+
+# Calculating the number of sequences and OTUs in each sample
+nseq_notus <- shared %>%
+  mutate(nseq=rowSums(select(., starts_with("Otu")))) %>%
+  mutate(notus=rowSums(select(., starts_with("Otu"))!=0)) %>%
+  select(Group, nseq, notus) %>%
+  mutate(Group=as.character(Group))
+
+# Loading metadata 
+metadata <- read_tsv("data/raw/metadata.csv")
+
+# Joining metadata with the number of sequences and OTUs
+invisible(Sys.setlocale(locale="en_GB.utf8"))
+metadata_nseq_notus <- inner_join(metadata, nseq_notus, by=c("ID"="Group")) %>%
+  select(ID, station, date, nseq, notus) %>%
+  mutate(type=station) %>%
+  select(ID, station, type, everything()) %>%
+  mutate(date=as.Date(date, "%d.%m.%Y")) %>%
+  mutate(date=format(date, "%d %B %Y")) %>%
+  mutate(date=str_replace(date, "^0", "")) %>%
+  arrange(ID) %>%
+  mutate(type=str_replace(type, "^SCy$", "\\\\textit{Cymodocea nodosa} (Monospecific)")) %>%
+  mutate(type=str_replace(type, "^FCyM$", "\\\\textit{Cymodocea nodosa} (Mixed)")) %>%
+  mutate(type=str_replace(type, "^FCaM$", "\\\\textit{Caulerpa cylindracea} (Mixed)")) %>%
+  mutate(type=str_replace(type, "^FCa$", "\\\\textit{Caulerpa cylindracea} (Monospecific)")) %>%
+  mutate(station=str_replace(station, "^SCy$", "Saline")) %>%
+  mutate(station=str_replace(station, "^FCyM$", "Funtana")) %>%
+  mutate(station=str_replace(station, "^FCaM$", "Funtana")) %>%
+  mutate(station=str_replace(station, "^FCa$", "Funtana")) %>%
+  mutate(nseq=format(nseq, big.mark=","), notus=format(notus, big.mark=","))
+
+# Generating the table
+kable(metadata_nseq_notus, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=c("Sample ID", "Station", "Community Type", "Date", "No. of Sequences", "No. of OTUs"), caption="Sample ID, Station, Community Type, Sampling Date, No. of Sequences and No. of OTUs of each sample. No. of Sequences and OTUs was calculated after the exclusion of eukaryotic, chloroplast, mitochondrial and no relative sequences.\\label{nseq_notus}", align="c") %>%
+  kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9) %>%
+  row_spec(0, bold=TRUE) %>%
+  column_spec(1, width="6em")
+```

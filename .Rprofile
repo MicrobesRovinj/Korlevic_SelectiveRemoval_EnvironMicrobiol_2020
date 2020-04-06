@@ -9,7 +9,6 @@ library("tinytex")
 library("tidyverse")
 library("vegan")
 library("RColorBrewer")
-library("grid")
 
 ############################################################
 # Options for knitr and Rmarkdown rendering
