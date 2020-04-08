@@ -110,15 +110,18 @@ $(BASIC_STEM).denovo.vsearch.pick%count_table\
 $(BASIC_STEM).pick.pick%fasta\
 $(BASIC_STEM).denovo.vsearch.pick.pick%count_table\
 $(BASIC_STEM).pick.nr_v138.wang.pick%taxonomy\
-$(BASIC_STEM).pick.nr_v138.wang.tax%summary : code/get_good_seqs.batch\
-                                              $(RAW)primer.oligos\
-                                              $(RAW)raw.files\
-                                              $(RAW)NC_*.fastq\
-                                              $(RAW)18118-*.fastq\
-                                              $(REFS)silva.nr_v138.pcr.align\
-                                              $(REFS)silva.nr_v138.pcr.unique.align\
-                                              $(REFS)silva.nr_v138.tax\
-                                              $(MOTHUR)
+$(BASIC_STEM).pick.nr_v138.wang.tax%summary\
+$(MOTH)chloroplast%fasta\
+$(MOTH)chloroplast%count_table\
+$(MOTH)chloroplast%taxonomy : code/get_good_seqs.batch\
+                              $(RAW)primer.oligos\
+                              $(RAW)raw.files\
+                              $(RAW)NC_*.fastq\
+                              $(RAW)18118-*.fastq\
+                              $(REFS)silva.nr_v138.pcr.align\
+                              $(REFS)silva.nr_v138.pcr.unique.align\
+                              $(REFS)silva.nr_v138.tax\
+                              $(MOTHUR)
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
 
