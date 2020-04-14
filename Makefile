@@ -125,6 +125,18 @@ $(MOTH)chloroplast%taxonomy : code/get_good_seqs.batch\
 	$(MOTHUR) code/get_good_seqs.batch
 	rm data/mothur/*.map
 
+# Classify chloroplast sequences using the RDP reference files (version 16)
+$(MOTH)chloroplast.pds.wang%taxonomy\
+$(MOTH)chloroplast.pds.wang.tax%summary : code/get_chloroplast.batch\
+                                          $(MOTH)chloroplast.fasta\
+                                          $(MOTH)chloroplast.count_table
+	wget https://mothur.s3.us-east-2.amazonaws.com/wiki/trainset16_022016.pds.tgz
+	tar -xvf trainset16_022016.pds.tgz
+	cp trainset16_022016.pds/trainset16_022016.pds.* data/references/
+	rm -r trainset16_022016.pds.tgz
+	rm -rf trainset16_022016.pds/
+	$(MOTHUR) code/get_chloroplast.batch
+
 # Create a summary.txt file to check that all went alright throughout the code/get_good_seqs.batch
 $(MOTH)summary.txt : $(REFS)silva.nr_v138.pcr.align\
                      $(REFS)silva.nr_v138.pcr.unique.align\
@@ -208,7 +220,8 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(FINAL)supplementary.Rmd\
                             $(FINAL)header_supplementary.tex\
                             $(FINAL)references.bib\
-                            $(FINAL)citation_style.csl
+                            $(FINAL)citation_style.csl\
+                            $(MOTH)chloroplast.pds.wang.tax.summary
 	R -e 'render("$(FINAL)supplementary.Rmd", clean=FALSE)'
 	mv $(FINAL)supplementary.knit.md $(FINAL)supplementary.md
 	rm $(FINAL)supplementary.utf8.md
@@ -223,9 +236,11 @@ clean :
 	rm -f my_job.qsub.* || true
 	rm -f $(REFS)tax* || true
 	rm -f $(REFS)silva* || true
+	rm -f $(REFS)trainset16_022016.* || true
 	rm -f $(MOTH)raw.* || true
 	rm -f $(MOTH)current_files.summary || true
 	rm -f $(MOTH)summary.txt || true
+	rm -f $(MOTH)chloroplast.* || true
 	rm -f $(RAW)18118-*.fastq || true
 	rm -f $(RAW)names_file.txt || true
 	rm -f $(RAW)raw.files || true

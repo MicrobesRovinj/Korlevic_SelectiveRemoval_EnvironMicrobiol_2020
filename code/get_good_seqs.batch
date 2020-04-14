@@ -35,6 +35,8 @@ system(mv data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster
 system(mv data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.pick.pick.count_table data/mothur/chloroplast.count_table)
 
 system(mv data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.fasta data/mothur/chloroplast.fasta)
+
+degap.seqs(fasta=data/mothur/chloroplast.fasta)
 ###################################################################
 
 remove.lineage(fasta=data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, taxonomy=data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.nr_v138.wang.taxonomy, taxon=unknown-Chloroplast-Mitochondria-Eukaryota)

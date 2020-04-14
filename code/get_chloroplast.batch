@@ -1,3 +1,3 @@
 set.dir(input=data/mothur/, output=data/mothur/, seed=19760620)
 
-classify.seqs(fasta=data/mothur/chloroplast.fasta, count=data/mothur/chloroplast.count_table, reference=data/references/, taxonomy=data/references/, cutoff=80, processors=16)
+classify.seqs(fasta=data/mothur/chloroplast.fasta, count=data/mothur/chloroplast.count_table, reference=data/references/trainset16_022016.pds.fasta, taxonomy=data/references/trainset16_022016.pds.tax, cutoff=80, processors=16)

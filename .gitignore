@@ -19,3 +19,5 @@ data/*/*
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.groups.rarefaction
 # Sequencing error summary data
 !data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.error.summary
+# Chloroplast sequences taxonomy data
+!data/mothur/chloroplast.pds.wang.tax.summary
