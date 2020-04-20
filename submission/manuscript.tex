@@ -345,9 +345,10 @@ negative control were sequenced. A negative control was comprised of
 four parallel PCR reactions without DNA template, while for a positive
 control a mock community composed of evenly mixed DNA material
 originating from 20 bacterial strains (ATCC MSA-1002, ATCC, USA) was
-used. The sequences obtained in this study have been submitted to the
-European Nucleotide Archive (ENA) under accession numbers \textbf{TO BE
-ADDED LATER!}.
+used. Sequences obtained in this study have been deposited in the
+European Nucleotide Archive (ENA) at EMBL-EBI under accession numbers
+SAMEA6786270, SAMEA6648792 -- SAMEA6648794, SAMEA6648809 --
+SAMEA6648811.
 
 \hypertarget{sequence-analysis}{%
 \subsubsection{Sequence analysis}\label{sequence-analysis}}
@@ -362,28 +363,24 @@ reproducibility (\url{http://www.riffomonas.org/}). For alignment and
 classification of sequences the SILVA SSU Ref NR 99 database (release
 138; \url{http://www.arb-silva.de}) was used (Quast \emph{et al.}, 2013;
 Yilmaz \emph{et al.}, 2014). Sequences classified as chloroplasts by
-mothur were exported, aligned using SILVA incremental aligner (SINA,
-version 1.6.0) (Pruesse \emph{et al.}, 2012) against the same SILVA SSU
-Ref NR 99 database (release 138) and imported into ARB (version 6.0.6)
-(Ludwig \emph{et al.}, 2004) for further phylogenetic analysis using the
-same database. Reference sequences close to imported ones were selected
-and used to calculate a phylogenetic tree using the Maximum Likelihood
-algorithm RAxML (version 7.0.3) with 1000 tree replicates (Stamatakis,
-2006). Imported partial chloroplast sequences were added to the tree
-using the maximum parsimony criteria and not allowing changes to tree
-topology. Pipeline data processing and visualization was done using R
-(version 3.6.0) (R Core Team, 2019), package tidyverse (version 1.2.1)
-(Wickham \emph{et al.}, 2019) and multiple other packages (Xie, 2014,
-2015, 2019a, 2019b; Xie \emph{et al.}, 2018; Zhu, 2019; Allaire \emph{et
-al.}, 2019). The detailed analysis procedure including the R Markdown
-file for this paper are available as a GitHub repository (\textbf{TO BE
-ADDED LATER!}). Based on the ATCC MSA-1002 mock community included in
-the analysis a sequencing error rate of 0.009 \si{\percent} was
-determined, which is in line with previously reported values for
-next-generation sequencing data (Kozich \emph{et al.}, 2013; Schloss
-\emph{et al.}, 2016). In addition, the negative control processed
-together with the samples yielded only 2 sequences after sequence
-quality curation.
+SILVA were exported and reclassifed using mothur and the RDP (Ribosomal
+Database Project; \url{http://rdp.cme.msu.edu/}) training set (version
+16) reference files adapted for mothur (Cole \emph{et al.}, 2014). In
+comparison to SILVA, RDP allows a more detailed classification of
+chloroplast sequences. Pipeline data processing and visualization was
+done using R (version 3.6.0) (R Core Team, 2019), package tidyverse
+(version 1.3.0) (Wickham \emph{et al.}, 2019) and multiple other
+packages (Xie, 2014, 2015, 2019b, 2019a, 2020; Neuwirth, 2014; Xie
+\emph{et al.}, 2018; Allaire \emph{et al.}, 2019; Zhu, 2019). The
+detailed analysis procedure including the R Markdown file for this paper
+are available as a GitHub repository
+(\url{https://github.com/mkorlevic/Korlevic_SelectiveRemoval_EnvironMicrobiol_2020}).
+Based on the ATCC MSA-1002 mock community included in the analysis a
+sequencing error rate of 0.009 \si{\percent} was determined, which is in
+line with previously reported values for next-generation sequencing data
+(Kozich \emph{et al.}, 2013; Schloss \emph{et al.}, 2016). In addition,
+the negative control processed together with the samples yielded only 2
+sequences after sequence quality curation.
 
 \hypertarget{protein-isolation}{%
 \subsubsection{Protein isolation}\label{protein-isolation}}
@@ -471,70 +468,74 @@ Leica TCS SP8 X FLIM confocal microscope (Leica Microsystems, Germany).
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-Allaire2019}{}%
 Allaire, J.J., Xie, Y., McPherson, J., Luraschi, J., Ushey, K., Atkins,
-A., et al. (2019) rmarkdown: Dynamic Documents for R.
+A., et al. (2019) Rmarkdown: Dynamic documents for R.
 
 \leavevmode\hypertarget{ref-Amann1995}{}%
 Amann, R.I., Ludwig, W., and Schleifer, K.H. (1995) Phylogenetic
-identification and in situ detection of individual microbial cells
-without cultivation. \emph{Microbiological reviews} \textbf{59}:
-143--169.
+identification and \emph{in situ} detection of individual microbial
+cells without cultivation. \emph{Microbiol Rev} \textbf{59}: 143--169.
 
 \leavevmode\hypertarget{ref-Andersson2010}{}%
 Andersson, A.F., Riemann, L., and Bertilsson, S. (2010) Pyrosequencing
 reveals contrasting seasonal dynamics of taxa within Baltic Sea
-bacterioplankton communities. \emph{The ISME journal} \textbf{4}:
-171--181.
+bacterioplankton communities. \emph{ISME J} \textbf{4}: 171--181.
 
 \leavevmode\hypertarget{ref-Apprill2015}{}%
 Apprill, A., McNally, S., Parsons, R., and Weber, L. (2015) Minor
 revision to V4 region SSU rRNA 806R gene primer greatly increases
-detection of SAR11 bacterioplankton. \emph{Aquatic Microbial Ecology}
+detection of SAR11 bacterioplankton. \emph{Aquat Microb Ecol}
 \textbf{75}: 129--137.
 
 \leavevmode\hypertarget{ref-Burke2009}{}%
 Burke, C., Kjelleberg, S., and Thomas, T. (2009) Selective extraction of
-bacterial DNA from the surfaces of macroalgae. \emph{Applied and
-environmental microbiology} \textbf{75}: 252--256.
+bacterial DNA from the surfaces of macroalgae. \emph{Appl Environ
+Microbiol} \textbf{75}: 252--256.
 
-\leavevmode\hypertarget{ref-Burke2011a}{}%
+\leavevmode\hypertarget{ref-Burke2011}{}%
 Burke, C., Steinberg, P., Rusch, D., Kjelleberg, S., and Thomas, T.
 (2011) Bacterial community assembly based on functional genes rather
-than species. \emph{Proceedings of the National Academy of Sciences of
-the United States of America} \textbf{108}: 14288--14293.
+than species. \emph{Proc Natl Acad Sci U S A} \textbf{108}:
+14288--14293.
 
-\leavevmode\hypertarget{ref-Burke2011b}{}%
+\leavevmode\hypertarget{ref-Burke2011a}{}%
 Burke, C., Thomas, T., Lewis, M., Steinberg, P., and Kjelleberg, S.
 (2011) Composition, uniqueness and variability of the epiphytic
-bacterial community of the green alga Ulva australis. \emph{The ISME
-journal} \textbf{5}: 590--600.
+bacterial community of the green alga \emph{Ulva australis}. \emph{ISME
+J} \textbf{5}: 590--600.
 
 \leavevmode\hypertarget{ref-Cai2014}{}%
 Cai, X., Gao, G., Yang, J., Tang, X., Dai, J., Chen, D., and Song, Y.
 (2014) An ultrasonic method for separation of epiphytic microbes from
-freshwater submerged macrophytes. \emph{Journal of basic microbiology}
-\textbf{54}: 758--761.
+freshwater submerged macrophytes. \emph{J Basic Microbiol} \textbf{54}:
+758--761.
 
 \leavevmode\hypertarget{ref-Caporaso2012}{}%
 Caporaso, J.G., Lauber, C.L., Walters, W.A., Berg-Lyons, D., Huntley,
 J., Fierer, N., et al. (2012) Ultra-high-throughput microbial community
-analysis on the Illumina HiSeq and MiSeq platforms. \emph{The ISME
-Journal} \textbf{6}: 1621--1624.
+analysis on the Illumina HiSeq and MiSeq platforms. \emph{ISME J}
+\textbf{6}: 1621--1624.
 
 \leavevmode\hypertarget{ref-Chourey2010}{}%
 Chourey, K., Jansson, J., VerBerkmoes, N., Shah, M., Chavarria, K.L.,
-Tom, L.M., et al. (2010) Direct Cellular Lysis/Protein Extraction
-Protocol for Soil Metaproteomics. \emph{Journal of Proteome Research}
-\textbf{9}: 6615--6622.
+Tom, L.M., et al. (2010) Direct cellular lysis/protein extraction
+protocol for soil metaproteomics. \emph{J Proteome Res} \textbf{9}:
+6615--6622.
+
+\leavevmode\hypertarget{ref-Cole2014}{}%
+Cole, J.R., Wang, Q., Fish, J.A., Chai, B., McGarrell, D.M., Sun, Y., et
+al. (2014) Ribosomal Database Project: Data and tools for high
+throughput rRNA analysis. \emph{Nucleic Acids Res} \textbf{42}:
+D633--D642.
 
 \leavevmode\hypertarget{ref-Egan2013}{}%
 Egan, S., Harder, T., Burke, C., Steinberg, P., Kjelleberg, S., and
-Thomas, T. (2013) The seaweed holobiont: understanding seaweed-bacteria
-interactions. \emph{FEMS microbiology reviews} \textbf{37}: 462--476.
+Thomas, T. (2013) The seaweed holobiont: Understanding seaweed-bacteria
+interactions. \emph{FEMS Microbiol Rev} \textbf{37}: 462--476.
 
 \leavevmode\hypertarget{ref-Gilbert2009}{}%
 Gilbert, J.A., Field, D., Swift, P., Newbold, L., Oliver, A., Smyth, T.,
 et al. (2009) The seasonal structure of microbial communities in the
-Western English Channel. \emph{Environmental Microbiology} \textbf{11}:
+Western English Channel. \emph{Environ Microbiol} \textbf{11}:
 3132--3139.
 
 \leavevmode\hypertarget{ref-Gross2003}{}%
@@ -551,145 +552,138 @@ and thermokarst bog soil microbiomes. \emph{Nature} \textbf{521}:
 \leavevmode\hypertarget{ref-Jiang2015}{}%
 Jiang, Y.-F., Ling, J., Dong, J.-D., Chen, B., Zhang, Y.-Y., Zhang,
 Y.-Z., and Wang, Y.-S. (2015) Illumina-based analysis the microbial
-diversity associated with Thalassia hemprichii in Xincun Bay, South
-China Sea. \emph{Ecotoxicology (London, England)} \textbf{24}: 1548--56.
+diversity associated with \emph{Thalassia hemprichii} in Xincun Bay,
+South China Sea. \emph{Ecotoxicology} \textbf{24}: 1548--56.
 
 \leavevmode\hypertarget{ref-Kozich2013}{}%
 Kozich, J.J., Westcott, S.L., Baxter, N.T., Highlander, S.K., and
 Schloss, P.D. (2013) Development of a dual-index sequencing strategy and
 curation pipeline for analyzing amplicon sequence data on the MiSeq
-Illumina sequencing platform. \emph{Applied and environmental
-microbiology} \textbf{79}: 5112--5120.
+Illumina sequencing platform. \emph{Appl Environ Microbiol} \textbf{79}:
+5112--5120.
 
 \leavevmode\hypertarget{ref-Longford2007}{}%
 Longford, S., Tujula, N., Crocetti, G., Holmes, A., Holmström, C.,
 Kjelleberg, S., et al. (2007) Comparisons of diversity of bacterial
-communities associated with three sessile marine eukaryotes.
-\emph{Aquatic Microbial Ecology} \textbf{48}: 217--229.
-
-\leavevmode\hypertarget{ref-Ludwig2004}{}%
-Ludwig, W., Strunk, O., Westram, R., Richter, L., Meier, H., Yadhukumar,
-et al. (2004) ARB: a software environment for sequence data.
-\emph{Nucleic Acids Research} \textbf{32}: 1363--1371.
+communities associated with three sessile marine eukaryotes. \emph{Aquat
+Microb Ecol} \textbf{48}: 217--229.
 
 \leavevmode\hypertarget{ref-Massana1997}{}%
 Massana, R., Murray, A.E., Preston, C.M., and DeLong, E.F. (1997)
 Vertical distribution and phylogenetic characterization of marine
-planktonic Archaea in the Santa Barbara Channel. \emph{Applied and
-environmental microbiology} \textbf{63}: 50--56.
+planktonic \emph{Archaea} in the Santa Barbara Channel. \emph{Appl
+Environ Microbiol} \textbf{63}: 50--56.
+
+\leavevmode\hypertarget{ref-Neuwirth2014}{}%
+Neuwirth, E. (2014) RColorBrewer: ColorBrewer palettes.
 
 \leavevmode\hypertarget{ref-Noges2010}{}%
 Nõges, T., Luup, H., and Feldmann, T. (2010) Primary production of
 aquatic macrophytes and their epiphytes in two shallow lakes (Peipsi and
-Võrtsjärv) in Estonia. \emph{Aquatic Ecology} \textbf{44}: 83--92.
+Võrtsjärv) in Estonia. \emph{Aquat Ecol} \textbf{44}: 83--92.
 
 \leavevmode\hypertarget{ref-Parada2016}{}%
 Parada, A.E., Needham, D.M., and Fuhrman, J.A. (2016) Every base
-matters: assessing small subunit rRNA primers for marine microbiomes
+matters: Assessing small subunit rRNA primers for marine microbiomes
 with mock communities, time series and global field samples.
-\emph{Environmental Microbiology} \textbf{18}: 1403--1414.
-
-\leavevmode\hypertarget{ref-Pruesse2012}{}%
-Pruesse, E., Peplies, J., and Glöckner, F.O. (2012) SINA: accurate
-high-throughput multiple sequence alignment of ribosomal RNA genes.
-\emph{Bioinformatics (Oxford, England)} \textbf{28}: 1823--1829.
+\emph{Environ Microbiol} \textbf{18}: 1403--1414.
 
 \leavevmode\hypertarget{ref-Quast2013}{}%
 Quast, C., Pruesse, E., Yilmaz, P., Gerken, J., Schweer, T., Yarza, P.,
-et al. (2013) The SILVA ribosomal RNA gene database project: improved
-data processing and web-based tools. \emph{Nucleic acids research}
-\textbf{41}: D590--6.
+et al. (2013) The SILVA ribosomal RNA gene database project: Improved
+data processing and web-based tools. \emph{Nucleic Acids Res}
+\textbf{41}: D590--D596.
 
 \leavevmode\hypertarget{ref-RCoreTeam2019}{}%
-R Core Team (2019) R: A Language and Environment for Statistical
-Computing, Vienna, Austria: R Foundation for Statistical Computing.
+R Core Team (2019) A language and environment for statistical computing,
+Vienna, Austria: R Foundation for Statistical Computing.
 
 \leavevmode\hypertarget{ref-Richter-Heitmann2016}{}%
 Richter-Heitmann, T., Eickhorst, T., Knauth, S., Friedrich, M.W., and
-Schmidt, H. (2016) Evaluation of Strategies to Separate Root-Associated
-Microbial Communities: A Crucial Choice in Rhizobiome Research.
-\emph{Frontiers in Microbiology} \textbf{7}: 773.
+Schmidt, H. (2016) Evaluation of strategies to separate root-associated
+microbial communities: A crucial choice in rhizobiome research.
+\emph{Front Microbiol} \textbf{7}: 773.
 
 \leavevmode\hypertarget{ref-Schloss2016}{}%
-Schloss, P.D., Girard, R.A., Martin, T., Edwards, J., and Thrash, J.C.
-(2016) Status of the Archaeal and Bacterial Census: an Update.
-\emph{mBio} \textbf{7}: e00201--16.
+Schloss, P.D., Jenior, M.L., Koumpouras, C.C., Westcott, S.L., and
+Highlander, S.K. (2016) Sequencing 16S rRNA gene fragments using the
+PacBio SMRT DNA sequencing system. \emph{PeerJ} \textbf{4}: e1869.
 
 \leavevmode\hypertarget{ref-Schloss2009}{}%
 Schloss, P.D., Westcott, S.L., Ryabin, T., Hall, J.R., Hartmann, M.,
-Hollister, E.B., et al. (2009) Introducing mothur: open-source,
+Hollister, E.B., et al. (2009) Introducing mothur: Open-source,
 platform-independent, community-supported software for describing and
-comparing microbial communities. \emph{Applied and environmental
-microbiology} \textbf{75}: 7537--7541.
-
-\leavevmode\hypertarget{ref-Stamatakis2006}{}%
-Stamatakis, A. (2006) RAxML-VI-HPC: maximum likelihood-based
-phylogenetic analyses with thousands of taxa and mixed models.
-\emph{Bioinformatics} \textbf{22}: 2688--2690.
+comparing microbial communities. \emph{Appl Environ Microbiol}
+\textbf{75}: 7537--7541.
 
 \leavevmode\hypertarget{ref-Staufenberger2008}{}%
 Staufenberger, T., Thiel, V., Wiese, J., and Imhoff, J.F. (2008)
-Phylogenetic analysis of bacteria associated with Laminaria saccharina.
-\emph{FEMS Microbiology Ecology} \textbf{64}: 65--77.
+Phylogenetic analysis of bacteria associated with \emph{Laminaria
+saccharina}. \emph{FEMS Microbiol Ecol} \textbf{64}: 65--77.
 
 \leavevmode\hypertarget{ref-Su2012}{}%
 Su, C., Lei, L., Duan, Y., Zhang, K.-Q., and Yang, J. (2012)
 Culture-independent methods for studying environmental microorganisms:
-methods, application, and perspective. \emph{Applied microbiology and
-biotechnology} \textbf{93}: 993--1003.
+Methods, application, and perspective. \emph{Appl Microbiol Biotechnol}
+\textbf{93}: 993--1003.
 
 \leavevmode\hypertarget{ref-Uku2007}{}%
 Uku, J., Björk, M., Bergman, B., and Díez, B. (2007) Characterization
 and comparison of prokaryotic epiphytes associated with three East
-African seagrasses. \emph{Journal of Phycology} \textbf{43}: 768--779.
+African seagrasses. \emph{J Phycol} \textbf{43}: 768--779.
 
 \leavevmode\hypertarget{ref-Weidner1996}{}%
 Weidner, S., Arnold, W., and Puhler, A. (1996) Diversity of uncultured
-microorganisms associated with the seagrass Halophila stipulacea
+microorganisms associated with the seagrass \emph{Halophila stipulacea}
 estimated by restriction fragment length polymorphism analysis of
-PCR-amplified 16S rRNA genes. \emph{Applied and environmental
-microbiology} \textbf{62}: 766--771.
+PCR-amplified 16S rRNA genes. \emph{Appl Environ Microbiol} \textbf{62}:
+766--771.
 
 \leavevmode\hypertarget{ref-Wickham2019}{}%
 Wickham, H., Averick, M., Bryan, J., Chang, W., McGowan, L.D., François,
-R., et al. (2019) Welcome to the tidyverse. \emph{Journal of Open Source
-Software} \textbf{4}: 1686.
+R., et al. (2019) Welcome to the tidyverse. \emph{J Open Source Softw}
+\textbf{4}: 1686.
 
 \leavevmode\hypertarget{ref-Wisniewski2009}{}%
 Wiśniewski, J.R., Zougman, A., Nagaraj, N., and Mann, M. (2009)
-Universal sample preparation method for proteome analysis. \emph{Nature
+Universal sample preparation method for proteome analysis. \emph{Nat
 Methods} \textbf{6}: 359--362.
 
 \leavevmode\hypertarget{ref-Xie2015}{}%
-Xie, Y. (2015) Dynamic Documents with \{R\} and knitr, 2nd ed. Boca
-Raton, Florida: Chapman; Hall/CRC.
+Xie, Y. (2015) Dynamic Documents with R and knitr, 2nd ed. Boca Raton,
+Florida: Chapman and Hall/CRC.
 
 \leavevmode\hypertarget{ref-Xie2014}{}%
-Xie, Y. (2014) knitr: A Comprehensive Tool for Reproducible Research in
-\{R\}. In \emph{Implementing reproducible computational research}.
-Stodden, V., Leisch, F., and Peng, R.D. (eds). Chapman; Hall/CRC.
-
-\leavevmode\hypertarget{ref-Xie2019a}{}%
-Xie, Y. (2019a) knitr: A General-Purpose Package for Dynamic Report
-Generation in R.
+Xie, Y. (2014) Knitr: A comprehensive tool for reproducible research in
+R. In \emph{Implementing Reproducible Computational Research}. Stodden,
+V., Leisch, F., and Peng, R.D. (eds). New York: Chapman and Hall/CRC,
+pp. 3--32.
 
 \leavevmode\hypertarget{ref-Xie2019}{}%
-Xie, Y. (2019b) tinytex: Helper Functions to Install and Maintain 'TeX
-Live', and Compile 'LaTeX' Documents.
+Xie, Y. (2019a) Knitr: A general-purpose package for dynamic report
+generation in R.
+
+\leavevmode\hypertarget{ref-Xie2019a}{}%
+Xie, Y. (2019b) TinyTeX: A lightweight, cross-platform, and
+easy-to-maintain LaTeX distribution based on TeX Live. \emph{TUGboat}
+\textbf{40}: 30--32.
+
+\leavevmode\hypertarget{ref-Xie2020}{}%
+Xie, Y. (2020) TinyTex: Helper functions to install and maintain 'TeX
+Live', and compile 'LaTeX' documents.
 
 \leavevmode\hypertarget{ref-Xie2018}{}%
 Xie, Y., Allaire, J.J., and Grolemund, G. (2018) R Markdown: The
-Definitive Guide, Boca Raton, Florida: Chapman; Hall/CRC.
+Definitive Guide, 1st ed. Boca Raton, Florida: Chapman and Hall/CRC.
 
 \leavevmode\hypertarget{ref-Yilmaz2014}{}%
 Yilmaz, P., Parfrey, L.W., Yarza, P., Gerken, J., Pruesse, E., Quast,
-C., et al. (2014) The SILVA and "All-species Living Tree Project (LTP)"
-taxonomic frameworks. \emph{Nucleic acids research} \textbf{42}:
-D643--8.
+C., et al. (2014) The SILVA and "All-Species Living Tree Project (LTP)"
+taxonomic frameworks. \emph{Nucleic Acids Res} \textbf{42}: D643--D648.
 
 \leavevmode\hypertarget{ref-Zhu2019}{}%
-Zhu, H. (2019) kableExtra: Construct Complex Table with 'kable' and Pipe
-Syntax.
+Zhu, H. (2019) KableExtra: Construct complex table with 'kable' and pipe
+syntax.
 
 \newpage 
 \setlength\parindent{0pt}
@@ -702,6 +696,8 @@ Syntax.
 \textbf{\autoref{micro_jun}.} \nameref{micro_jun}
 
 \textbf{\autoref{community}.} \nameref{community}
+
+\textbf{\autoref{chloroplast}.} \nameref{chloroplast}
 
 \newpage
 
@@ -735,6 +731,16 @@ Syntax.
 }
 
 \caption{Taxonomic classification and relative contribution of the most abundant (> 1 \si{\percent}) bacterial and archaeal sequences from surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (Mixed and Monospecific Settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{community}}\label{fig:unnamed-chunk-4}
+\end{figure}
+
+\newpage
+\begin{figure}[ht]
+
+{\centering \includegraphics[width=1\linewidth]{../results/figures/chloroplast} 
+
+}
+
+\caption{Taxonomic classification and relative contribution of chloroplast sequences from surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (Mixed and Monospecific Settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{chloroplast}}\label{fig:unnamed-chunk-5}
 \end{figure}
 
 

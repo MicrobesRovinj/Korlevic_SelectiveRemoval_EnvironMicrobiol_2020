@@ -90,15 +90,15 @@ gather(plot, key="sample", value="abundance", 6:(ncol(plot))) %>%
   annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=3.55, xmax=4.45, ymin=-9, ymax=-9) +
   annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=4.55, xmax=6.45, ymin=-9, ymax=-9) +
   annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=6.55, xmax=7.45, ymin=-9, ymax=-9) +
-  annotation_custom(textGrob(str_wrap("Saline", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=0.55, xmax=1.45, ymin=-13, ymax=-13) +
-  annotation_custom(textGrob(str_wrap("Funtana (Mixed)", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=1.55, xmax=3.45, ymin=-13, ymax=-13) +
-  annotation_custom(textGrob(str_wrap("Funtana (Monospecific)", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=3.55, xmax=4.45, ymin=-13, ymax=-13) +
-  annotation_custom(textGrob(str_wrap("Funtana (Mixed)", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=4.55, xmax=6.45, ymin=-13, ymax=-13) +
-  annotation_custom(textGrob(str_wrap("Funtana (Monospecific)", width=10), gp=gpar(fontsize=14, fontface="bold")), xmin=6.55, xmax=7.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Saline", width=10), gp=gpar(fontsize=14, fontface="bold", fontfamily="Times")), xmin=0.55, xmax=1.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Funtana (Mixed)", width=10), gp=gpar(fontsize=14, fontface="bold", fontfamily="Times")), xmin=1.55, xmax=3.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Funtana (Monospecific)", width=10), gp=gpar(fontsize=14, fontface="bold", fontfamily="Times")), xmin=3.55, xmax=4.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Funtana (Mixed)", width=10), gp=gpar(fontsize=14, fontface="bold", fontfamily="Times")), xmin=4.55, xmax=6.45, ymin=-13, ymax=-13) +
+  annotation_custom(textGrob(str_wrap("Funtana (Monospecific)", width=10), gp=gpar(fontsize=14, fontface="bold", fontfamily="Times")), xmin=6.55, xmax=7.45, ymin=-13, ymax=-13) +
   annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=0.55, xmax=4.45, ymin=-19, ymax=-19) +
   annotation_custom(linesGrob(gp=gpar(lwd=2)), xmin=4.55, xmax=7.45, ymin=-19, ymax=-19) +
-  annotation_custom(textGrob("4 December 2017", gp=gpar(fontsize=14, fontface="bold")), xmin=0.55, xmax=4.45, ymin=-21, ymax=-21) +
-  annotation_custom(textGrob("19 June 2018", gp=gpar(fontsize=14, fontface="bold")), xmin=4.55, xmax=7.45, ymin=-21, ymax=-21) +
+  annotation_custom(textGrob("4 December 2017", gp=gpar(fontsize=14, fontface="bold", fontfamily="Times")), xmin=0.55, xmax=4.45, ymin=-21, ymax=-21) +
+  annotation_custom(textGrob("19 June 2018", gp=gpar(fontsize=14, fontface="bold", fontfamily="Times")), xmin=4.55, xmax=7.45, ymin=-21, ymax=-21) +
   coord_cartesian(clip="off")
 
 # Plot saving
