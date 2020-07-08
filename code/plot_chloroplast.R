@@ -12,7 +12,7 @@
 community <- read_tsv("data/mothur/chloroplast.pds.wang.tax.summary") %>%
   filter(taxon!="Root")
 
-# Calculate relative abundaces
+# Calculating relative abundaces
 community <- group_by(community, taxlevel) %>%
   mutate_at(5:ncol(.), list(~. / sum(.) * 100)) %>%
   ungroup()

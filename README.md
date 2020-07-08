@@ -60,6 +60,7 @@ contains an overview of the repository structure, information on software depend
   * `RColorBrewer (v. 1.1.2)`
   * `kableExtra (v. 1.1.0)`
   * `grid (v. 3.6.0)`
+  * `matrixStats (v 0.56.0)`
 * The analysis supposes the use of 16 processor cores.
 
 #### Running analysis

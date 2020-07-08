@@ -10,6 +10,7 @@ library("tidyverse")
 library("vegan")
 library("RColorBrewer")
 library("grid")
+library("matrixStats")
 
 ############################################################
 # Options for knitr and Rmarkdown rendering

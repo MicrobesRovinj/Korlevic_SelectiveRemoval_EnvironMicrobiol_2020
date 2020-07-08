@@ -59,8 +59,8 @@ p <- metadata_rarefaction %>%
            "19/6-18 FCa"=parse(text="plain('Funtana, ')~plain('19 June 2018, ')~italic('Cymodocea nodosa ')~plain('(Monospecific)')"))) +
   labs(x="Number of Sequences", y="Number of OTUs") +
   theme +
-  theme(legend.position=c(0.67, 0.18), legend.title=element_blank(),
-        legend.text=element_text(size=10, margin=margin(r=0.2, unit="cm")),
+  theme(legend.position=c(0.58, 0.18), legend.title=element_blank(),
+        legend.text=element_text(size=14, margin=margin(r=0.2, unit="cm")),
         legend.key.width=unit(1.4, "cm"), legend.key.height=unit(0.5, "cm"),
         legend.key=element_rect(fill="white"), legend.justification=c("top"),
         legend.text.align=0, legend.spacing.x=unit(0, "cm")) +
