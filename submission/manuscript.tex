@@ -1,33 +1,47 @@
-\documentclass[12pt,]{article}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Selective DNA and Protein Isolation from Marine Macrophyte Surfaces},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1.0in]{geometry}
-\usepackage{hyperref}
-\hypersetup{unicode=true,
-            pdftitle={Selective DNA and Protein Isolation from Marine Macrophyte Surfaces},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -37,51 +51,14 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
-
-%%% Change title format to be more compact
-\usepackage{titling}
-
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
-}
-
-\setlength{\droptitle}{-2em}
-
-  \title{\textbf{Selective DNA and Protein Isolation from Marine Macrophyte
-Surfaces}}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-    \author{}
-    \preauthor{}\postauthor{}
-    \date{}
-    \predate{}\postdate{}
-  
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{times} % Times New Roman font
 \usepackage[T1]{fontenc}
 
@@ -122,6 +99,11 @@ Surfaces}}
 \usepackage{txfonts}
 
 \renewcommand{\figureautorefname}{Fig.}
+
+\title{\textbf{Selective DNA and Protein Isolation from Marine Macrophyte
+Surfaces}}
+\author{}
+\date{\vspace{-2.5em}}
 
 \begin{document}
 \maketitle
@@ -411,9 +393,6 @@ European Nucleotide Archive (ENA) at EMBL-EBI under accession numbers
 SAMEA6786270, SAMEA6648792 -- SAMEA6648794, SAMEA6648809 --
 SAMEA6648811.
 
-\hypertarget{sequence-analysis}{%
-\subsubsection{Sequence analysis}\label{sequence-analysis}}
-
 Obtained sequences were analyzed on the computer cluster Isabella
 (University Computing Center, University of Zagreb) using mothur
 (version 1.43.0) (Schloss \emph{et al.}, 2009) according to the MiSeq
@@ -431,10 +410,10 @@ SILVA, RDP allows a more detailed classification of chloroplast
 sequences. Pipeline data processing and visualization was done using R
 (version 3.6.0) (R Core Team, 2019), package tidyverse (version 1.3.0)
 (Wickham \emph{et al.}, 2019) and multiple other packages (Xie, 2014,
-2015, 2019b, 2019a, 2020; Neuwirth, 2014; Xie \emph{et al.}, 2018;
-Allaire \emph{et al.}, 2019; Zhu, 2019; Bengtsson, 2020). The detailed
-analysis procedure including the R Markdown file for this paper are
-available as a GitHub repository
+2015, 2020; Neuwirth, 2014; Xie \emph{et al.}, 2018; Y. Xie, 2019b,
+2019a; Allaire \emph{et al.}, 2019; Zhu, 2019; Bengtsson, 2020). The
+detailed analysis procedure including the R Markdown file for this paper
+are available as a GitHub repository
 (\url{https://github.com/mkorlevic/Korlevic_SelectiveRemoval_EnvironMicrobiol_2020}).
 Based on the ATCC MSA-1002 mock community included in the analysis a
 sequencing error rate of 0.009 \si{\percent} was determined, which is in
@@ -442,6 +421,37 @@ line with previously reported values for next-generation sequencing data
 (Kozich \emph{et al.}, 2013; Schloss \emph{et al.}, 2016). In addition,
 the negative control processed together with the samples yielded only 2
 sequences after sequence quality curation.
+
+\hypertarget{metagenomics}{%
+\subsubsection{Metagenomics}\label{metagenomics}}
+
+Four samples were selected and sent on dry ice to IMGM Laboratories,
+Martinsried, Germany for metagenomic sequencing. DNA was purified using
+AMPure XP Beads (Beckman Coulter, USA) applying a bead:DNA ratio of 1:1
+(v/v), quantified with a Qubit dsDNA HS Assay Kit (Thermo Fisher
+Scientific, USA) and check for integrity on a 1 \si{\percent} agarose
+gel. Metagenomic sequencing libraries were generated from 300 \si{\ng}
+of input DNA using a NEBNext Ultra II FS DNA Library Prep Kit for
+Illumina (New England Biolabs, USA) according to the manufacturer's
+instructions. Fragments were selected (500 -- 700 bp) using AMPure XP
+Beads, PCR enriched for 3 -- 5 cycles and quality controlled. Libraries
+generated from different DNA samples were pooled and sequenced on an
+Illumina NovaSeq 6000 sequencing system (2 × 250 bp).
+
+Obtained sequences were assembled individually using MEGAHIT (version
+1.1.2) (Li \emph{et al.}, 2015) under default settings. Putative genes
+were predicted from contings longer than 200 bp using Prodigal (version
+2.6.3) (Hyatt \emph{et al.}, 2010) in metagenome mode (-p meta).
+Abundances of predicted genes were expressed as Reads Per Kilobase
+Million (RPKM) and calculated using the BWA algorithm (version 0.7.16a)
+(Li and Durbin, 2009). All predicted genes were functionally annotated
+using the eggNOG-mapper (Huerta-Cepas \emph{et al.}, 2017) and eggNOG
+database (version 5.0) (Huerta-Cepas \emph{et al.}, 2019). The taxonomic
+classification of sequences was determined using the lowest common
+ancestor algorithm adapted from DIAMOND (version 0.8.36) (Buchfink
+\emph{et al.}, 2015) and by searching against the non-redundant database
+(NR). To determine phylogeny the top 10 \si{\percent} hits with an
+e-value \textless{} 1 × 10\textsuperscript{-5} were used (-\/-top 10).
 
 \hypertarget{protein-isolation}{%
 \subsubsection{Protein isolation}\label{protein-isolation}}
@@ -529,7 +539,7 @@ Leica TCS SP8 X FLIM confocal microscope (Leica Microsystems, Germany).
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-Allaire2019}{}%
 Allaire, J.J., Xie, Y., McPherson, J., Luraschi, J., Ushey, K., Atkins,
-A., et al. (2019) Rmarkdown: Dynamic documents for R.
+A., et al. (2019) rmarkdown: Dynamic documents for R.
 
 \leavevmode\hypertarget{ref-Amann1995}{}%
 Amann, R.I., Ludwig, W., and Schleifer, K.H. (1995) Phylogenetic
@@ -550,6 +560,10 @@ detection of SAR11 bacterioplankton. \emph{Aquat Microb Ecol}
 \leavevmode\hypertarget{ref-Bengtsson2020}{}%
 Bengtsson, H. (2020) MatrixStats: Functions that apply to rows and
 columns of matrices (and to vectors).
+
+\leavevmode\hypertarget{ref-Buchfink2015}{}%
+Buchfink, B., Xie, C., and Huson, D.H. (2015) Fast and sensitive protein
+alignment using DIAMOND. \emph{Nat Methods} \textbf{12}: 59--60.
 
 \leavevmode\hypertarget{ref-Burke2009}{}%
 Burke, C., Kjelleberg, S., and Thomas, T. (2009) Selective extraction of
@@ -608,11 +622,30 @@ Gross, E.M., Feldbaum, C., and Graf, A. (2003) Epiphyte biomass and
 elemental composition on submersed macrophytes in shallow eutrophic
 lakes. \emph{Hydrobiologia} \textbf{506-509}: 559--565.
 
+\leavevmode\hypertarget{ref-Huerta-Cepas2017}{}%
+Huerta-Cepas, J., Forslund, K., Coelho, L.P., Szklarczyk, D., Jensen,
+L.J., von Mering, C., and Bork, P. (2017) Fast genome-wide functional
+annotation through orthology assignment by eggNOG-mapper. \emph{Mol Biol
+Evol} \textbf{34}: 2115--2122.
+
+\leavevmode\hypertarget{ref-Huerta-Cepas2019}{}%
+Huerta-Cepas, J., Szklarczyk, D., Heller, D., Hernández-Plaza, A.,
+Forslund, S.K., Cook, H., et al. (2019) eggNOG 5.0: A hierarchical,
+functionally and phylogenetically annotated orthology resource based on
+5090 organisms and 2502 viruses. \emph{Nucleic Acids Res} \textbf{47}:
+D309--D314.
+
 \leavevmode\hypertarget{ref-Hultman2015}{}%
 Hultman, J., Waldrop, M.P., Mackelprang, R., David, M.M., McFarland, J.,
 Blazewicz, S.J., et al. (2015) Multi-omics of permafrost, active layer
 and thermokarst bog soil microbiomes. \emph{Nature} \textbf{521}:
 208--212.
+
+\leavevmode\hypertarget{ref-Hyatt2010}{}%
+Hyatt, D., Chen, G.-L., LoCascio, P.F., Land, M.L., Larimer, F.W., and
+Hauser, L.J. (2010) Prodigal: Prokaryotic gene recognition and
+translation initiation site identification. \emph{BMC Bioinformatics}
+\textbf{11}: 119.
 
 \leavevmode\hypertarget{ref-Jiang2015}{}%
 Jiang, Y.-F., Ling, J., Dong, J.-D., Chen, B., Zhang, Y.-Y., Zhang,
@@ -626,6 +659,16 @@ Schloss, P.D. (2013) Development of a dual-index sequencing strategy and
 curation pipeline for analyzing amplicon sequence data on the MiSeq
 Illumina sequencing platform. \emph{Appl Environ Microbiol} \textbf{79}:
 5112--5120.
+
+\leavevmode\hypertarget{ref-Li2015}{}%
+Li, D., Liu, C.-M., Luo, R., Sadakane, K., and Lam, T.-W. (2015)
+MEGAHIT: An ultra-fast single-node solution for large and complex
+metagenomics assembly via succinct de Bruijn graph.
+\emph{Bioinformatics} \textbf{31}: 1674--1676.
+
+\leavevmode\hypertarget{ref-Li2009a}{}%
+Li, H. and Durbin, R. (2009) Fast and accurate short read alignment with
+BurrowsWheeler transform. \emph{Bioinformatics} \textbf{25}: 1754--1760.
 
 \leavevmode\hypertarget{ref-Longford2007}{}%
 Longford, S., Tujula, N., Crocetti, G., Holmes, A., Holmström, C.,
@@ -660,8 +703,8 @@ data processing and web-based tools. \emph{Nucleic Acids Res}
 \textbf{41}: D590--D596.
 
 \leavevmode\hypertarget{ref-RCoreTeam2019}{}%
-R Core Team (2019) A language and environment for statistical computing,
-Vienna, Austria: R Foundation for Statistical Computing.
+R Core Team (2019) R: A language and environment for statistical
+computing, Vienna, Austria: R Foundation for Statistical Computing.
 
 \leavevmode\hypertarget{ref-Reyes2001}{}%
 Reyes, J. and Sansón, M. (2001) Biomass and production of the epiphytes
@@ -724,13 +767,13 @@ Xie, Y. (2015) Dynamic Documents with R and knitr, 2nd ed. Boca Raton,
 Florida: Chapman and Hall/CRC.
 
 \leavevmode\hypertarget{ref-Xie2014}{}%
-Xie, Y. (2014) Knitr: A comprehensive tool for reproducible research in
+Xie, Y. (2014) knitr: A comprehensive tool for reproducible research in
 R. In \emph{Implementing Reproducible Computational Research}. Stodden,
 V., Leisch, F., and Peng, R.D. (eds). New York: Chapman and Hall/CRC,
 pp. 3--32.
 
 \leavevmode\hypertarget{ref-Xie2019}{}%
-Xie, Y. (2019a) Knitr: A general-purpose package for dynamic report
+Xie, Y. (2019a) knitr: A general-purpose package for dynamic report
 generation in R.
 
 \leavevmode\hypertarget{ref-Xie2019a}{}%
@@ -739,7 +782,7 @@ easy-to-maintain LaTeX distribution based on TeX Live. \emph{TUGboat}
 \textbf{40}: 30--32.
 
 \leavevmode\hypertarget{ref-Xie2020}{}%
-Xie, Y. (2020) TinyTex: Helper functions to install and maintain 'TeX
+Xie, Y. (2020) tinytex: Helper functions to install and maintain 'TeX
 Live', and compile 'LaTeX' documents.
 
 \leavevmode\hypertarget{ref-Xie2018}{}%
@@ -752,7 +795,7 @@ C., et al. (2014) The SILVA and "All-Species Living Tree Project (LTP)"
 taxonomic frameworks. \emph{Nucleic Acids Res} \textbf{42}: D643--D648.
 
 \leavevmode\hypertarget{ref-Zhu2019}{}%
-Zhu, H. (2019) KableExtra: Construct complex table with 'kable' and pipe
+Zhu, H. (2019) kableExtra: Construct complex table with 'kable' and pipe
 syntax.
 
 \newpage 
@@ -812,6 +855,5 @@ syntax.
 
 \caption{Taxonomic classification and relative contribution of chloroplast sequences from surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (Mixed and Monospecific Settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{chloroplast}}\label{fig:unnamed-chunk-5}
 \end{figure}
-
 
 \end{document}
