@@ -71,7 +71,7 @@ Running title: DNA and protein isolation from macrophyte surfaces
 
 ## Supplementary Figures
 
-```{r out.width="80%", fig.align="center", fig.cap="Rarefaction curves of bacterial and archaeal communities from the surfaces of macrophytes sampled in the Bay of Saline (\\textit{C. nodosa} [Monospecific Settlement]) and the Bay of Funatana (\\textit{C. nodosa} [Mixed Settlement] and \\textit{C. cylindracea} [Mixed and Monospecific Settlement]) in two contrasting seasons.\\label{rarefaction}", fig.pos="H"}
+```{r out.width="80%", fig.align="center", fig.cap="Rarefaction curves of bacterial and archaeal communities from the surfaces of two marine macrophytes (\\textit{C. nodosa} and \\textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (Mixed and Monospecific Settlements) in two contrasting seasons (4 December 2017 and 19 June 2018).\\label{rarefaction}", fig.pos="H"}
 include_graphics("../results/figures/rarefaction.jpg")
 ```
 
