@@ -1,1 +1,1 @@
-This directory contains all output from workflows and analyses.
+This directory contains output from workflows and analyses.

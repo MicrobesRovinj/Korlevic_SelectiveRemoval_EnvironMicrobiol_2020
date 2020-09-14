@@ -35,9 +35,16 @@ contains an overview of the repository structure, information on software depend
 	|
 	|- code/                        # any programmatic code
 	|
-	|- results                      # all output from workflows and analyses
+	|- results                      # output from workflows and analyses
 	| |- figures/                   # graphs designated for manuscript or supplementary information figures
-	| +- images/                    # images designated for manuscript or supplementary information figures
+	| |- images/                    # images designated for manuscript or supplementary information figures
+        | |     
+        | |- metagenomics               # folders containing files produced in the metagenomic analysis
+        | | |- cog/                     # files containg data on coding sequences COG functional categories
+        | | |- statistics/              # metagenomic statistical data
+        | | +- taxonomy/                # files containg taxonomic classification of metagenomic coding sequences
+        | |
+        | +- metaproteomics/            # files containing data produced in the metaprotemic analysis
 	|
 	|-.gitignore                    # gitinore file for this study
 	|-.Rprofile                     # Rprofile file containing information on which R libraries to load,
@@ -61,6 +68,7 @@ contains an overview of the repository structure, information on software depend
   * `kableExtra (v. 1.1.0)`
   * `grid (v. 3.6.0)`
   * `matrixStats (v 0.56.0)`
+  * `cowplot (v. 1.0.0)`
 * The analysis supposes the use of 16 processor cores.
 
 #### Running analysis

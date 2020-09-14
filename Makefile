@@ -4,7 +4,10 @@ MOTH = data/mothur/
 REFS = data/references/
 BASIC_STEM = data/mothur/raw.trim.contigs.good.unique.good.filter.unique.precluster
 FIGS = results/figures/
+IMGS = results/images/
 FINAL = submission/
+METAG = results/metagenomics/
+METAP = results/metaproteomics/
 
 # Obtain the Linux version of mothur (v.1.43.0) from the mothur GitHub repository
 $(MOTHUR) :
@@ -186,14 +189,30 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 #
 #########################################################################################
 
-# Generate community composition bar plots
+# Generate a community composition bar plot
 $(FIGS)community_bar_plot.jpg : code/plot_community_bar_plot.R\
                                 $(BASIC_STEM).pick.nr_v138.wang.tax.summary\
                                 $(RAW)metadata.csv\
                                 $(RAW)group_colors.csv
 	R -e "source('code/plot_community_bar_plot.R')"
 
-# Construct a rarefaction plot
+# Generate a chlorplast bar plot
+$(FIGS)chloroplast.jpg : code/plot_chloroplast.R\
+                         $(MOTH)chloroplast.pds.wang.tax.summary\
+                         $(RAW)metadata.csv
+	R -e "source('code/plot_chloroplast.R')"
+
+# Generate a COG functional category plot
+$(FIGS)cog.jpg : code/plot_cog.R\
+                 $(METAG)cog/45.cog_categories.tsv\
+                 $(METAG)cog/47.cog_categories.tsv\
+                 $(METAG)cog/61.cog_categories.tsv\
+                 $(METAG)cog/63.cog_categories.tsv\
+                 $(METAP)metaproteomics_cog.tsv\
+                 $(RAW)cog_categories_colors.tsv
+	R -e "source('code/plot_cog.R')"
+
+# Generate a rarefaction plot
 $(FIGS)rarefaction.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
                          code/get_rarefaction_data.batch\
                          $(MOTHUR)\
@@ -213,15 +232,28 @@ $(FIGS)rarefaction.jpg : $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
 $(FINAL)manuscript.pdf\
 $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(BASIC_STEM).pick.pick.pick.error.summary\
+                            $(IMGS)confocal_december.jpg\
+                            $(IMGS)confocal_june.jpg\
                             $(FIGS)community_bar_plot.jpg\
-                            $(FIGS)rarefaction.jpg\
+                            $(FIGS)chloroplast.jpg\
+                            $(FIGS)cog.jpg\
                             $(FINAL)manuscript.Rmd\
                             $(FINAL)header.tex\
+                            $(FIGS)rarefaction.jpg\
+                            $(BASIC_STEM).pick.pick.pick.opti_mcc.shared\
+                            $(RAW)metadata.csv\
+                            $(METAG)statistics/00raw*.txt\
+                            $(METAG)statistics/01truncated*.txt\
+                            $(METAG)statistics/03contigs*.txt\
+                            $(METAG)statistics/04orf_nucl*.txt\
+                            $(METAG)statistics/07eggnog*.txt\
+                            $(RAW)metadata_metagenomics.csv\
+                            $(METAG)taxonomy/*.domain.tsv\
+                            $(METAG)taxonomy/*.phylum.tsv\
                             $(FINAL)supplementary.Rmd\
                             $(FINAL)header_supplementary.tex\
                             $(FINAL)references.bib\
-                            $(FINAL)citation_style.csl\
-                            $(MOTH)chloroplast.pds.wang.tax.summary
+                            $(FINAL)citation_style.csl
 	R -e 'render("$(FINAL)supplementary.Rmd", clean=FALSE)'
 	mv $(FINAL)supplementary.knit.md $(FINAL)supplementary.md
 	rm $(FINAL)supplementary.utf8.md
