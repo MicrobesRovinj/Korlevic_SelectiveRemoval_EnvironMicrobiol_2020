@@ -228,7 +228,7 @@ Burke \emph{et al.} (2009). In contrast to previously described methods
 this protocol enables an almost complete removal of the surface
 community and it was used for 16S rRNA gene clone library construction
 (Burke and Thomas \emph{et al.}, 2011) and metagenome sequencing (Burke
-and Peter Steinberg \emph{et al.}, 2011). This method, thought providing
+and Peter Steinberg \emph{et al.}, 2011). This method, though providing
 a selective isolation procedure, uses a rapid multienzyme cleaner (3M)
 that is not available worldwide and without a known composition (Burke
 \emph{et al.}, 2009). Also to our knowledge, no selective isolation
@@ -613,24 +613,16 @@ reproducibility (\url{http://www.riffomonas.org/}). For alignment and
 classification of sequences the SILVA SSU Ref NR 99 database (release
 138; \url{http://www.arb-silva.de}) was used (Quast \emph{et al.}, 2013;
 Yilmaz \emph{et al.}, 2014). Sequences classified as chloroplasts by
-SILVA were exported and reclassifed using mothur and the RDP
+SILVA were exported and reclassified using mothur and the RDP
 (\url{http://rdp.cme.msu.edu/}) training set (version 16) reference
 files adapted for mothur (Cole \emph{et al.}, 2014). In comparison to
 SILVA, RDP allows a more detailed classification of chloroplast
-sequences. Pipeline data processing and visualization was done using R
-(version 3.6.0) (R Core Team, 2019), package tidyverse (version 1.3.0)
-(Wickham \emph{et al.}, 2019) and multiple other packages (Xie, 2014,
-2015, 2020; Neuwirth, 2014; Xie \emph{et al.}, 2018; Wilke, 2018; Y.
-Xie, 2019b, 2019a; Allaire \emph{et al.}, 2019; Zhu, 2019; Bengtsson,
-2020). The detailed analysis procedure including the R Markdown file for
-this paper are available as a GitHub repository
-(\url{https://github.com/mkorlevic/Korlevic_SelectiveRemoval_EnvironMicrobiol_2020}).
-Based on the ATCC MSA-1002 mock community included in the analysis a
-sequencing error rate of 0.009 \si{\percent} was determined, which is in
-line with previously reported values for next-generation sequencing data
-(Kozich \emph{et al.}, 2013; Schloss \emph{et al.}, 2016). In addition,
-the negative control processed together with the samples yielded only 2
-sequences after sequence quality curation.
+sequences. Based on the ATCC MSA-1002 mock community included in the
+analysis a sequencing error rate of 0.009 \si{\percent} was determined,
+which is in line with previously reported values for next-generation
+sequencing data (Kozich \emph{et al.}, 2013; Schloss \emph{et al.},
+2016). In addition, the negative control processed together with the
+samples yielded only 2 sequences after sequence quality curation.
 
 \hypertarget{metagenomics}{%
 \subsubsection{Metagenomics}\label{metagenomics}}
@@ -729,6 +721,19 @@ peptide level was \SI{< 1}{\percent} were kept. For protein
 identification a minimum of two peptides and one unique peptide were
 required. For protein quantification, a chromatographic peak area-based
 free quantitative method was applied.
+
+\hypertarget{data-processing-and-visualization}{%
+\subsubsection{Data processing and
+visualization}\label{data-processing-and-visualization}}
+
+Processing and visualization of 16S rRNA, metagenomic and metaproteomic
+data was done using R (version 3.6.0) (R Core Team, 2019), package
+tidyverse (version 1.3.0) (Wickham \emph{et al.}, 2019) and multiple
+other packages (Xie, 2014, 2015, 2019, 2020; Neuwirth, 2014; Xie
+\emph{et al.}, 2018; Wilke, 2018; Allaire \emph{et al.}, 2019; Zhu,
+2019; Bengtsson, 2020). The detailed analysis procedure including the R
+Markdown file for this paper are available as a GitHub repository
+(\url{https://github.com/mkorlevic/Korlevic_SelectiveRemoval_EnvironMicrobiol_2020}).
 
 \hypertarget{confocal-microscopy}{%
 \subsubsection{Confocal microscopy}\label{confocal-microscopy}}
@@ -1077,12 +1082,8 @@ R. In \emph{Implementing Reproducible Computational Research}. Stodden,
 V., Leisch, F., and Peng, R.D. (eds). New York: Chapman and Hall/CRC,
 pp. 3--32.
 
-\leavevmode\hypertarget{ref-Xie2019}{}%
-Xie, Y. (2019a) knitr: A general-purpose package for dynamic report
-generation in R.
-
 \leavevmode\hypertarget{ref-Xie2019a}{}%
-Xie, Y. (2019b) TinyTeX: A lightweight, cross-platform, and
+Xie, Y. (2019) TinyTeX: A lightweight, cross-platform, and
 easy-to-maintain LaTeX distribution based on TeX Live. \emph{TUGboat}
 \textbf{40}: 30--32.
 
@@ -1116,6 +1117,8 @@ syntax.
 \textbf{\autoref{community}.} \nameref{community}
 
 \textbf{\autoref{chloroplast}.} \nameref{chloroplast}
+
+\textbf{\autoref{cog}.} \nameref{cog}
 
 \newpage
 

@@ -318,7 +318,7 @@ select(metadata_metagenomic_phylum, phylum, cds, cds_relative, rpkm, rpkm_relati
 kable(format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=linebreak(c("Phylum", "No. of CDS", "CDS (\\%)", "Summed RPKM", "RPKM (\\%)"), align="c"), caption="Phyla into which CDS were classifed, number and proportion of CDS in different phyla and sum of coding sequences' RPKM (Reads Per Kilobase Million) and their proportion in different phyla. Data are derived from sequenced metagenomes. Each metagenomic sample is labeled with sampling station, community type, sampling date and sample ID. For each sample top ten phyla based on RPKM were selected. CDS that were not successfully classified were excluded from the dataset.\\label{metagenomic_taxonomy}", align="c") %>%
   kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9, full_width=TRUE) %>%
   row_spec(0, bold=TRUE) %>%
-  group_rows("Funtana, \\\\textit{Cymodocea nodosa} (Monospecific), 14 December 2017 (sample ID: 45)", 1, 10, escape=FALSE, latex_gap_space="0.6 em") %>%
+  group_rows("Funtana, \\\\textit{Cymodocea nodosa} (Mixed), 14 December 2017 (sample ID: 45)", 1, 10, escape=FALSE, latex_gap_space="0.6 em") %>%
   group_rows("Funtana, \\\\textit{Caulerpa cylindracea} (Monospecific), 14 December 2017 (sample ID: 47)", 11, 20, escape=FALSE, latex_gap_space="0.6 em") %>%
   group_rows("Funtana, \\\\textit{Cymodocea nodosa} (Mixed), 19 June 2018 (sample ID: 61)", 21, 30, escape=FALSE, latex_gap_space="0.9 em") %>%
   group_rows("Funtana, \\\\textit{Caulerpa cylindracea} (Monospecific), 19 June 2018 (sample ID: 63)", 31, 40, escape=FALSE, latex_gap_space="0.6 em")
