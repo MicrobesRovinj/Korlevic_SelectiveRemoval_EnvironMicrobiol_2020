@@ -38,13 +38,13 @@ contains an overview of the repository structure, information on software depend
 	|- results                      # output from workflows and analyses
 	| |- figures/                   # graphs designated for manuscript or supplementary information figures
 	| |- images/                    # images designated for manuscript or supplementary information figures
-        | |     
-        | |- metagenomics               # folders containing files produced in the metagenomic analysis
-        | | |- cog/                     # files containg data on coding sequences COG functional categories
-        | | |- statistics/              # metagenomic statistical data
-        | | +- taxonomy/                # files containg taxonomic classification of metagenomic coding sequences
-        | |
-        | +- metaproteomics/            # files containing data produced in the metaprotemic analysis
+	| |     
+	| |- metagenomics               # folders containing files produced in the metagenomic analysis
+	| | |- cog/                     # files containg data on coding sequences COG functional categories
+	| | |- statistics/              # metagenomic statistical data
+	| | +- taxonomy/                # files containg taxonomic classification of metagenomic coding sequences
+	| |
+	| +- metaproteomics/            # files containing data produced in the metaprotemic analysis
 	|
 	|-.gitignore                    # gitinore file for this study
 	|-.Rprofile                     # Rprofile file containing information on which R libraries to load,
