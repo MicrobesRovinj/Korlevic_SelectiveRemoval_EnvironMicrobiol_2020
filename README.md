@@ -1,10 +1,11 @@
 ## Selective DNA and Protein Isolation from Marine Macrophyte Surfaces
 This is the repository for the manuscript "Selective DNA and Protein Isolation from Marine Macrophyte Surfaces" written by Marino Korlević, Marsej Markovski, 
-Zihao Zhao, Gerhard J. Herndl and Mirjana Najdek. The raw sequencing data with the exception of the negative control have been deposited in the European Nucleotide 
+Zihao Zhao, Gerhard J. Herndl and Mirjana Najdek. Raw 16S rRNA sequencing data with the exception of the negative control has been deposited in the European Nucleotide 
 Archive (ENA) at EMBL-EBI under accession numbers SAMEA6786270, SAMEA6648792 – SAMEA6648794, SAMEA6648809 – SAMEA6648811. Negative control files are part of this repository and located in data/raw/. To be able to reproduce the 
 results the mothur compatible [SILVA](http://www.arb-silva.de) reference file (Release 138, available under a [CC BY 4.0 license](https://www.arb-silva.de/silva-license-information/)) must be 
-created according to the instruction given on [the mothur blog](https://mothur.org/blog/2020/SILVA-v138-reference-files/) and in the Makefile. In addition, a more detailed classification of chloroplast sequences was performed using the RDP ([Ribosomal Database Project](http://rdp.cme.msu.edu/), available under a [CC BY-SA 3.0 license](https://rdp.cme.msu.edu/misc/citation.jsp;jsessionid=B9944BE326AC81EAE4FDFE486D04FEA9.10.0.0.9)) training set (version 16) reference files [adapted for mothur](https://mothur.org/wiki/rdp_reference_files/). This README file 
-contains an overview of the repository structure, information on software dependencies and instructions how to reproduce and rerun the analysis.
+created according to the instruction given on [the mothur blog](https://mothur.org/blog/2020/SILVA-v138-reference-files/) and in the Makefile. In addition, a more detailed classification of chloroplast sequences was performed using the RDP ([Ribosomal Database Project](http://rdp.cme.msu.edu/), available under a [CC BY-SA 3.0 license](https://rdp.cme.msu.edu/misc/citation.jsp;jsessionid=B9944BE326AC81EAE4FDFE486D04FEA9.10.0.0.9)) training set (version 16) reference files [adapted for mothur](https://mothur.org/wiki/rdp_reference_files/).
+
+Metagenomic analysis was performed separately and results required by this study are located in results/metagenomics/. Raw metagenomic sequencing data has been deposited in the European Nucleotide Archive (ENA) at EMBL-EBI under accession numbers SAMEA6648795, SAMEA6648797, SAMEA6648809 and SAMEA6648811. Metaproteomic raw data is located in results/metaproteomics/. This README file contains an overview of the repository structure, information on software dependencies and instructions how to reproduce and rerun the analysis.
 
 ### Overview
 
