@@ -1,47 +1,33 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-%
-\documentclass[
-  12pt,
-]{article}
+\documentclass[12pt,]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math}
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
-% Use upquote if available, for straight quotes in verbatim environments
+% use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={Supplementary Information},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1.0in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Supplementary Information},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -51,14 +37,52 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-% Set default figure placement to htbp
-\makeatletter
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{\textbf{Supplementary Information}}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+  \subtitle{\textbf{Selective DNA and Protein Isolation from Marine Macrophyte
+Surfaces}}
+  \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
 \usepackage{times} % Times New Roman font
 \usepackage[T1]{fontenc}
 
@@ -111,18 +135,6 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-
-\title{\textbf{Supplementary Information}}
-\usepackage{etoolbox}
-\makeatletter
-\providecommand{\subtitle}[1]{% add subtitle to \maketitle
-  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
-}
-\makeatother
-\subtitle{\textbf{Selective DNA and Protein Isolation from Marine Macrophyte
-Surfaces}}
-\author{}
-\date{\vspace{-2.5em}}
 
 \begin{document}
 \maketitle
@@ -195,13 +207,13 @@ Running title: DNA and protein isolation from macrophyte surfaces
 \endfoot
 \bottomrule
 \endlastfoot
-40 & Saline & \textit{Cymodocea nodosa} (Monospecific) & 4 December 2017 & 19,176 & 942\\
-41 & Funtana & \textit{Cymodocea nodosa} (Mixed) & 4 December 2017 & 24,250 & 1,123\\
-42 & Funtana & \textit{Caulerpa cylindracea} (Mixed) & 4 December 2017 & 28,387 & 3,131\\
-43 & Funtana & \textit{Caulerpa cylindracea} (Monospecific) & 4 December 2017 & 13,661 & 1,809\\
-61 & Funtana & \textit{Cymodocea nodosa} (Mixed) & 19 June 2018 & 31,734 & 2,039\\
-62 & Funtana & \textit{Caulerpa cylindracea} (Mixed) & 19 June 2018 & 36,488 & 3,211\\
-63 & Funtana & \textit{Caulerpa cylindracea} (Monospecific) & 19 June 2018 & 41,871 & 3,851\\*
+40 & Saline & \textit{Cymodocea nodosa} (Monospecific) & 4 December 2017 & 19,176 & 935\\
+41 & Funtana & \textit{Cymodocea nodosa} (Mixed) & 4 December 2017 & 24,252 & 1,129\\
+42 & Funtana & \textit{Caulerpa cylindracea} (Mixed) & 4 December 2017 & 28,385 & 3,125\\
+43 & Funtana & \textit{Caulerpa cylindracea} (Monospecific) & 4 December 2017 & 13,667 & 1,816\\
+61 & Funtana & \textit{Cymodocea nodosa} (Mixed) & 19 June 2018 & 31,736 & 2,050\\
+62 & Funtana & \textit{Caulerpa cylindracea} (Mixed) & 19 June 2018 & 36,499 & 3,216\\
+63 & Funtana & \textit{Caulerpa cylindracea} (Monospecific) & 19 June 2018 & 41,842 & 3,848\\*
 \end{longtable}
 \endgroup{}
 
@@ -301,5 +313,6 @@ Phylum & No. of CDS & CDS (\%) & Summed RPKM & RPKM (\%)\\
 \hspace{1em}\textbf{Streptophyta} & 4,771 & 0.05 & 6,752.150 & 0.87\\*
 \end{longtabu}
 \endgroup{}
+
 
 \end{document}

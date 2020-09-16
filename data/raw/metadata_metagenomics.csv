@@ -1,0 +1,5 @@
+ID	file_name_F	file_name_R	sequencing_batch	label	date	station
+45	19181-0001_all_R1_001.fastq.gz	19181-0001_all_R2_001.fastq.gz	18118_batch1	14/12-17 FCyM	14.12.2017	FCyM
+47	19181-0002_all_R1_001.fastq.gz	19181-0002_all_R2_001.fastq.gz	18118_batch1	14/12-17 FCa	14.12.2017	FCa
+61	19181-0003_all_R1_001.fastq.gz	19181-0003_all_R2_001.fastq.gz	18118_batch1	19/6-18 FCyM	19.06.2018	FCyM
+63	19181-0004_all_R1_001.fastq.gz	19181-0004_all_R2_001.fastq.gz	18118_batch1	19/6-18 FCa	19.06.2018	FCa

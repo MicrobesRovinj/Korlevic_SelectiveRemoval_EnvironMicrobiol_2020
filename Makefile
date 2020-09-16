@@ -245,10 +245,9 @@ $(FINAL)supplementary.pdf : $(MOTH)summary.txt\
                             $(METAG)statistics/00raw*.txt\
                             $(METAG)statistics/01truncated*.txt\
                             $(METAG)statistics/03contigs*.txt\
-                            $(METAG)statistics/04orf_nucl*.txt\
+                            $(METAG)statistics/04cds_nucl*.txt\
                             $(METAG)statistics/07eggnog*.txt\
                             $(RAW)metadata_metagenomics.csv\
-                            $(METAG)taxonomy/*.domain.tsv\
                             $(METAG)taxonomy/*.phylum.tsv\
                             $(FINAL)supplementary.Rmd\
                             $(FINAL)header_supplementary.tex\
