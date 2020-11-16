@@ -15,13 +15,15 @@ bibliography: references.bib
 
 
 \vspace{20mm}
-Marino Korlević^1$*$^, Marsej Markovski^1^, Zihao Zhao^2^, Gerhard J. Herndl^2,3^, Mirjana Najdek^1^
+Marino Korlević^1$*$^, Marsej Markovski^1^, Zihao Zhao^2^, Gerhard J. Herndl^2,3,4^, Mirjana Najdek^1^
 
 1\. Center for Marine Research, Ruđer Bošković Institute, Croatia
 
 2\. Department of Functional and Evolutionary Ecology, University of Vienna, Austria
 
 3\. NIOZ, Department of Marine Microbiology and Biogeochemistry, Royal Netherlands Institute for Sea Research, Utrecht University, The Netherlands
+
+4\. Vienna Metabolomics Center, University of Vienna, Austria
 
 ^$*$^To whom correspondence should be addressed:
 
@@ -37,7 +39,7 @@ e-mail: marino.korlevic@irb.hr
 
 Running title: DNA and protein isolation from macrophyte surfaces
 
-\linenumbers
+[]: # (\linenumbers)
 \sisetup{mode=text}
 \setlength\parindent{24pt}
 
@@ -49,7 +51,7 @@ Running title: DNA and protein isolation from macrophyte surfaces
 
 }
 
-\caption{Rarefaction curves of bacterial and archaeal communities from the surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (Mixed and Monospecific Settlements) in two contrasting seasons (4 December 2017 and 19 June 2018).\label{rarefaction}}\label{fig:unnamed-chunk-1}
+\caption{Rarefaction curves of bacterial and archaeal communities from the surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (mixed and monospecific settlements) in two contrasting seasons (4 December 2017 and 19 June 2018).\label{rarefaction}}\label{fig:unnamed-chunk-1}
 \end{figure}
 
 \newpage

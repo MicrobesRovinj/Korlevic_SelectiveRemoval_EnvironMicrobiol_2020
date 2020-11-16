@@ -37,10 +37,10 @@ metadata <- read_tsv("data/raw/metadata.csv") %>%
 # Selection of groups for plotting
 plot <- filter(community, taxlevel==2 |
                  (taxlevel==4 & str_detect(taxon, "^Chloroplast$")) |
-                 (taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))[[2]]))) %>%
+                 (taxlevel==3 & str_detect(rankID, paste0(filter(community, str_detect(taxon, "^Proteobacteria$"))$rankID, "\\.")))) %>%
   filter_at(6:ncol(.), any_vars(. >= 1)) %>%
   mutate_at(5:ncol(.), list(~case_when(taxon=="Cyanobacteria" ~ . - .[taxon=="Chloroplast"], TRUE ~ .))) %>%
-  mutate_at(5:ncol(.), list(~case_when(taxon=="Proteobacteria" ~ . - sum(.[taxlevel==3 & str_detect(rankID, filter(community, str_detect(taxon, "^Proteobacteria$"))[[2]])]), TRUE ~ .))) %>%
+  mutate_at(5:ncol(.), list(~case_when(taxon=="Proteobacteria" ~ . - sum(.[taxlevel==3 & str_detect(rankID, paste0(filter(community, str_detect(taxon, "^Proteobacteria$"))$rankID, "\\."))]), TRUE ~ .))) %>%
   mutate(taxon=str_replace(taxon, "Proteobacteria", "Other Proteobacteria")) %>%
   mutate(taxon=str_replace_all(taxon, c("unknown_unclassified"="No_Relative", "unknown"="No_Relative"))) %>%
   filter_at(6:ncol(.), any_vars(. >= 1)) %>%
