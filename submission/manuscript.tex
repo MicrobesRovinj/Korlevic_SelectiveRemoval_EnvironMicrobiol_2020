@@ -124,6 +124,8 @@ Surfaces}}
 
 \renewcommand{\figureautorefname}{Fig.}
 
+\usepackage{setspace}
+
 \begin{document}
 \maketitle
 
@@ -160,9 +162,10 @@ e-mail:
 Running title: DNA and protein isolation from macrophyte surfaces
 
 \newpage
-
+\linenumbers
 \sisetup{mode=text}
 \setlength\parindent{24pt}
+\doublespacing
 
 \hypertarget{summary}{%
 \subsection{Summary}\label{summary}}
@@ -286,7 +289,7 @@ composition of the microbial community Illumina sequencing of the V4
 region of the 16S rRNA was performed. Sequencing yielded a total of
 336,944 sequences after quality curation and exclusion of eukaryotic,
 mitochondrial and no relative sequences. The number of sequences
-classified as chloroplasts was 97,334. After excluding these sequences
+classified as chloroplasts was 97,334. After excluding these sequences,
 the total number of retrieved reads was 239,610, ranging from 22,596 to
 52,930 sequences per sample (\autoref{supp-nseq_notus}). Even when the
 highest sequencing effort was applied, the rarefaction curves did not
@@ -304,7 +307,7 @@ macrophyte-associated epiphytic community that mainly composed of
 
 Primers used in this study, as in many other 16S rRNA amplicon
 procedures, also amplified chloroplast 16S rRNA genes. We observed a
-high proportion of chloroplast sequences in all analyzed samples (33.4 ±
+high proportion of chloroplast sequences in all analysed samples (33.4 ±
 9.4 \si{\percent}) (\autoref{community}). To determine whether
 chloroplast sequences originate from the host or eukaryotic epiphytic
 organisms, we exported SILVA-classified chloroplast sequences and
@@ -326,7 +329,7 @@ yielded between 207,149,524 and 624,029,930 sequence pairs
 (\autoref{supp-metagenomic_statistics}). Obtained sequences were
 successfully assembled into contigs whose L50 ranged from 654 to 1,011
 bp. In addition, predicted coding sequences were functionally annotated
-(9,066,667 -- 20,256,215 annotated sequences; \autoref{cog}) and
+(9,066,667 -- 20,256,215 annotated sequences; \autoref{cog}a) and
 taxonomically classified. Functional annotation allowed for an
 assessment of the relative contribution of each COG (Clusters of
 Orthologous Groups) functional category to the total number of annotated
@@ -351,7 +354,7 @@ successfully classified coding sequences 0.2 \si{\percent} were
 classified as Chlorophyta in December 2017 and 0.1 \si{\percent} in June
 2018. A relatively higher proportion of RPKM of these sequences than in
 the case of \emph{C. nodosa} was observed, indicating a higher
-coextraction of host DNA in \emph{C. cylindracea}. In December, the
+co-extraction of host DNA in \emph{C. cylindracea}. In December, the
 proportion of RPKM of sequences classified as Chlorophyta was 8.2
 \si{\percent}, while in June 2018 it reached 13.6 \si{\percent}.
 
@@ -384,6 +387,8 @@ Chlorophyta associated proteins comprised 5.2 ± 0.06 \si{\percent} of
 all identified proteins in \emph{C. cylindracea}, contributing 19.2 ±
 1.5 \si{\percent} to the total protein abundance.
 
+\newpage
+
 \hypertarget{discussion}{%
 \subsection{Discussion}\label{discussion}}
 
@@ -398,7 +403,7 @@ removal of epiphytic cells from the surfaces of both species comparable
 to the result of Burke \emph{et al.} (2009), indicating that structural
 differences do not impact the removal efficiency. In addition, isolation
 protocols were tested in two contrasting seasons, as it is known that
-macrophytes are harboring more algal epiphytes during autumn and winter
+macrophytes are harbouring more algal epiphytes during autumn and winter
 (Reyes and Sansón, 2001). No differences in the removal efficiency was
 observed between seasons suggesting that these protocols can be used on
 macrophyte samples retrieved throughout the year. Also, no removal
@@ -550,7 +555,7 @@ with 1 \si{\ml} of chilled 70 \si{\percent} ethanol and centrifuged
 after each washing step at 20,000 × g and 4 \si{\degreeCelsius} for 10
 \si{\minute}. After the first washing step duplicate pellets from the
 same sample were pooled and transferred to a clean 1.5 \si{\ml} tube.
-The dried pellet was resuspended in 100 \si{\ul} of deionized water.
+The dried pellet was re-suspended in 100 \si{\ul} of deionized water.
 
 \hypertarget{illumina-16s-rrna-sequencing}{%
 \subsubsection{Illumina 16S rRNA
@@ -562,43 +567,44 @@ concentration was determined using the Quant-iT PicoGreen dsDNA Assay
 Kit (Invitrogen, USA) according to the manufacturer's instructions and
 diluted to 1 \si{\ng\per\ul}. The V4 region of the 16S rRNA gene was
 amplified using a two-step PCR procedure. In the first PCR the 515F
-(5'-GTGYCAGCMGCCGCGGTAA-3') and 806R (5'-GGACTACNVGGGTWTCTAAT-3')
-primers from the Earth Microbiome Project
+(\(5'\)-GTGYCAGCMGCCGCGGTAA-\(3'\)) and 806R
+(\(5'\)-GGACTACNVGGGTWTCTAAT-\(3'\)) primers from the Earth Microbiome
+Project
 (\url{http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/16s/})
 were used to amplify the target region (Caporaso \emph{et al.}, 2012;
 Apprill \emph{et al.}, 2015; Parada \emph{et al.}, 2016). These primers
-contained on their 5' end a tagged sequence. Each sample was amplified
-in four parallel 25 \si{\ul} reactions of which each contained 1 × Q5
-Reaction Buffer, 0.2 \si{\milli\Molar} of dNTPmix, 0.7 \si{\mg\per\ml}
-BSA (Bovine Serum Albumin), 0.2 \si{\micro\Molar} of forward and reverse
-primers, 0.5 U of Q5 High-Fidelity DNA Polymerase (New England Biolabs,
-USA) and 5 \si{\ng} of DNA template. Cycling conditions were: initial
-denaturation at 94 \si{\degreeCelsius} for 3 \si{\minute}, 20 cycles of
-denaturation at 94 \si{\degreeCelsius} for 45 \si{\s}, annealing at 50
-\si{\degreeCelsius} for 60 \si{\s} and elongation at 72
-\si{\degreeCelsius} for 90 \si{\s}, finalized by an elongation step at
-72 \si{\degreeCelsius} for 10 \si{\minute}. The four parallel reactions
-volumes were pooled and PCR products were purified using the GeneJET PCR
-Purification Kit (Thermo Fisher Scientific, USA) according to the
-manufacturer's instructions and following the protocol that included
-isopropanol addition for better small DNA fragment yield. The column was
-eluted in 30 \si{\ul} of deionized water. Purified PCR products were
-sent for Illumina MiSeq sequencing (2 × 250 bp) at IMGM Laboratories,
-Martinsried, Germany. Before sequencing at IMGM, the second PCR
-amplification of the two-step PCR procedure was performed using primers
-targeting the tagged region incorporated in the first PCR. In addition,
-these primers contained adapter and sample-specific index sequences. The
-second PCR was carried out for 8 cycles. Beside samples, a positive and
-negative control were sequenced. A negative control was comprised of
-four parallel PCR reactions without DNA template, while for a positive
-control a mock community composed of evenly mixed DNA material
-originating from 20 bacterial strains (ATCC MSA-1002, ATCC, USA) was
-used. Partial 16S rRNA sequences obtained in this study have been
-deposited in the European Nucleotide Archive (ENA) at EMBL-EBI under
-accession numbers SAMEA6786270, SAMEA6648792 -- SAMEA6648794,
+contained on their \(5'\) end a tagged sequence. Each sample was
+amplified in four parallel 25 \si{\ul} reactions of which each contained
+1 × Q5 Reaction Buffer, 0.2 \si{\milli\Molar} of dNTPmix, 0.7
+\si{\mg\per\ml} BSA (Bovine Serum Albumin), 0.2 \si{\micro\Molar} of
+forward and reverse primers, 0.5 U of Q5 High-Fidelity DNA Polymerase
+(New England Biolabs, USA) and 5 \si{\ng} of DNA template. Cycling
+conditions were: initial denaturation at 94 \si{\degreeCelsius} for 3
+\si{\minute}, 20 cycles of denaturation at 94 \si{\degreeCelsius} for 45
+\si{\s}, annealing at 50 \si{\degreeCelsius} for 60 \si{\s} and
+elongation at 72 \si{\degreeCelsius} for 90 \si{\s}, finalized by an
+elongation step at 72 \si{\degreeCelsius} for 10 \si{\minute}. The four
+parallel reactions volumes were pooled and PCR products were purified
+using the GeneJET PCR Purification Kit (Thermo Fisher Scientific, USA)
+according to the manufacturer's instructions and following the protocol
+that included isopropanol addition for better small DNA fragment yield.
+The column was eluted in 30 \si{\ul} of deionized water. Purified PCR
+products were sent for Illumina MiSeq sequencing (2 × 250 bp) at IMGM
+Laboratories, Martinsried, Germany. Before sequencing at IMGM, the
+second PCR amplification of the two-step PCR procedure was performed
+using primers targeting the tagged region incorporated in the first PCR.
+In addition, these primers contained adapter and sample-specific index
+sequences. The second PCR was carried out for 8 cycles. Beside samples,
+a positive and negative control were sequenced. A negative control was
+comprised of four parallel PCR reactions without DNA template, while for
+a positive control a mock community composed of evenly mixed DNA
+material originating from 20 bacterial strains (ATCC MSA-1002, ATCC,
+USA) was used. Partial 16S rRNA sequences obtained in this study have
+been deposited in the European Nucleotide Archive (ENA) at EMBL-EBI
+under accession numbers SAMEA6786270, SAMEA6648792 -- SAMEA6648794,
 SAMEA6648809 -- SAMEA6648811.
 
-Obtained sequences were analyzed on the computer cluster Isabella
+Obtained sequences were analysed on the computer cluster Isabella
 (University Computing Center, University of Zagreb) using mothur
 (version 1.43.0) (Schloss \emph{et al.}, 2009) according to the MiSeq
 Standard Operating Procedure (MiSeq SOP;
@@ -635,24 +641,24 @@ Beads, PCR enriched for 3 -- 5 cycles and quality controlled. Libraries
 generated from different DNA samples were pooled and sequenced on an
 Illumina NovaSeq 6000 sequencing system (2 × 250 bp).
 
-Obtained sequences were analyzed on the Life Science Compute Cluster
+Obtained sequences were analysed on the Life Science Compute Cluster
 (LiSC) (CUBE -- Computational Systems Biology, University of Vienna).
 Individual sequences were assembled using MEGAHIT (version 1.1.2) (Li
 \emph{et al.}, 2015) under default settings. Putative genes were
-predicted from contings longer than 200 bp using Prodigal (version
-2.6.3) (Hyatt \emph{et al.}, 2010) in metagenome mode (-p meta).
-Abundances of predicted genes were expressed as Reads Per Kilobase
-Million (RPKM) and calculated using the BWA algorithm (version 0.7.16a)
-(Li and Durbin, 2009). All predicted genes were functionally annotated
-using the eggNOG-mapper (Huerta-Cepas \emph{et al.}, 2017) and eggNOG
-database (version 5.0) (Huerta-Cepas \emph{et al.}, 2019). Sequence
-taxonomy classification was determined using the lowest common ancestor
-algorithm adapted from DIAMOND (version 0.8.36) (Buchfink \emph{et al.},
-2015) and by searching against the NCBI non-redundant database (NR). To
-determine the phylogeny, the top 10 \si{\percent} hits with an e-value
-\textless{} 1 × 10\textsuperscript{-5} were used (-\/-top 10). Sequence
-renaming, coverage information computing and metagenomic statistics
-calculations were performed using software tools from BBTools
+predicted from contigs longer than 200 bp using Prodigal (version 2.6.3)
+(Hyatt \emph{et al.}, 2010) in metagenome mode (-p meta). Abundances of
+predicted genes were expressed as Reads Per Kilobase Million (RPKM) and
+calculated using the BWA algorithm (version 0.7.16a) (Li and Durbin,
+2009). All predicted genes were functionally annotated using the
+eggNOG-mapper (Huerta-Cepas \emph{et al.}, 2017) and eggNOG database
+(version 5.0) (Huerta-Cepas \emph{et al.}, 2019). Sequence taxonomy
+classification was determined using the lowest common ancestor algorithm
+adapted from DIAMOND (version 0.8.36) (Buchfink \emph{et al.}, 2015) and
+by searching against the NCBI non-redundant database (NR). To determine
+the phylogeny, the top 10 \si{\percent} hits with an e-value \textless{}
+1 × 10\textsuperscript{-5} were used (-\/-top 10). Sequence renaming,
+coverage information computing and metagenomic statistics calculations
+were performed using software tools from BBTools
 (\url{https://jgi.doe.gov/data-and-tools/bbtools}). Metagenomic
 sequences obtained in this study have been deposited in the European
 Nucleotide Archive (ENA) at EMBL-EBI under accession numbers
@@ -703,7 +709,7 @@ The final filtrate containing peptides was acidified with 1
 \si{\percent} (final concentration) trifluoroacetic acid (TFA), freezed
 at \num{-80} \si{\degreeCelsius}, lyophilized and sent to VIME -- Vienna
 Metabolomics Center (University of Vienna) for metaproteomic analysis.
-Peptides were resuspended in 1 \si{\percent} (final concentration) TFA,
+Peptides were re-suspended in 1 \si{\percent} (final concentration) TFA,
 desalted using the Pierce C18 Tips (Thermo Fisher Scientific, USA)
 according to the manufacturer's instructions and sequenced on a Q
 Exactive Hybrid Quadrupole-Orbitrap Mass Spectrometer (Thermo Fisher
@@ -735,8 +741,8 @@ Markdown file for this paper are available as a GitHub repository
 
 Host leaves and thalli from DNA and protein isolation steps were washed
 seven times in deionized water and fixed with formaldehyde (final
-concentration \textasciitilde{} 3 \si{\percent}). In addition,
-nontreated leaves and thalli, washed three times in ASW to remove
+concentration \textasciitilde{}3 \si{\percent}). In addition,
+non-treated leaves and thalli, washed three times in ASW to remove
 loosely attached microbial cells, were fixed in the same concentration
 of formaldehyde and used as a positive control. For-long term storage,
 fixed leaves and thalli were immersed in a mixture of phosphate-buffered
@@ -937,7 +943,8 @@ metagenomics assembly via succinct de Bruijn graph.
 
 \leavevmode\hypertarget{ref-Li2009a}{}%
 Li, H. and Durbin, R. (2009) Fast and accurate short read alignment with
-BurrowsWheeler transform. \emph{Bioinformatics} \textbf{25}: 1754--1760.
+Burrows--Wheeler transform. \emph{Bioinformatics} \textbf{25}:
+1754--1760.
 
 \leavevmode\hypertarget{ref-Longford2007}{}%
 Longford, S., Tujula, N., Crocetti, G., Holmes, A., Holmström, C.,
@@ -1040,8 +1047,8 @@ African seagrasses. \emph{J Phycol} \textbf{43}: 768--779.
 \leavevmode\hypertarget{ref-Verlaque2003}{}%
 Verlaque, M., Durand, C., Huisman, J.M., Boudouresque, C.-F., and Le
 Parco, Y. (2003) On the identity and origin of the Mediterranean
-invasive \emph{Caulerpa} \emph{Racemosa} (Caulerpales, Chlorophyta).
-\emph{Eur J Phycol} \textbf{38}: 325--339.
+invasive \emph{Caulerpa racemosa} (Caulerpales, Chlorophyta). \emph{Eur
+J Phycol} \textbf{38}: 325--339.
 
 \leavevmode\hypertarget{ref-Weidner1996}{}%
 Weidner, S., Arnold, W., and Puhler, A. (1996) Diversity of uncultured
@@ -1149,7 +1156,7 @@ syntax.
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 1 \si{\percent}) bacterial and archaeal sequences from surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (mixed and monospecific settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{community}}\label{fig:unnamed-chunk-3}
+\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$1 \si{\percent}) bacterial and archaeal sequences from surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (mixed and monospecific settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{community}}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 \newpage
