@@ -135,6 +135,8 @@ This work was funded by the Croatian Science Foundation through the MICRO-SEAGRA
 
 \newpage
 ## References
+\interlinepenalty=10000
+\setlength{\emergencystretch}{3.5em}
 <div id="refs"></div>
 
 \newpage 
