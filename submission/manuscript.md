@@ -181,7 +181,7 @@ This work was funded by the Croatian Science Foundation through the MICRO-SEAGRA
 
 }
 
-\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$1 \si{\percent}) bacterial and archaeal sequences from surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (mixed and monospecific settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{community}}\label{fig:unnamed-chunk-3}
+\caption{Taxonomic classification and relative contribution of the most abundant ($\geq$ 1 \si{\percent}) bacterial and archaeal sequences from surfaces of two marine macrophytes (\textit{C. nodosa} and \textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (mixed and monospecific settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\label{community}}\label{fig:unnamed-chunk-3}
 \end{figure}
 
 \newpage

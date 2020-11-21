@@ -618,7 +618,7 @@ include_graphics("../results/images/confocal_june.jpg")
 ```
 
 \newpage
-```{r out.width="100%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant ($\\geq$1 \\si{\\percent}) bacterial and archaeal sequences from surfaces of two marine macrophytes (\\textit{C. nodosa} and \\textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (mixed and monospecific settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\\label{community}", fig.pos="ht"}
+```{r out.width="100%", fig.align="center", fig.cap="Taxonomic classification and relative contribution of the most abundant ($\\geq$ 1 \\si{\\percent}) bacterial and archaeal sequences from surfaces of two marine macrophytes (\\textit{C. nodosa} and \\textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (mixed and monospecific settlements) and in two contrasting seasons (4 December 2017 and 19 June 2018).\\label{community}", fig.pos="ht"}
 include_graphics("../results/figures/community_bar_plot.jpg")
 ```
 
