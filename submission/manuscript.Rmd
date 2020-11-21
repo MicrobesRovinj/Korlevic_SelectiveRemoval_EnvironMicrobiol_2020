@@ -595,7 +595,7 @@ This work was funded by the Croatian Science Foundation through the MICRO-SEAGRA
 \newpage 
 \setlength\parindent{0pt}
 
-## Figure captions
+## Figure legends
 **\autoref{confocal_december}.** \nameref{confocal_december}
 
 **\autoref{confocal_june}.** \nameref{confocal_june}
