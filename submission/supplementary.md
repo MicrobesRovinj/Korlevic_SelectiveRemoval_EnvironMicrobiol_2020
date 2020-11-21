@@ -43,7 +43,7 @@ Running title: DNA and protein isolation from macrophyte surfaces
 \sisetup{mode=text}
 \setlength\parindent{24pt}
 
-## Supplementary Figures
+## Supplementary figure
 
 \begin{figure}[H]
 
@@ -55,7 +55,7 @@ Running title: DNA and protein isolation from macrophyte surfaces
 \end{figure}
 
 \newpage
-## Supplementary Table
+## Supplementary tables
 
 \begingroup\fontsize{9}{11}\selectfont
 
@@ -89,12 +89,12 @@ Running title: DNA and protein isolation from macrophyte surfaces
 \begingroup\fontsize{9}{11}\selectfont
 
 \begin{longtable}[t]{>{\centering\arraybackslash}p{5em}ccccccccc}
-\caption{\label{tab:metagenomic_statistics}Sample ID, sampling station, community type, sampling date, number of raw sequence pairs, number of assembled contigs by MEGAHIT, N50 and L50 assembly statistics, number of predicted coding sequences (CDS) by Prodigal and number of eggNOGmapper annotated CDS.\label{metagenomic_statistics}}\\
+\caption{\label{tab:metagenomic_statistics}Sample ID, sampling station, community type, sampling date, number of raw sequence pairs, number of assembled contigs by MEGAHIT, N50 and L50 assembly statistics, number of predicted coding sequences (CDS) by Prodigal and number of eggNOG-mapper annotated CDS.\label{metagenomic_statistics}}\\
 \toprule
 \textbf{Sample ID} & \textbf{Station} & \textbf{Community Type} & \textbf{Date} & \textbf{\makecell[c]{No. of Raw\\Sequence Pairs}} & \textbf{\makecell[c]{No. of\\Contigs}} & \textbf{N50\textsuperscript{*}} & \textbf{L50 (bp)\textsuperscript{*}} & \textbf{\makecell[c]{No. of\\Predicted\\CDS}} & \textbf{\makecell[c]{No. of\\Annotated\\CDS}}\\
 \midrule
 \endfirsthead
-\caption[]{Sample ID, sampling station, community type, sampling date, number of raw sequence pairs, number of assembled contigs by MEGAHIT, N50 and L50 assembly statistics, number of predicted coding sequences (CDS) by Prodigal and number of eggNOGmapper annotated CDS.\label{metagenomic_statistics} \textit{(continued)}}\\
+\caption[]{Sample ID, sampling station, community type, sampling date, number of raw sequence pairs, number of assembled contigs by MEGAHIT, N50 and L50 assembly statistics, number of predicted coding sequences (CDS) by Prodigal and number of eggNOG-mapper annotated CDS.\label{metagenomic_statistics} \textit{(continued)}}\\
 \toprule
 \textbf{Sample ID} & \textbf{Station} & \textbf{Community Type} & \textbf{Date} & \textbf{\makecell[c]{No. of Raw\\Sequence Pairs}} & \textbf{\makecell[c]{No. of\\Contigs}} & \textbf{N50\textsuperscript{*}} & \textbf{L50 (bp)\textsuperscript{*}} & \textbf{\makecell[c]{No. of\\Predicted\\CDS}} & \textbf{\makecell[c]{No. of\\Annotated\\CDS}}\\
 \midrule
@@ -116,12 +116,12 @@ Running title: DNA and protein isolation from macrophyte surfaces
 \begingroup\fontsize{9}{11}\selectfont
 
 \begin{longtabu} to \linewidth {>{\centering}X>{\centering}X>{\centering}X>{\centering}X>{\centering}X}
-\caption{\label{tab:metagenomic_taxonomy}Phyla into which CDS were classifed, number and proportion of CDS in different phyla and sum of coding sequences' RPKM (Reads Per Kilobase Million) and their proportion in different phyla. Data are derived from sequenced metagenomes. Each metagenomic sample is labeled with sampling station, community type, sampling date and sample ID. For each sample top ten phyla based on RPKM were selected. CDS that were not successfully classified were excluded from the dataset.\label{metagenomic_taxonomy}}\\
+\caption{\label{tab:metagenomic_taxonomy}Phyla into which CDS were classified, number and proportion of CDS in different phyla and sum of coding sequences' RPKM (Reads Per Kilobase Million) and their proportion in different phyla. Data are derived from sequenced metagenomes. Each metagenomic sample is labelled with sampling station, community type, sampling date and sample ID. For each sample top ten phyla based on RPKM were selected. CDS that were not successfully classified were excluded from the dataset.\label{metagenomic_taxonomy}}\\
 \toprule
 \textbf{Phylum} & \textbf{No. of CDS} & \textbf{CDS (\%)} & \textbf{Summed RPKM} & \textbf{RPKM (\%)}\\
 \midrule
 \endfirsthead
-\caption[]{Phyla into which CDS were classifed, number and proportion of CDS in different phyla and sum of coding sequences' RPKM (Reads Per Kilobase Million) and their proportion in different phyla. Data are derived from sequenced metagenomes. Each metagenomic sample is labeled with sampling station, community type, sampling date and sample ID. For each sample top ten phyla based on RPKM were selected. CDS that were not successfully classified were excluded from the dataset.\label{metagenomic_taxonomy} \textit{(continued)}}\\
+\caption[]{Phyla into which CDS were classified, number and proportion of CDS in different phyla and sum of coding sequences' RPKM (Reads Per Kilobase Million) and their proportion in different phyla. Data are derived from sequenced metagenomes. Each metagenomic sample is labelled with sampling station, community type, sampling date and sample ID. For each sample top ten phyla based on RPKM were selected. CDS that were not successfully classified were excluded from the dataset.\label{metagenomic_taxonomy} \textit{(continued)}}\\
 \toprule
 Phylum & No. of CDS & CDS (\%) & Summed RPKM & RPKM (\%)\\
 \midrule

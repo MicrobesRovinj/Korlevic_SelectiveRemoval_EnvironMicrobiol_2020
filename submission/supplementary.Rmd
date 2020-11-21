@@ -71,14 +71,14 @@ Running title: DNA and protein isolation from macrophyte surfaces
 \sisetup{mode=text}
 \setlength\parindent{24pt}
 
-## Supplementary Figures
+## Supplementary figure
 
 ```{r out.width="80%", fig.align="center", fig.cap="Rarefaction curves of bacterial and archaeal communities from the surfaces of two marine macrophytes (\\textit{C. nodosa} and \\textit{C. cylindracea}) sampled in the Bay of Saline and the Bay of Funtana (mixed and monospecific settlements) in two contrasting seasons (4 December 2017 and 19 June 2018).\\label{rarefaction}", fig.pos="H"}
 include_graphics("../results/figures/rarefaction.jpg")
 ```
 
 \newpage
-## Supplementary Table
+## Supplementary tables
 
 ```{r nseq_notus}
 # 16S rRNA statistics
@@ -192,7 +192,7 @@ cds_61 <- read_tsv("results/metagenomics/statistics/04cds_nucl_61.txt", col_name
 cds_63 <- read_tsv("results/metagenomics/statistics/04cds_nucl_63.txt", col_names=FALSE) %>%
   filter(X1=="Main genome scaffold total:")
 
-# Loading sequence statistics following eggNOG mapper
+# Loading sequence statistics following eggNOG-mapper
 eggnog_45 <- read_tsv("results/metagenomics/statistics/07eggnog_45.txt", col_names=FALSE)
 eggnog_47 <- read_tsv("results/metagenomics/statistics/07eggnog_47.txt", col_names=FALSE)
 eggnog_61 <- read_tsv("results/metagenomics/statistics/07eggnog_61.txt", col_names=FALSE)
@@ -244,7 +244,7 @@ metadata_metagenomic_statistics <- inner_join(metadata_metagenomics, metagenomic
          eggnog=format(eggnog, big.mark=","))
 
 # Generating the table
-kable(metadata_metagenomic_statistics, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=linebreak(c("Sample ID", "Station", "Community Type", "Date", "No. of Raw\nSequence Pairs", "No. of\nContigs", "N50\\textsuperscript{*}", "L50 (bp)\\textsuperscript{*}", "No. of\nPredicted\nCDS", "No. of\nAnnotated\nCDS"), align="c"), caption="Sample ID, sampling station, community type, sampling date, number of raw sequence pairs, number of assembled contigs by MEGAHIT, N50 and L50 assembly statistics, number of predicted coding sequences (CDS) by Prodigal and number of eggNOGmapper annotated CDS.\\label{metagenomic_statistics}", align="c") %>%
+kable(metadata_metagenomic_statistics, format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=linebreak(c("Sample ID", "Station", "Community Type", "Date", "No. of Raw\nSequence Pairs", "No. of\nContigs", "N50\\textsuperscript{*}", "L50 (bp)\\textsuperscript{*}", "No. of\nPredicted\nCDS", "No. of\nAnnotated\nCDS"), align="c"), caption="Sample ID, sampling station, community type, sampling date, number of raw sequence pairs, number of assembled contigs by MEGAHIT, N50 and L50 assembly statistics, number of predicted coding sequences (CDS) by Prodigal and number of eggNOG-mapper annotated CDS.\\label{metagenomic_statistics}", align="c") %>%
   kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9) %>%
   row_spec(0, bold=TRUE) %>%
   column_spec(1, width="5em") %>%
@@ -317,7 +317,7 @@ metadata_metagenomic_phylum <- inner_join(metadata_metagenomics, metagenomic_phy
 
 # Generating the table
 select(metadata_metagenomic_phylum, phylum, cds, cds_relative, rpkm, rpkm_relative) %>%
-kable(format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=linebreak(c("Phylum", "No. of CDS", "CDS (\\%)", "Summed RPKM", "RPKM (\\%)"), align="c"), caption="Phyla into which CDS were classifed, number and proportion of CDS in different phyla and sum of coding sequences' RPKM (Reads Per Kilobase Million) and their proportion in different phyla. Data are derived from sequenced metagenomes. Each metagenomic sample is labeled with sampling station, community type, sampling date and sample ID. For each sample top ten phyla based on RPKM were selected. CDS that were not successfully classified were excluded from the dataset.\\label{metagenomic_taxonomy}", align="c") %>%
+kable(format="latex", booktabs=TRUE, linesep="", longtable=TRUE, escape=FALSE, col.names=linebreak(c("Phylum", "No. of CDS", "CDS (\\%)", "Summed RPKM", "RPKM (\\%)"), align="c"), caption="Phyla into which CDS were classified, number and proportion of CDS in different phyla and sum of coding sequences' RPKM (Reads Per Kilobase Million) and their proportion in different phyla. Data are derived from sequenced metagenomes. Each metagenomic sample is labelled with sampling station, community type, sampling date and sample ID. For each sample top ten phyla based on RPKM were selected. CDS that were not successfully classified were excluded from the dataset.\\label{metagenomic_taxonomy}", align="c") %>%
   kable_styling(latex_options=c("hold_position", "repeat_header"), font_size=9, full_width=TRUE) %>%
   row_spec(0, bold=TRUE) %>%
   group_rows("Funtana, \\\\textit{Cymodocea nodosa} (Mixed), 14 December 2017 (sample ID: 45)", 1, 10, escape=FALSE, latex_gap_space="0.6 em") %>%
