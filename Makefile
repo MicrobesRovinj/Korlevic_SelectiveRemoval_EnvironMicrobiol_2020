@@ -93,8 +93,12 @@ $(RAW)raw.files : $(RAW)metadata.csv
 $(RAW)18118-*.fastq : ~/raw/together/*.fastq\
                       $(RAW)NC_*.fastq\
                       $(RAW)raw.files
-	(cut -f 2 $(RAW)raw.files; cut -f 3 $(RAW)raw.files) | sed "/^NC_/ d" > $(RAW)names_file.txt
-	xargs -I % --arg-file=$(RAW)names_file.txt cp ~/raw/together/% -t $(RAW)
+	wget "https://www.ebi.ac.uk/ena/portal/api/search?result=read_run&fields=study_accession,sample_accession,experiment_accession,run_accession,tax_id,scientific_name,fastq_ftp,submitted_ftp,sra_ftp&includeAccessionType=sample&includeAccessions=SAMEA6786270,SAMEA6648792,SAMEA6648793,SAMEA6648794,SAMEA6648809,SAMEA6648810,SAMEA6648811,SAMEA6648824&excludeAccessionType=run&excludeAccessions=ERR4592245,ERR4592246&download=true&format=tsv" -O $(RAW)deposited_list.txt
+	cut -f $$(head -1 $(RAW)deposited_list.txt | tr "\t" "\n" | cat -n | grep "submitted_ftp" | cut -f 1) $(RAW)deposited_list.txt > $(RAW)fastq.gz.txt
+	tail -n +2 $(RAW)fastq.gz.txt | tr ";" "\n" > $(RAW)fastq.gz_list.txt
+	sed -e "s/^/ftp:\/\//" -i $(RAW)fastq.gz_list.txt 
+	wget -i $(RAW)fastq.gz_list.txt -P $(RAW)
+	gzip -d $(RAW)*.gz
 
 # Here we go from the raw fastq files and the files file to generate a fasta,
 # taxonomy, and count_table file that has had the chimeras removed as well as
@@ -273,8 +277,8 @@ clean :
 	rm -f $(MOTH)summary.txt || true
 	rm -f $(MOTH)chloroplast.* || true
 	rm -f $(RAW)18118-*.fastq || true
-	rm -f $(RAW)names_file.txt || true
 	rm -f $(RAW)raw.files || true
+	rm -f $(RAW)*.txt || true
 	rm -rf code/mothur/ || true
 	rm -f $(FIGS)*.jpg || true
 	rm -f mothur*logfile || true
