@@ -70,7 +70,7 @@ Running title: DNA and protein isolation from macrophyte surfaces
 \setlength\parindent{24pt}
 \doublespacing
 
-## Summary
+## Abstract
 Studies of unculturable microbes often combine methods such as 16S rRNA sequencing, metagenomics and metaproteomics. To apply these techniques to the microbial community inhabiting the surfaces of marine macrophytes it is advisable to perform a selective DNA and protein isolation prior to the analysis to avoid biases due to the host material being present in high quantities. Two protocols for DNA and protein isolation were adapted for selective extractions of DNA and proteins from epiphytic communities inhabiting the surfaces of two marine macrophytes, the seagrass *Cymodocea nodosa* and the macroalga *Caulerpa cylindracea*. Protocols showed an almost complete removal of the epiphytic community regardless of the sampling season, station, settlement or host species. The obtained DNA was suitable for metagenomic and 16S rRNA sequencing, while isolated proteins could be identified by mass spectrometry. Low presence of host DNA and proteins in the samples indicated a high specificity of the protocols. The procedures are based on universally available laboratory chemicals making the protocols widely applicable. Taken together, the adapted protocols ensure an almost complete removal of the macrophyte epiphytic community. The procedures are selective for microbes inhabiting macrophyte surfaces and provide DNA and proteins applicable in 16S rRNA sequencing, metagenomics and metaproteomics.
 
 \newpage
