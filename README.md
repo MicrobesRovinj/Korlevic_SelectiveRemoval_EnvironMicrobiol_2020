@@ -1,7 +1,7 @@
 ## Selective DNA and Protein Isolation from Marine Macrophyte Surfaces
 This is the repository for the manuscript "Selective DNA and Protein Isolation from Marine Macrophyte Surfaces" written by Marino Korlević, Marsej Markovski, 
 Zihao Zhao, Gerhard J. Herndl and Mirjana Najdek. Raw 16S rRNA sequencing data with the exception of the negative control has been deposited in the European Nucleotide 
-Archive (ENA) at EMBL-EBI under accession numbers SAMEA6786270, SAMEA6648792 – SAMEA6648794, SAMEA6648809 – SAMEA6648811. Negative control files are part of this repository and located in data/raw/. To be able to reproduce the 
+Archive (ENA) at EMBL-EBI under accession numbers SAMEA6786270, SAMEA6648792 – SAMEA6648794, SAMEA6648809 – SAMEA6648811 and SAMEA6648824. Negative control files are part of this repository and located in data/raw/. To be able to reproduce the 
 results the mothur compatible [SILVA](http://www.arb-silva.de) reference file (Release 138, available under a [CC BY 4.0 license](https://www.arb-silva.de/silva-license-information/)) must be 
 created according to the instruction given on [the mothur blog](https://mothur.org/blog/2020/SILVA-v138-reference-files/) and in the Makefile. In addition, a more detailed classification of chloroplast sequences was performed using the RDP ([Ribosomal Database Project](http://rdp.cme.msu.edu/), available under a [CC BY-SA 3.0 license](https://rdp.cme.msu.edu/misc/citation.jsp;jsessionid=B9944BE326AC81EAE4FDFE486D04FEA9.10.0.0.9)) training set (version 16) reference files [adapted for mothur](https://mothur.org/wiki/rdp_reference_files/).
 
