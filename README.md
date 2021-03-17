@@ -75,8 +75,8 @@ Metagenomic analysis was performed separately and results required by this study
 #### Running analysis
 Before running the analysis be sure to generate the mothur compatible SILVA reference file and indicate in the Makefile its location. The manuscript and supplementary information can be regenerated on a Linux computer by running the following commands:
 ```
-git clone https://github.com/MicrobesRovinj/Korlevic_SelectiveRemoval_EnvironMicrobiol_2020.git
-cd Korlevic_SelectiveRemoval_EnvironMicrobiol_2020/
+git clone https://github.com/MicrobesRovinj/Korlevic_SelectiveRemoval_FrontMicrobiol_2021.git
+cd Korlevic_SelectiveRemoval_FrontMicrobiol_2021/
 make submission/manuscript.pdf
 ```
 If something goes wrong and the analysis needs to be restarted run the following command from the project home directory before rerunning the analysis:
