@@ -289,7 +289,7 @@ metagenomic and 16S RNA analysis were obtained during the sampling on 4
 December 2017, an additional sampling on 14 December 2017 was carried
 out in the Bay of Funtana. Leaves and thalli were collected by diving
 and transported to the laboratory in containers placed on ice and filled
-with seawater from this site. Upon arrival to the laboratory, \emph{C.
+with seawater from the site. Upon arrival to the laboratory, \emph{C.
 nodosa} leaves were cut into sections of 1 -- 2 \si{\cm}, while \emph{C.
 cylindracea} thalli were cut into 5 -- 8 \si{\cm} long sections. Leaves
 and thalli were washed three times with sterile artificial seawater
@@ -341,13 +341,12 @@ diluted to 1 \si{\ng\per\ul}. The V4 region of the 16S rRNA gene was
 amplified using a two-step PCR procedure. In the first PCR the 515F
 (\(5'\)-GTGYCAGCMGCCGCGGTAA-\(3'\)) and 806R
 (\(5'\)-GGACTACNVGGGTWTCTAAT-\(3'\)) primers from the Earth Microbiome
-Project
-(\url{http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/16s/})
+Project (\url{https://earthmicrobiome.org/protocols-and-standards/16s/})
 were used to amplify the target region (Caporaso et al., 2012; Apprill
 et al., 2015; Parada et al., 2016). These primers contained on their
 \(5'\) end a tagged sequence. Each sample was amplified in four parallel
 25 \si{\ul} reactions of which each contained 1 × Q5 Reaction Buffer,
-0.2 \si{\milli\Molar} of dNTPmix, 0.7 \si{\mg\per\ml} BSA (Bovine Serum
+0.2 \si{\milli\Molar} dNTPmix, 0.7 \si{\mg\per\ml} BSA (Bovine Serum
 Albumin), 0.2 \si{\micro\Molar} of forward and reverse primers, 0.5 U of
 Q5 High-Fidelity DNA Polymerase (New England Biolabs, USA) and 5
 \si{\ng} of DNA template. Cycling conditions were: initial denaturation
@@ -468,31 +467,32 @@ Isolated proteins were whole trypsin digested using the FASP
 (filter-aided sample preparation) Protein Digestion Kit (Expedeon, UK)
 according to the manufacturer's instructions with small modifications
 (Wiśniewski et al., 2009). Prior to loading the solution onto the
-column, protein pellets were solubilized in a urea sample buffer
-included in the kit amended with DTT (final concentration 100
-\si{\milli\Molar}) for 45 \si{\minute} at room temperature and
-centrifuged at 20,000 × g for 2 -- 5 \si{\minute} at room temperature to
-remove larger particles. The first washing step after protein solution
-loading was repeated twice. In addition, the centrifugation steps were
-prolonged if the column was clogged. Trypsin digestion was performed on
-column filters at 37 \si{\degreeCelsius} overnight for 18 \si{\hour}.
-The final filtrate containing peptides was acidified with 1
-\si{\percent} (final concentration) trifluoroacetic acid (TFA), freezed
-at \num{-80} \si{\degreeCelsius}, lyophilized and sent to VIME -- Vienna
-Metabolomics Center (University of Vienna) for metaproteomic analysis.
-Peptides were re-suspended in 1 \si{\percent} (final concentration) TFA,
-desalted using the Pierce C18 Tips (Thermo Fisher Scientific, USA)
-according to the manufacturer's instructions and sequenced on a Q
-Exactive Hybrid Quadrupole-Orbitrap Mass Spectrometer (Thermo Fisher
-Scientific, USA). Obtained MS/MS spectra were searched against a protein
-database composed of combined sequenced metagenomes using SEQUEST-HT
-engines and validated with Percolator in Proteome Discoverer 2.1 (Thermo
-Fisher Scientific, USA). The target-decoy approach was used to reduce
-the probability of false peptide identification. Results whose false
-discovery rate at the peptide level was \textless{} \SI{1}{\percent}
-were kept. For protein identification a minimum of two peptides and one
-unique peptide were required. For protein quantification, a
-chromatographic peak area-based free quantitative method was applied.
+column, protein pellets were solubilized in urea sample buffer included
+in the kit amended with DTT (final concentration 100 \si{\milli\Molar})
+for 45 \si{\minute} at room temperature and centrifuged at 20,000 × g
+for 2 -- 5 \si{\minute} at room temperature to remove larger particles.
+The first washing step after protein solution loading was repeated
+twice. In addition, the centrifugation steps were prolonged if the
+column was clogged. Trypsin digestion was performed on column filters at
+37 \si{\degreeCelsius} overnight for 18 \si{\hour}. The final filtrate
+containing peptides was acidified with 1 \si{\percent} (final
+concentration) trifluoroacetic acid (TFA), freezed at \num{-80}
+\si{\degreeCelsius}, lyophilized and sent to VIME -- Vienna Metabolomics
+Center (University of Vienna) for metaproteomic analysis. Peptides were
+re-suspended in 1 \si{\percent} (final concentration) TFA, desalted
+using the Pierce C18 Tips (Thermo Fisher Scientific, USA) according to
+the manufacturer's instructions and sequenced on a Q Exactive Hybrid
+Quadrupole-Orbitrap Mass Spectrometer (Thermo Fisher Scientific, USA).
+Obtained MS/MS spectra were searched against a protein database composed
+of combined sequenced metagenomes obtained in this study using
+SEQUEST-HT engines and validated with Percolator in Proteome Discoverer
+2.1 (Thermo Fisher Scientific, USA). The target-decoy approach was used
+to reduce the probability of false peptide identification. Results whose
+false discovery rate at the peptide level was \textless{}
+\SI{1}{\percent} were kept. For protein identification a minimum of two
+peptides and one unique peptide were required. For protein
+quantification, a chromatographic peak area-based free quantitative
+method was applied.
 
 \hypertarget{data-processing-and-visualization}{%
 \subsubsection{Data processing and
@@ -501,8 +501,8 @@ visualization}\label{data-processing-and-visualization}}
 Processing and visualization of 16S rRNA, metagenomic and metaproteomic
 data were done using R (version 3.6.0) (R Core Team, 2019), package
 tidyverse (version 1.3.0) (Wickham et al., 2019) and multiple other
-packages (Neuwirth, 2014; Xie, 2014, 2015, 2019, 2020; Wilke, 2018; Xie
-et al., 2018; Allaire et al., 2019; Zhu, 2019; Bengtsson, 2020). The
+packages (Neuwirth, 2014; Xie, 2014, 2015, 2019a, 2019b; Wilke, 2018;
+Xie et al., 2018; Allaire et al., 2019; Zhu, 2019; Bengtsson, 2020). The
 detailed analysis procedure including the R Markdown file for this paper
 are available as a GitHub repository
 (\url{https://github.com/MicrobesRovinj/Korlevic_SelectiveRemoval_FrontMicrobiol_2021}).
@@ -541,17 +541,17 @@ observed (Figs. \ref{confocal_december} and \ref{confocal_june}).
 To evaluate whether the obtained DNA is suitable to determine the
 composition of the microbial community Illumina sequencing of the V4
 region of the 16S rRNA was performed. Sequencing yielded a total of
-336,944 sequences after quality curation and exclusion of eukaryotic,
+292,888 sequences after quality curation and exclusion of eukaryotic,
 mitochondrial and no relative sequences. The number of sequences
-classified as chloroplasts was 97,334. After excluding these sequences,
-the total number of retrieved reads was 239,610, ranging from 22,596 to
-52,930 sequences per sample (\autoref{supp-nseq_notus}). Even when the
+classified as chloroplasts was 97,331. After excluding these sequences,
+the total number of retrieved reads was 195,557, ranging from 13,667 to
+41,842 sequences per sample (\autoref{supp-nseq_notus}). Even when the
 highest sequencing effort was applied, the rarefaction curves did not
 level off which is commonly observed in high-throughput 16S rRNA
 amplicon sequencing (\autoref{supp-rarefaction}). Sequences clustering
 at a similarity level of 97 \si{\percent} yielded a total of 8,355
 different OTUs. Taxonomic classification of reads revealed a
-macrophyte-associated epiphytic community that mainly composed of
+macrophyte-associated epiphytic community mainly composed of
 \emph{Alphaproteobacteria} (14.9 ± 3.5 \si{\percent}),
 \emph{Bacteroidota} (12.5 ± 2.4 \si{\percent}),
 \emph{Gammaproteobacteria} (11.6 ± 4.3 \si{\percent}),
@@ -683,12 +683,15 @@ al., 2013). It is possible that chloroplast-specific sequences even in
 these studies originated from eukaryotic epiphytic cells and not from
 host chloroplasts. Indeed, it is common during 16S rRNA profiling of
 pelagic microbial communities to observe high proportions of chloroplast
-sequences (Gilbert et al., 2009; Korlević et al., 2016). In addition, a
-very low proportion of chloroplast 16S rRNA sequences in samples
-originating from \emph{C. cylindracea} in comparison to \emph{C. nodosa}
-could be explained by the presence of three introns in the gene for 16S
-rRNA in some members of the genus \emph{Caulerpa} that could hamper the
-amplification process (Lam and Lopez-Bautista, 2016).
+sequences (Gilbert et al., 2009; Korlević et al., 2016). On of the
+solutions to further reduce chloroplast 16S rRNA sequence contamination
+is to use primers that minimise the amplification of these reads if the
+sequencing and study design allow it (Hanshew et al., 2013). In
+addition, a very low proportion of chloroplast 16S rRNA sequences in
+samples originating from \emph{C. cylindracea} in comparison to \emph{C.
+nodosa} could be explained by the presence of three introns in the gene
+for 16S rRNA in some members of the genus \emph{Caulerpa} that could
+hamper the amplification process (Lam and Lopez-Bautista, 2016).
 
 High quality DNA is also needed for metagenomics. The obtained number of
 metagenomic sequences and assembly statistics were comparable to
@@ -839,7 +842,7 @@ doi:\href{https://doi.org/10.1021/pr100787q}{10.1021/pr100787q}.
 \leavevmode\hypertarget{ref-Cole2014}{}%
 Cole, J. R., Wang, Q., Fish, J. A., Chai, B., McGarrell, D. M., Sun, Y.,
 et al. (2014). Ribosomal Database Project: Data and tools for high
-throughput rRNA analysis. \emph{Nucleic Acids Res} 42, D633--D642.
+throughput rRNA analysis. \emph{Nucleic Acids Res.} 42, D633--D642.
 doi:\href{https://doi.org/10.1093/nar/gkt1244}{10.1093/nar/gkt1244}.
 
 \leavevmode\hypertarget{ref-Coneva2015}{}%
@@ -880,6 +883,13 @@ elemental composition on submersed macrophytes in shallow eutrophic
 lakes. \emph{Hydrobiologia} 506-509, 559--565.
 doi:\href{https://doi.org/10.1023/B:HYDR.0000008538.68268.82}{10.1023/B:HYDR.0000008538.68268.82}.
 
+\leavevmode\hypertarget{ref-Hanshew2013}{}%
+Hanshew, A. S., Mason, C. J., Raffa, K. F., and Currie, C. R. (2013).
+Minimization of chloroplast contamination in 16S rRNA gene
+pyrosequencing of insect herbivore bacterial communities. \emph{J.
+Microbiol. Methods} 95, 149--155.
+doi:\href{https://doi.org/10.1016/j.mimet.2013.08.007}{10.1016/j.mimet.2013.08.007}.
+
 \leavevmode\hypertarget{ref-Huerta-Cepas2017}{}%
 Huerta-Cepas, J., Forslund, K., Coelho, L. P., Szklarczyk, D., Jensen,
 L. J., von Mering, C., et al. (2017). Fast genome-wide functional
@@ -891,7 +901,7 @@ doi:\href{https://doi.org/10.1093/molbev/msx148}{10.1093/molbev/msx148}.
 Huerta-Cepas, J., Szklarczyk, D., Heller, D., Hernández-Plaza, A.,
 Forslund, S. K., Cook, H., et al. (2019). eggNOG 5.0: A hierarchical,
 functionally and phylogenetically annotated orthology resource based on
-5090 organisms and 2502 viruses. \emph{Nucleic Acids Res} 47,
+5090 organisms and 2502 viruses. \emph{Nucleic Acids Res.} 47,
 D309--D314.
 doi:\href{https://doi.org/10.1093/nar/gky1085}{10.1093/nar/gky1085}.
 
@@ -904,15 +914,14 @@ doi:\href{https://doi.org/10.1038/nature14238}{10.1038/nature14238}.
 \leavevmode\hypertarget{ref-Hyatt2010}{}%
 Hyatt, D., Chen, G.-L., LoCascio, P. F., Land, M. L., Larimer, F. W.,
 and Hauser, L. J. (2010). Prodigal: Prokaryotic gene recognition and
-translation initiation site identification. \emph{BMC Bioinformatics}
-11, 119.
+translation initiation site identification. \emph{BMC Bioinf.} 11, 119.
 doi:\href{https://doi.org/10.1186/1471-2105-11-119}{10.1186/1471-2105-11-119}.
 
 \leavevmode\hypertarget{ref-Jiang2015}{}%
 Jiang, Y.-F., Ling, J., Dong, J.-D., Chen, B., Zhang, Y.-Y., Zhang,
 Y.-Z., et al. (2015). Illumina-based analysis the microbial diversity
 associated with \emph{Thalassia hemprichii} in Xincun Bay, South China
-Sea. \emph{Ecotoxicology} 24, 1548--56.
+Sea. \emph{Ecotoxicology} 24, 1548--1556.
 doi:\href{https://doi.org/10.1007/s10646-015-1511-z}{10.1007/s10646-015-1511-z}.
 
 \leavevmode\hypertarget{ref-Korlevic2016}{}%
@@ -942,9 +951,10 @@ comparative analyses of siphonous green seaweed plastomes.
 \emph{Cymbella} 2, 23--32.
 
 \leavevmode\hypertarget{ref-Leary2014}{}%
-Leary, D. H., Li, R. W., Hamdan, L. J., IV, W. J. H., Lebedev, N., Wang,
-Z., et al. (2014). Integrated metagenomic and metaproteomic analyses of
-marine biofilm communities. \emph{Biofouling} 30, 1211--1223.
+Leary, D. H., Li, R. W., Hamdan, L. J., Judson Hervey IV, W., Lebedev,
+N., Wang, Z., et al. (2014). Integrated metagenomic and metaproteomic
+analyses of marine biofilm communities. \emph{Biofouling} 30,
+1211--1223.
 doi:\href{https://doi.org/10.1080/08927014.2014.977267}{10.1080/08927014.2014.977267}.
 
 \leavevmode\hypertarget{ref-Li2015}{}%
@@ -975,7 +985,7 @@ Environ. Microbiol.} 63, 50--56.
 \leavevmode\hypertarget{ref-Michelou2013}{}%
 Michelou, V. K., Caporaso, J. G., Knight, R., and Palumbi, S. R. (2013).
 The ecology of microbial communities associated with \emph{Macrocystis
-pyrifera}. \emph{PloS One} 8, e67480.
+pyrifera}. \emph{PLoS One} 8, e67480.
 doi:\href{https://doi.org/10.1371/journal.pone.0067480}{10.1371/journal.pone.0067480}.
 
 \leavevmode\hypertarget{ref-Morrissey2019}{}%
@@ -1110,7 +1120,7 @@ Methods} 6, 359--362.
 doi:\href{https://doi.org/10.1038/nmeth.1322}{10.1038/nmeth.1322}.
 
 \leavevmode\hypertarget{ref-Xie2014}{}%
-Xie, Y. (2014). `` knitr: A comprehensive tool for reproducible research
+Xie, Y. (2014). ``knitr: A comprehensive tool for reproducible research
 in R,'' in \emph{Implementing Reproducible Computational Research}, eds.
 V. Stodden, F. Leisch, and R. D. Peng (New York: Chapman and Hall/CRC),
 3--32.
@@ -1120,12 +1130,12 @@ Xie, Y. (2015). \emph{Dynamic Documents with R and knitr}. 2nd ed. Boca
 Raton, Florida: Chapman and Hall/CRC.
 
 \leavevmode\hypertarget{ref-Xie2019a}{}%
-Xie, Y. (2019). TinyTeX: A lightweight, cross-platform, and
+Xie, Y. (2019a). TinyTeX: A lightweight, cross-platform, and
 easy-to-maintain LaTeX distribution based on TeX Live. \emph{TUGboat}
 40, 30--32.
 
-\leavevmode\hypertarget{ref-Xie2020}{}%
-Xie, Y. (2020). \emph{tinytex: Helper functions to install and maintain
+\leavevmode\hypertarget{ref-Xie2019b}{}%
+Xie, Y. (2019b). \emph{tinytex: Helper functions to install and maintain
 'TeX Live', and compile 'LaTeX' documents}.
 
 \leavevmode\hypertarget{ref-Xie2018}{}%
