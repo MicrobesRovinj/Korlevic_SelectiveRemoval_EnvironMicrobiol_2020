@@ -13,19 +13,19 @@ Metagenomic analysis was performed separately and results required by this study
 	|- README                       # the top level description of content (this doc)
 	|- LICENSE                      # the license for this project
 	|
-	|- submission/                  # files necessary for manuscript or supplementary information rendering, e.g executable Rmarkdown
+	|- submission/                  # files necessary for manuscript or supplementary material rendering, e.g executable Rmarkdown
 	| |- manuscript.Rmd             # executable Rmarkdown for the manuscript of this study
 	| |- manuscript.md              # Markdown (GitHub) version of the manuscript.Rmd file
 	| |- manuscript.tex             # TeX version of manuscript.Rmd file
 	| |- manuscript.pdf             # PDF version of manuscript.Rmd file
 	| |- manuscript.aux             # auxiliary file of the manuscript.tex file, used for cross-referencing
 	| |- header.tex                 # LaTeX header file to format the PDF version of manuscript
-	| |- supplementary.Rmd          # executable Rmarkdown for the supplementary information of this study
+	| |- supplementary.Rmd          # executable Rmarkdown for the supplementary material of this study
 	| |- supplementary.md           # Markdown (GitHub) version of the supplementary.Rmd file
 	| |- supplementary.tex          # TeX version of supplementary.Rmd file
 	| |- supplementary.pdf          # PDF version of supplementary.Rmd file
 	| |- supplementary.aux          # auxiliary file of the supplementary.tex file, used for cross-referencing
-	| |- header_supplementary.tex   # LaTeX header file to format the PDF version of supplementary information
+	| |- header_supplementary.tex   # LaTeX header file to format the PDF version of supplementary material
 	| |- references.bib             # BibTeX formatted references
 	| +- citation_style.csl         # csl file to format references
 	|
@@ -37,8 +37,8 @@ Metagenomic analysis was performed separately and results required by this study
 	|- code/                        # any programmatic code
 	|
 	|- results                      # output from workflows and analyses
-	| |- figures/                   # graphs designated for manuscript or supplementary information figures
-	| |- images/                    # images designated for manuscript or supplementary information figures
+	| |- figures/                   # graphs designated for manuscript or supplementary material figures
+	| |- images/                    # images designated for manuscript or supplementary material figures
 	| |     
 	| |- metagenomics               # folders containing files produced in the metagenomic analysis
 	| | |- cog/                     # files containg data on coding sequences COG functional categories
@@ -73,7 +73,7 @@ Metagenomic analysis was performed separately and results required by this study
 * The analysis supposes the use of 16 processor cores.
 
 #### Running analysis
-Before running the analysis be sure to generate the mothur compatible SILVA reference file and indicate in the Makefile its location. The manuscript and supplementary information can be regenerated on a Linux computer by running the following commands:
+Before running the analysis be sure to generate the mothur compatible SILVA reference file and indicate in the Makefile its location. The manuscript and supplementary material can be regenerated on a Linux computer by running the following commands:
 ```
 git clone https://github.com/MicrobesRovinj/Korlevic_SelectiveRemoval_FrontMicrobiol_2021.git
 cd Korlevic_SelectiveRemoval_FrontMicrobiol_2021/

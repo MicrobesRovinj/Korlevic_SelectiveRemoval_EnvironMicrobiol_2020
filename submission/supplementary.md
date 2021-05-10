@@ -1,5 +1,5 @@
 ---
-title: "**Supplementary Information**"
+title: "**Supplementary Material**"
 subtitle: "**Selective DNA and Protein Isolation from Marine Macrophyte Surfaces**"
 output:
   pdf_document:
@@ -21,7 +21,7 @@ Marino Korlević^1$*$^, Marsej Markovski^1^, Zihao Zhao^2^, Gerhard J. Herndl^2,
 
 2\. Department of Functional and Evolutionary Ecology, University of Vienna, Austria
 
-3\. NIOZ, Department of Marine Microbiology and Biogeochemistry, Royal Netherlands Institute for Sea Research, Utrecht University, The Netherlands
+3\. Department of Marine Microbiology and Biogeochemistry, Royal Netherlands Institute for Sea Research (NIOZ), Utrecht University, The Netherlands
 
 4\. Vienna Metabolomics Center, University of Vienna, Austria
 
@@ -37,7 +37,7 @@ Fax: +385 52 804 780
 
 e-mail: marino.korlevic@irb.hr
 
-Running title: DNA and protein isolation from macrophyte surfaces
+Running title: Selective isolation from macrophyte surfaces
 
 []: # (\linenumbers)
 \sisetup{mode=text}
